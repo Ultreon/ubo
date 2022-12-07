@@ -1,0 +1,40 @@
+package com.ultreon.data.types;
+
+import com.ultreon.data.Types;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+public class ShortType implements IType<Short> {
+    private short obj;
+
+    public ShortType(short obj) {
+        this.obj = obj;
+    }
+
+    @Override
+    public Short getValue() {
+        return obj;
+    }
+
+    @Override
+    public void setValue(Short obj) {
+        if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
+        this.obj = obj;
+    }
+
+    @Override
+    public int id() {
+        return Types.SHORT;
+    }
+
+    @Override
+    public void write(ObjectOutputStream stream) throws IOException {
+        stream.writeShort(obj);
+    }
+
+    public static ShortType read(ObjectInputStream stream) throws IOException {
+        return new ShortType(stream.readShort());
+    }
+}
