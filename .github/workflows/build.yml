@@ -29,7 +29,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
-        run: ./gradlew build packedJar
+        run: ./gradlew build
         env:
           GITHUB_BUILD_NUMBER: ${{ github.run_number }}
       - name: capture the game's build artifacts

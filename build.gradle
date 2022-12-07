@@ -1,9 +1,17 @@
+import static java.lang.System.getenv
+
 plugins {
     id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+
 group 'com.ultreon'
-version '1.0.0'
+version "${project_version}+${getenv("GITHUB_BUILD_NUMBER") == null ? "local" : getenv("GITHUB_BUILD_NUMBER")}"
 
 repositories {
     mavenCentral()
@@ -17,3 +25,25 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+publishing {
+    publications {
+        //noinspection GroovyAssignabilityCheck
+        mavenJava(MavenPublication) {
+            //noinspection GroovyAssignabilityCheck
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/Ultreon/bubble-blaster-2"
+            credentials {
+                username = getenv("GITHUB_ACTOR")
+                password = getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+publish.dependsOn build
