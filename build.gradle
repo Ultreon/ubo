@@ -37,7 +37,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/Ultreon/bubble-blaster-2"
+            url = "https://maven.pkg.github.com/Ultreon/ultreon-data"
             credentials {
                 username = getenv("GITHUB_ACTOR")
                 password = getenv("GITHUB_TOKEN")
