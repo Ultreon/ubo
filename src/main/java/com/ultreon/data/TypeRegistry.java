@@ -24,7 +24,7 @@ public class TypeRegistry {
         register(Types.CHAR, CharType::read);
         register(Types.STRING, StringType::read);
         register(Types.LIST, ListType::read);
-//        register(Types.MAP, MapType::read);
+        register(Types.MAP, MapType::read);
         register(Types.BYTE_ARRAY, ByteArrayType::read);
         register(Types.SHORT_ARRAY, ShortArrayType::read);
         register(Types.INT_ARRAY, IntArrayType::read);
