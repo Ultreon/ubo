@@ -4,8 +4,8 @@ import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +57,7 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeByte(id);
         stream.writeInt(obj.size());
         for (IType<?> l : obj) {
@@ -65,7 +65,7 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
         }
     }
 
-    public static ListType read(ObjectInputStream stream) throws IOException {
+    public static ListType read(DataInputStream stream) throws IOException {
         var id = stream.readByte();
         int len = stream.readInt();
         List<IType<?>> list = new ArrayList<>();

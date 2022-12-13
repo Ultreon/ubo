@@ -4,8 +4,9 @@ import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -44,25 +45,33 @@ public class MapType implements IType<Map<String, IType<?>>> {
 
     @Override
     public int id() {
-        return Types.LIST;
+        return Types.MAP;
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.size());
         for (var e : obj.entrySet()) {
-            stream.writeUTF(e.getKey());
+            stream.writeShort(e.getKey().length());
+            for (byte aByte : e.getKey().getBytes(StandardCharsets.UTF_8)) {
+                stream.writeByte(aByte);
+            }
             var value = e.getValue();
             stream.writeByte(value.id());
             value.write(stream);
         }
     }
 
-    public static MapType read(ObjectInputStream stream) throws IOException {
+    public static MapType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         Map<String, IType<?>> map = new HashMap<>();
         for (int i = 0; i < len; i++) {
-            String key = stream.readUTF();
+            short strLen = stream.readShort();
+            byte[] bytes = new byte[strLen];
+            for (int j = 0; j < strLen; j++) {
+                bytes[j] = stream.readByte();
+            }
+            String key = new String(bytes, StandardCharsets.UTF_8);
             var id = stream.readByte();
             map.put(key, TypeRegistry.read(id, stream));
         }

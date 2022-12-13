@@ -40,3 +40,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/map-compressed.ubo
+/map-normal.ubo

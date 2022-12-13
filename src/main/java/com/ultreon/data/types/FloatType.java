@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class FloatType implements IType<Float> {
     private float obj;
@@ -30,11 +30,11 @@ public class FloatType implements IType<Float> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeFloat(obj);
     }
 
-    public static FloatType read(ObjectInputStream stream) throws IOException {
+    public static FloatType read(DataInputStream stream) throws IOException {
         return new FloatType(stream.readFloat());
     }
 }

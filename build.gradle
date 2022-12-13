@@ -46,4 +46,8 @@ publishing {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 publish.dependsOn build

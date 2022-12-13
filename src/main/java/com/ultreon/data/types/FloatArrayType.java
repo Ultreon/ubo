@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class FloatArrayType implements IType<float[]> {
     private float[] obj;
@@ -30,14 +30,14 @@ public class FloatArrayType implements IType<float[]> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.length);
         for (float i : obj) {
             stream.writeFloat(i);
         }
     }
 
-    public static FloatArrayType read(ObjectInputStream stream) throws IOException {
+    public static FloatArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         float[] arr = new float[len];
         for (int i = 0; i < len; i++) {

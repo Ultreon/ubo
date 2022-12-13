@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class ByteType implements IType<Byte> {
     private byte obj;
@@ -30,11 +30,11 @@ public class ByteType implements IType<Byte> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeByte(obj);
     }
 
-    public static ByteType read(ObjectInputStream stream) throws IOException {
+    public static ByteType read(DataInputStream stream) throws IOException {
         return new ByteType(stream.readByte());
     }
 }

@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class LongType implements IType<Long> {
     private long obj;
@@ -30,11 +30,11 @@ public class LongType implements IType<Long> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeLong(obj);
     }
 
-    public static LongType read(ObjectInputStream stream) throws IOException {
+    public static LongType read(DataInputStream stream) throws IOException {
         return new LongType(stream.readLong());
     }
 }

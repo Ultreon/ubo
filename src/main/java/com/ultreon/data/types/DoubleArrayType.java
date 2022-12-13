@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class DoubleArrayType implements IType<double[]> {
     private double[] obj;
@@ -30,14 +30,14 @@ public class DoubleArrayType implements IType<double[]> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.length);
         for (double i : obj) {
             stream.writeDouble(i);
         }
     }
 
-    public static DoubleArrayType read(ObjectInputStream stream) throws IOException {
+    public static DoubleArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         double[] arr = new double[len];
         for (int i = 0; i < len; i++) {

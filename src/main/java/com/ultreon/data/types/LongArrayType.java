@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class LongArrayType implements IType<long[]> {
     private long[] obj;
@@ -30,14 +30,14 @@ public class LongArrayType implements IType<long[]> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.length);
         for (long l : obj) {
             stream.writeLong(l);
         }
     }
 
-    public static LongArrayType read(ObjectInputStream stream) throws IOException {
+    public static LongArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         long[] arr = new long[len];
         for (int i = 0; i < len; i++) {

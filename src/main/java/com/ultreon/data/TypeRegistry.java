@@ -3,7 +3,7 @@ package com.ultreon.data;
 import com.ultreon.data.types.*;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.DataInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,14 +36,14 @@ public class TypeRegistry {
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
-    public static <T extends IType<?>> void register(int id, IReader<T> reader, Class<? extends T>... type) {
+    public static <T extends IType<?>> void register(int id, IReader<T> reader, T... type) {
         Class<? extends T> componentType = (Class<? extends T>) type.getClass().getComponentType();
         READERS.put(id, reader);
         TYPES.put(id, componentType);
         ID_MAP.put(componentType, id);
     }
 
-    public static IType<?> read(int id, ObjectInputStream stream) throws IOException {
+    public static IType<?> read(int id, DataInputStream stream) throws IOException {
         return READERS.get(id).read(stream);
     }
 

@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 import com.ultreon.data.Types;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public class IntArrayType implements IType<int[]> {
     private int[] obj;
@@ -30,14 +30,14 @@ public class IntArrayType implements IType<int[]> {
     }
 
     @Override
-    public void write(ObjectOutputStream stream) throws IOException {
+    public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.length);
         for (int i : obj) {
             stream.writeInt(i);
         }
     }
 
-    public static IntArrayType read(ObjectInputStream stream) throws IOException {
+    public static IntArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         int[] arr = new int[len];
         for (int i = 0; i < len; i++) {

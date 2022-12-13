@@ -9,22 +9,28 @@ import java.util.zip.GZIPOutputStream;
 
 public class DataIo {
     private static final short VERSION = 1;
+    private static final int HEADER = 0xff804269;
 
     @SafeVarargs
     public static <T extends IType<?>> T read(File file, T... type) throws IOException {
         try (FileInputStream stream = new FileInputStream(file)) {
-            return read(stream);
+            return read(stream, type);
         }
     }
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T extends IType<?>> T read(InputStream stream, T... type) throws IOException {
-        ObjectInputStream inputStream;
-        if (stream instanceof ObjectInputStream s) {
+        DataInputStream inputStream;
+        if (stream instanceof DataInputStream s) {
             inputStream = s;
         } else {
-            inputStream = new ObjectInputStream(stream);
+            inputStream = new DataInputStream(stream);
+        }
+
+        int magic = inputStream.readInt();
+        if (magic != HEADER) {
+            throw new StreamCorruptedException("Invalid header got 0x%08X (expected 0xFF804269)".formatted(magic));
         }
 
         short readVersion = inputStream.readShort();
@@ -37,30 +43,30 @@ public class DataIo {
         int id = inputStream.readByte();
 
         if (componentId != id) {
-            throw new DataTypeException("The read data id " + id + " is different from the expected id: " + id);
+            throw new DataTypeException("The read data id " + id + " is different from the expected id: " + componentId);
         }
 
         return (T) TypeRegistry.read(id, inputStream);
     }
-    
+
     @SafeVarargs
     public static <T extends IType<?>> T readCompressed(File file, T... type) throws IOException {
         try (FileInputStream stream = new FileInputStream(file)) {
-            return DataIo.readCompressed(stream);
+            return DataIo.readCompressed(stream, type);
         }
     }
 
     @SafeVarargs
     public static <T extends IType<?>> T readCompressed(URL url, T... type) throws IOException {
         try (InputStream stream = url.openStream()) {
-            return readCompressed(stream);
+            return readCompressed(stream, type);
         }
     }
 
     @SafeVarargs
     public static <T extends IType<?>> T readCompressed(InputStream stream, T... type) throws IOException {
         GZIPInputStream gzipStream = new GZIPInputStream(stream);
-        return read(gzipStream);
+        return read(gzipStream, type);
     }
     
     public static void write(IType<?> type, File file) throws IOException {
@@ -70,16 +76,18 @@ public class DataIo {
     }
 
     public static void write(IType<?> type, OutputStream stream) throws IOException {
-        ObjectOutputStream outputStream;
-        if (stream instanceof ObjectOutputStream s) {
+        DataOutputStream outputStream;
+        if (stream instanceof DataOutputStream s) {
             outputStream = s;
         } else {
-            outputStream = new ObjectOutputStream(stream);
+            outputStream = new DataOutputStream(stream);
         }
 
+        outputStream.writeInt(HEADER);
         outputStream.writeShort(VERSION); // Version
         outputStream.writeByte(type.id()); // Type
         type.write(outputStream);
+        outputStream.flush();
     }
     
     public static void writeCompressed(IType<?> type, URL file) throws IOException {
@@ -97,5 +105,7 @@ public class DataIo {
     public static void writeCompressed(IType<?> type, OutputStream stream) throws IOException {
         GZIPOutputStream gzipStream = new GZIPOutputStream(stream);
         write(type, gzipStream);
+        gzipStream.finish();
+        gzipStream.flush();
     }
 }
