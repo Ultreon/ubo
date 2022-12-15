@@ -411,4 +411,12 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public IType<?> get(String key) {
         return obj.get(key);
     }
+
+    public boolean remove(String key) {
+        return obj.remove(key, get(key));
+    }
+
+    public IType<?> pop(String key) {
+        return obj.remove(key);
+    }
 }

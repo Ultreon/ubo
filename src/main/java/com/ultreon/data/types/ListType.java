@@ -116,4 +116,16 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
         cs.setValue((List<C>)obj);
         return cs;
     }
+
+    public T get(int index) {
+        return obj.get(index);
+    }
+
+    public boolean remove(int index) {
+        return obj.remove(get(index));
+    }
+
+    public T pop(int index) {
+        return obj.remove(index);
+    }
 }
