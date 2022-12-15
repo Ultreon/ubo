@@ -10,6 +10,7 @@ public class Types {
     public static int DOUBLE = 0x07;
     public static int BIG_DEC = 0x08;
     public static int CHAR = 0x09;
+    public static int BOOLEAN = 0x0a;
     public static int STRING = 0x20;
     public static int LIST = 0x30;
     public static int MAP = 0x31;

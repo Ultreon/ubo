@@ -97,4 +97,8 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
             }
         };
     }
+
+    public int type() {
+        return id;
+    }
 }

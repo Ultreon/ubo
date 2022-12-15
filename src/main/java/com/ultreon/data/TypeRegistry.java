@@ -17,11 +17,12 @@ public class TypeRegistry {
         register(Types.SHORT, ShortType::read);
         register(Types.INT, IntType::read);
         register(Types.LONG, LongType::read);
-//        register(Types.BIG_INT, BigIntType::read);
+        register(Types.BIG_INT, BigIntType::read);
         register(Types.FLOAT, FloatType::read);
         register(Types.DOUBLE, DoubleType::read);
-//        register(Types.BIG_DEC, BigDecType::read);
+        register(Types.BIG_DEC, BigDecType::read);
         register(Types.CHAR, CharType::read);
+        register(Types.BOOLEAN, BooleanType::read);
         register(Types.STRING, StringType::read);
         register(Types.LIST, ListType::read);
         register(Types.MAP, MapType::read);

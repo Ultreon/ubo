@@ -6,6 +6,8 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Map.Entry;
@@ -107,9 +109,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
         put(key, new LongType(value));
     }
 
-//    public void putBigInt(String key, BigInteger value) {
-//        put(key, new BigIntType(value));
-//    }
+    public void putBigInt(String key, BigInteger value) {
+        put(key, new BigIntType(value));
+    }
 
     public void putFloat(String key, float value) {
         put(key, new FloatType(value));
@@ -119,12 +121,16 @@ public class MapType implements IType<Map<String, IType<?>>> {
         put(key, new DoubleType(value));
     }
 
-//    public void putBigDec(String key, BigDecimal value) {
-//        put(key, new BigDecType(value));
-//    }
+    public void putBigDec(String key, BigDecimal value) {
+        put(key, new BigDecType(value));
+    }
     
     public void putChar(String key, char value) {
         put(key, new CharType(value));
+    }
+
+    public void putBoolean(String key, boolean value) {
+        put(key, new BooleanType(value));
     }
 
     public void putString(String key, String value) {
@@ -207,17 +213,17 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return def;
     }
 
-//    public BigInteger getBigInt(String key) {
-//        return getBigInt(key, (BigInteger) 0);
-//    }
-//
-//    public BigInteger getBigInt(String key, BigInteger def) {
-//        IType<?> iType = get(key);
-//        if (iType instanceof BigIntType obj) {
-//            return obj.getValue();
-//        }
-//        return def;
-//    }
+    public BigInteger getBigInt(String key) {
+        return getBigInt(key, BigInteger.ZERO);
+    }
+
+    public BigInteger getBigInt(String key, BigInteger def) {
+        IType<?> iType = get(key);
+        if (iType instanceof BigIntType obj) {
+            return obj.getValue();
+        }
+        return def;
+    }
 
     public float getFloat(String key) {
         return getFloat(key, (float) 0);
@@ -243,17 +249,17 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return def;
     }
 
-//    public BigDecimal getBigDec(String key) {
-//        return getBigDec(key, (BigDecimal) 0);
-//    }
-//
-//    public BigDecimal getBigDec(String key, BigDecimal def) {
-//        IType<?> iType = get(key);
-//        if (iType instanceof BigDecType obj) {
-//            return obj.getValue();
-//        }
-//        return def;
-//    }
+    public BigDecimal getBigDec(String key) {
+        return getBigDec(key, BigDecimal.ZERO);
+    }
+
+    public BigDecimal getBigDec(String key, BigDecimal def) {
+        IType<?> iType = get(key);
+        if (iType instanceof BigDecType obj) {
+            return obj.getValue();
+        }
+        return def;
+    }
 
     public char getChar(String key) {
         return getChar(key, (char) 0);
@@ -262,6 +268,18 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public char getChar(String key, char def) {
         IType<?> iType = get(key);
         if (iType instanceof CharType obj) {
+            return obj.getValue();
+        }
+        return def;
+    }
+
+    public boolean getBoolean(String key) {
+        return getBoolean(key, false);
+    }
+
+    public boolean getBoolean(String key, boolean def) {
+        IType<?> iType = get(key);
+        if (iType instanceof BooleanType obj) {
             return obj.getValue();
         }
         return def;
@@ -347,6 +365,32 @@ public class MapType implements IType<Map<String, IType<?>>> {
         IType<?> iType = get(key);
         if (iType instanceof DoubleArrayType obj) {
             return obj.getValue();
+        }
+        return def;
+    }
+
+    public MapType getMap(String key) {
+        return getMap(key, null);
+    }
+
+    public MapType getMap(String key, MapType def) {
+        IType<?> iType = get(key);
+        if (iType instanceof MapType obj) {
+            return obj;
+        }
+        return def;
+    }
+    public ListType getList(String key, int id) {
+        return getList(key, new ListType(id));
+    }
+
+    public ListType getList(String key, ListType def) {
+        IType<?> iType = get(key);
+        if (iType instanceof ListType obj) {
+            if (obj.type() != def.type()) {
+                return def;
+            }
+            return obj;
         }
         return def;
     }

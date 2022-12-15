@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.UUID;
 
 public class ReadWriteTests {
@@ -31,6 +33,10 @@ public class ReadWriteTests {
         type.putByteArray("byteArray", new byte[]{-32,109,-4,65,-74,111,35,95,-10,-104,59,21,-73,87,-49,79,63,-90,121,103,1});
         type.putChar("character", '#');
         type.putChar("unicodeSymbol", '\u263A');
+        type.putBoolean("boolean", false);
+        type.putBoolean("booleanTrue", true);
+        type.putBigInt("bigInteger", new BigInteger("9342759832409326583274320943265943209407326940327842163498"));
+        type.putBigDec("bigDecimal", new BigDecimal("2480750435679032974329809463294032649281037216482019372198.547323843264398412730293619401264392837214982713626981326149213"));
 
         MapType inner = new MapType();
         inner.putString("message", "Hello, Glitch.");
