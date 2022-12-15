@@ -10,34 +10,41 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
-    private List<IType<?>> obj;
-    private int id;
+public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
+    private final int id;
+    private List<T> obj;
 
     public ListType(int id) {
         this(new ArrayList<>(), id);
     }
 
-    public ListType(List<IType<?>> obj, int id) {
+    @SafeVarargs
+    public ListType(T... type) {
+        this(new ArrayList<>(), TypeRegistry.getId(type.getClass().getComponentType()));
+    }
+
+    @SafeVarargs
+    public ListType(List<T> obj, T... type) {
         this.obj = obj;
+        this.id = TypeRegistry.getId(type.getClass().getComponentType());
+    }
+
+    private ListType(List<T> list, int id) {
+        setValue(list);
         this.id = id;
     }
 
-    private ListType(List<IType<?>> list) {
-        setValue(list);
-    }
-
     @Override
-    public List<IType<?>> getValue() {
+    public List<T> getValue() {
         return obj;
     }
 
     @Override
-    public void setValue(List<IType<?>> obj) {
+    public void setValue(List<T> obj) {
         int id = -1;
-        List<IType<?>> list = new ArrayList<>();
+        List<T> list = new ArrayList<>();
         for (int i = 0, objSize = obj.size(); i < objSize; i++) {
-            IType<?> iType = obj.get(i);
+            T iType = obj.get(i);
             if (id == -1) {
                 id = iType.id();
             }
@@ -65,7 +72,7 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
         }
     }
 
-    public static ListType read(DataInputStream stream) throws IOException {
+    public static ListType<?> read(DataInputStream stream) throws IOException {
         var id = stream.readByte();
         int len = stream.readInt();
         List<IType<?>> list = new ArrayList<>();
@@ -73,17 +80,17 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
             list.add(TypeRegistry.read(id, stream));
         }
         
-        return new ListType(list);
+        return new ListType<>(list, id);
     }
 
-    public void add(IType<?> type) {
+    public void add(T type) {
         obj.add(type);
     }
 
     @Override
-    public Iterator<IType<?>> iterator() {
+    public Iterator<T> iterator() {
         return new Iterator<>() {
-            private final List<IType<?>> list = new ArrayList<>(getValue());
+            private final List<T> list = new ArrayList<>(getValue());
             private int index = 0;
 
             @Override
@@ -92,7 +99,7 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
             }
 
             @Override
-            public IType<?> next() {
+            public T next() {
                 return list.get(index++);
             }
         };
@@ -100,5 +107,13 @@ public class ListType implements IType<List<IType<?>>>, Iterable<IType<?>> {
 
     public int type() {
         return id;
+    }
+
+    @SafeVarargs
+    @SuppressWarnings("unchecked")
+    public final <C extends IType<?>> ListType<C> asType(C... type) {
+        ListType<C> cs = new ListType<>(type);
+        cs.setValue((List<C>)obj);
+        return cs;
     }
 }

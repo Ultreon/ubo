@@ -52,7 +52,7 @@ public class TypeRegistry {
         return TYPES.get(id);
     }
 
-    public static <T extends IType<?>> int getId(Class<T> componentType) {
+    public static int getId(Class<?> componentType) {
         return ID_MAP.get(componentType);
     }
 }
