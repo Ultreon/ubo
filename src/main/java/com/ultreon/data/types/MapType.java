@@ -380,17 +380,18 @@ public class MapType implements IType<Map<String, IType<?>>> {
         }
         return def;
     }
-    public ListType getList(String key, int id) {
-        return getList(key, new ListType(id));
+    @SafeVarargs
+    public final <T extends IType<?>> ListType<T> getList(String key, T... type) {
+        return getList(key, new ListType<>());
     }
 
-    public ListType getList(String key, ListType def) {
+    public <T extends IType<?>> ListType<T> getList(String key, ListType<T> def) {
         IType<?> iType = get(key);
-        if (iType instanceof ListType obj) {
+        if (iType instanceof ListType<?> obj) {
             if (obj.type() != def.type()) {
                 return def;
             }
-            return obj;
+            return obj.cast();
         }
         return def;
     }

@@ -111,7 +111,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
-    public final <C extends IType<?>> ListType<C> asType(C... type) {
+    public final <C extends IType<?>> ListType<C> cast(C... type) {
         ListType<C> cs = new ListType<>(type);
         cs.setValue((List<C>)obj);
         return cs;
