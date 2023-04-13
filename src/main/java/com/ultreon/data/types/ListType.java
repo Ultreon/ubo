@@ -12,6 +12,7 @@ import java.util.List;
 
 public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
     private final int id;
+    Class<?> componentType;
     private List<T> obj;
 
     public ListType(int id) {
@@ -20,18 +21,28 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
     @SafeVarargs
     public ListType(T... type) {
-        this(new ArrayList<>(), TypeRegistry.getId(type.getClass().getComponentType()));
+        this(type.getClass().getComponentType());
     }
 
     @SafeVarargs
     public ListType(List<T> obj, T... type) {
+        this(obj, type.getClass().getComponentType());
+    }
+
+    private ListType(Class<?> type) {
+        this(new ArrayList<>(), TypeRegistry.getId(type));
+    }
+
+    private ListType(List<T> obj, Class<?> type) {
         this.obj = obj;
-        this.id = TypeRegistry.getId(type.getClass().getComponentType());
+        this.id = TypeRegistry.getId(type);
+        this.componentType = type;
     }
 
     private ListType(List<T> list, int id) {
         setValue(list);
         this.id = id;
+        this.componentType = TypeRegistry.getType(id);
     }
 
     @Override
@@ -110,8 +121,12 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     @SafeVarargs
-    @SuppressWarnings("unchecked")
     public final <C extends IType<?>> ListType<C> cast(C... type) {
+        return this.cast(type.getClass().getComponentType());
+    }
+
+    @SuppressWarnings("unchecked")
+    final <C extends IType<?>> ListType<C> cast(Class<?> type) {
         ListType<C> cs = new ListType<>(type);
         cs.setValue((List<C>)obj);
         return cs;

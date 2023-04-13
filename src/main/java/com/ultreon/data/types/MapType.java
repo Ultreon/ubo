@@ -391,7 +391,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
             if (obj.type() != def.type()) {
                 return def;
             }
-            return obj.cast();
+            return obj.cast(def.componentType);
         }
         return def;
     }
