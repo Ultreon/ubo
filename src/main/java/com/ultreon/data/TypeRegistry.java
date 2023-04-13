@@ -10,7 +10,7 @@ import java.util.Map;
 public class TypeRegistry {
     private static final Map<Integer, IReader<? extends IType<?>>> READERS = new HashMap<>();
     private static final Map<Integer, Class<? extends IType<?>>> TYPES = new HashMap<>();
-    private static final Map<Class<? extends IType<?>>, Integer> ID_MAP = new HashMap<>();
+    private static final Map<String, Integer> ID_MAP = new HashMap<>();
 
     static {
         register(Types.BYTE, ByteType::read);
@@ -41,7 +41,7 @@ public class TypeRegistry {
         Class<? extends T> componentType = (Class<? extends T>) type.getClass().getComponentType();
         READERS.put(id, reader);
         TYPES.put(id, componentType);
-        ID_MAP.put(componentType, id);
+        ID_MAP.put(componentType.getName(), id);
     }
 
     public static IType<?> read(int id, DataInputStream stream) throws IOException {
@@ -53,6 +53,6 @@ public class TypeRegistry {
     }
 
     public static int getId(Class<?> componentType) {
-        return ID_MAP.get(componentType);
+        return ID_MAP.get(componentType.getName());
     }
 }
