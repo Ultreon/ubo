@@ -382,7 +382,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
     @SafeVarargs
     public final <T extends IType<?>> ListType<T> getList(String key, T... type) {
-        return getList(key, new ListType<>());
+        return getList(key, new ListType<>(type));
     }
 
     public <T extends IType<?>> ListType<T> getList(String key, ListType<T> def) {
