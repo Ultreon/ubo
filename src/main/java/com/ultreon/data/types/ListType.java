@@ -84,7 +84,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     public static ListType<?> read(DataInputStream stream) throws IOException {
-        var id = stream.readByte();
+        byte id = stream.readByte();
         int len = stream.readInt();
         List<IType<?>> list = new ArrayList<>();
         for (int i = 0; i < len; i++) {
@@ -100,7 +100,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
+        return new Iterator<T>() {
             private final List<T> list = new ArrayList<>(getValue());
             private int index = 0;
 

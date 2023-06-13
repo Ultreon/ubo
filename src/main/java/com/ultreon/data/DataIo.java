@@ -22,15 +22,15 @@ public class DataIo {
     @SuppressWarnings("unchecked")
     public static <T extends IType<?>> T read(InputStream stream, T... type) throws IOException {
         DataInputStream inputStream;
-        if (stream instanceof DataInputStream s) {
-            inputStream = s;
+        if (stream instanceof DataInputStream) {
+            inputStream = (DataInputStream) stream;
         } else {
             inputStream = new DataInputStream(stream);
         }
 
         int magic = inputStream.readInt();
         if (magic != HEADER) {
-            throw new StreamCorruptedException("Invalid header got 0x%08X (expected 0xFF804269)".formatted(magic));
+            throw new StreamCorruptedException(String.format("Invalid header got 0x%08X (expected 0xFF804269)", magic));
         }
 
         short readVersion = inputStream.readShort();
@@ -77,8 +77,8 @@ public class DataIo {
 
     public static void write(IType<?> type, OutputStream stream) throws IOException {
         DataOutputStream outputStream;
-        if (stream instanceof DataOutputStream s) {
-            outputStream = s;
+        if (stream instanceof DataOutputStream) {
+            outputStream = (DataOutputStream) stream;
         } else {
             outputStream = new DataOutputStream(stream);
         }
