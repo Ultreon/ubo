@@ -23,7 +23,7 @@ dependencies {
 }
 
 compileJava {
-    sourceCompatibility "17"
+    sourceCompatibility "14"
     targetCompatibility "1.8"
 }
 
