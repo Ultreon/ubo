@@ -3,12 +3,13 @@ package com.ultreon.data.types;
 import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
     private final int id;
@@ -128,7 +129,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     @SuppressWarnings("unchecked")
     final <C extends IType<?>> ListType<C> cast(Class<?> type) {
         ListType<C> cs = new ListType<>(type);
-        cs.setValue((List<C>)obj);
+        cs.setValue((List<C>) obj);
         return cs;
     }
 
@@ -142,5 +143,18 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
     public T pop(int index) {
         return obj.remove(index);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof ListType)) return false;
+        ListType<?> listType = (ListType<?>) other;
+        return id == listType.id && Objects.equals(obj, listType.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, obj);
     }
 }

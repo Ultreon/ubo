@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.Objects;
 
 public class BigIntType implements IType<BigInteger> {
     private BigInteger obj;
@@ -47,5 +48,18 @@ public class BigIntType implements IType<BigInteger> {
         }
 
         return new BigIntType(new BigInteger(bytes));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof BigIntType)) return false;
+        BigIntType that = (BigIntType) other;
+        return Objects.equals(obj, that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

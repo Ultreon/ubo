@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Arrays;
 
 public class IntArrayType implements IType<int[]> {
     private int[] obj;
@@ -44,5 +45,18 @@ public class IntArrayType implements IType<int[]> {
             arr[i] = stream.readInt();
         }
         return new IntArrayType(arr);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof IntArrayType)) return false;
+        IntArrayType that = (IntArrayType) other;
+        return Arrays.equals(obj, that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(obj);
     }
 }

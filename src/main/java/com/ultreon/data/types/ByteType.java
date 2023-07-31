@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 
 public class ByteType implements IType<Byte> {
     private byte obj;
@@ -36,5 +37,18 @@ public class ByteType implements IType<Byte> {
 
     public static ByteType read(DataInputStream stream) throws IOException {
         return new ByteType(stream.readByte());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof ByteType)) return false;
+        ByteType byteType = (ByteType) other;
+        return obj == byteType.obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

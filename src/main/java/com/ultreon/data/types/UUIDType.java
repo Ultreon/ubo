@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 public class UUIDType implements IType<UUID> {
@@ -40,5 +41,18 @@ public class UUIDType implements IType<UUID> {
         long msb = stream.readLong();
         long lsb = stream.readLong();
         return new UUIDType(new UUID(msb, lsb));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof UUIDType)) return false;
+        UUIDType uuidType = (UUIDType) other;
+        return Objects.equals(obj, uuidType.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

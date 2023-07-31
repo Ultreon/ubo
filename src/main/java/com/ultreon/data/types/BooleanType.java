@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 public class BooleanType implements IType<Boolean> {
     private boolean obj;
@@ -36,5 +37,18 @@ public class BooleanType implements IType<Boolean> {
 
     public static BooleanType read(DataInputStream stream) throws IOException {
         return new BooleanType(stream.readBoolean());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof BooleanType)) return false;
+        BooleanType that = (BooleanType) other;
+        return obj == that.obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

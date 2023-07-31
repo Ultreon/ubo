@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 
 public class FloatType implements IType<Float> {
     private float obj;
@@ -36,5 +37,18 @@ public class FloatType implements IType<Float> {
 
     public static FloatType read(DataInputStream stream) throws IOException {
         return new FloatType(stream.readFloat());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof FloatType)) return false;
+        FloatType floatType = (FloatType) other;
+        return Float.compare(obj, floatType.obj) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Arrays;
 
 public class LongArrayType implements IType<long[]> {
     private long[] obj;
@@ -44,5 +45,18 @@ public class LongArrayType implements IType<long[]> {
             arr[i] = stream.readLong();
         }
         return new LongArrayType(arr);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof LongArrayType)) return false;
+        LongArrayType that = (LongArrayType) other;
+        return Arrays.equals(obj, that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(obj);
     }
 }

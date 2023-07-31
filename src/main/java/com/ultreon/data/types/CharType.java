@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 
 public class CharType implements IType<Character> {
     private char obj;
@@ -36,5 +37,18 @@ public class CharType implements IType<Character> {
 
     public static CharType read(DataInputStream stream) throws IOException {
         return new CharType(stream.readChar());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof CharType)) return false;
+        CharType charType = (CharType) other;
+        return obj == charType.obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

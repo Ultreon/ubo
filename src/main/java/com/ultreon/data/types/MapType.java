@@ -433,4 +433,17 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public IType<?> pop(String key) {
         return obj.remove(key);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof MapType)) return false;
+        MapType mapType = (MapType) other;
+        return Objects.equals(obj, mapType.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
+    }
 }

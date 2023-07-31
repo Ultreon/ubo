@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Arrays;
 
 public class ByteArrayType implements IType<byte[]> {
     private byte[] obj;
@@ -44,5 +45,18 @@ public class ByteArrayType implements IType<byte[]> {
             arr[i] = stream.readByte();
         }
         return new ByteArrayType(arr);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof ByteArrayType)) return false;
+        ByteArrayType that = (ByteArrayType) other;
+        return Arrays.equals(obj, that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(obj);
     }
 }

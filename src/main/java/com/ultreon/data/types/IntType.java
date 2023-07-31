@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 
 public class IntType implements IType<Integer> {
     private int obj;
@@ -36,5 +37,18 @@ public class IntType implements IType<Integer> {
 
     public static IntType read(DataInputStream stream) throws IOException {
         return new IntType(stream.readInt());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof IntType)) return false;
+        IntType intType = (IntType) other;
+        return obj == intType.obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Objects;
 
 public class ShortType implements IType<Short> {
     private short obj;
@@ -36,5 +37,18 @@ public class ShortType implements IType<Short> {
 
     public static ShortType read(DataInputStream stream) throws IOException {
         return new ShortType(stream.readShort());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof ShortType)) return false;
+        ShortType shortType = (ShortType) other;
+        return obj == shortType.obj;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(obj);
     }
 }

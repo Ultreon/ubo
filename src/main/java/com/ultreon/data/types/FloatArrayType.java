@@ -5,6 +5,7 @@ import com.ultreon.data.Types;
 import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.util.Arrays;
 
 public class FloatArrayType implements IType<float[]> {
     private float[] obj;
@@ -44,5 +45,18 @@ public class FloatArrayType implements IType<float[]> {
             arr[i] = stream.readFloat();
         }
         return new FloatArrayType(arr);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof FloatArrayType)) return false;
+        FloatArrayType that = (FloatArrayType) other;
+        return Arrays.equals(obj, that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(obj);
     }
 }

@@ -8,4 +8,8 @@ public interface IType<T> {
     void setValue(T obj);
     int id();
     void write(DataOutputStream stream) throws IOException;
+
+    boolean equals(Object other);
+
+    int hashCode();
 }
