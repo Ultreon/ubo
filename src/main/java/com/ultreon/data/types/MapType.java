@@ -81,6 +81,19 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return new MapType(map);
     }
 
+    public boolean contains(String key, int type) {
+        IType<?> data = obj.get(key);
+
+        return data != null && data.id() == type;
+    }
+
+    @SafeVarargs
+    public final <T extends IType<?>> boolean contains(String key, T... type) {
+        IType<?> data = obj.get(key);
+
+        return data != null && type.getClass().getComponentType().isAssignableFrom(data.getClass());
+    }
+
     public void put(String key, IType<?> type) {
         obj.put(key, type);
     }
