@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
     private final int id;
@@ -156,5 +157,11 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     @Override
     public int hashCode() {
         return Objects.hash(id, obj);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public ListType<T> copy() {
+        return new ListType<T>(obj.stream().map(t -> (T) t.copy()).collect(Collectors.toList()));
     }
 }

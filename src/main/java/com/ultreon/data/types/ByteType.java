@@ -51,4 +51,9 @@ public class ByteType implements IType<Byte> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public ByteType copy() {
+        return new ByteType(obj);
+    }
 }

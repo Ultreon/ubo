@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class MapType implements IType<Map<String, IType<?>>> {
     private Map<String, IType<?>> obj;
@@ -445,5 +446,10 @@ public class MapType implements IType<Map<String, IType<?>>> {
     @Override
     public int hashCode() {
         return Objects.hash(obj);
+    }
+
+    @Override
+    public MapType copy() {
+        return new MapType(obj.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().copy(), (a, b) -> b)));
     }
 }

@@ -47,5 +47,8 @@ public class StringType implements IType<String> {
         return new StringType(new String(bytes, StandardCharsets.UTF_8));
     }
 
-
+    @Override
+    public StringType copy() {
+        return new StringType(obj);
+    }
 }

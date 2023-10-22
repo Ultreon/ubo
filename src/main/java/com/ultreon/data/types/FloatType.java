@@ -51,4 +51,9 @@ public class FloatType implements IType<Float> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public FloatType copy() {
+        return new FloatType(obj);
+    }
 }

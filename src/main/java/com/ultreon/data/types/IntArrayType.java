@@ -59,4 +59,9 @@ public class IntArrayType implements IType<int[]> {
     public int hashCode() {
         return Arrays.hashCode(obj);
     }
+
+    @Override
+    public IntArrayType copy() {
+        return new IntArrayType(obj.clone());
+    }
 }

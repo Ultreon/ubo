@@ -51,4 +51,9 @@ public class BooleanType implements IType<Boolean> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public BooleanType copy() {
+        return new BooleanType(obj);
+    }
 }

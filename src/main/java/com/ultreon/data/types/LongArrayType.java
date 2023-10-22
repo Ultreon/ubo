@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class LongArrayType implements IType<long[]> {
     private long[] obj;
@@ -58,5 +59,10 @@ public class LongArrayType implements IType<long[]> {
     @Override
     public int hashCode() {
         return Arrays.hashCode(obj);
+    }
+
+    @Override
+    public LongArrayType copy() {
+        return new LongArrayType(obj.clone());
     }
 }

@@ -51,4 +51,9 @@ public class ShortType implements IType<Short> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public ShortType copy() {
+        return new ShortType(obj);
+    }
 }

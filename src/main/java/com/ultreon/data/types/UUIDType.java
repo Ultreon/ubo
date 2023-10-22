@@ -55,4 +55,9 @@ public class UUIDType implements IType<UUID> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public UUIDType copy() {
+        return new UUIDType(new UUID(obj.getMostSignificantBits(), obj.getLeastSignificantBits()));
+    }
 }

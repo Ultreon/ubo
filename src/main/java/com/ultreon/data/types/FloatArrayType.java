@@ -59,4 +59,9 @@ public class FloatArrayType implements IType<float[]> {
     public int hashCode() {
         return Arrays.hashCode(obj);
     }
+
+    @Override
+    public FloatArrayType copy() {
+        return new FloatArrayType(obj.clone());
+    }
 }

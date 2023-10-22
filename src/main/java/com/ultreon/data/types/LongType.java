@@ -51,4 +51,9 @@ public class LongType implements IType<Long> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public LongType copy() {
+        return new LongType(obj);
+    }
 }

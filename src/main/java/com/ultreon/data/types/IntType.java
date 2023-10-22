@@ -51,4 +51,9 @@ public class IntType implements IType<Integer> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public IntType copy() {
+        return new IntType(obj);
+    }
 }

@@ -59,4 +59,9 @@ public class DoubleArrayType implements IType<double[]> {
     public int hashCode() {
         return Arrays.hashCode(obj);
     }
+
+    @Override
+    public DoubleArrayType copy() {
+        return new DoubleArrayType(obj.clone());
+    }
 }

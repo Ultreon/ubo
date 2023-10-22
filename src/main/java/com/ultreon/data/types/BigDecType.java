@@ -65,4 +65,9 @@ public class BigDecType implements IType<BigDecimal> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public BigDecType copy() {
+        return new BigDecType(obj);
+    }
 }

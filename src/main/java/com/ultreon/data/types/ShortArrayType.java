@@ -59,4 +59,9 @@ public class ShortArrayType implements IType<short[]> {
     public int hashCode() {
         return Arrays.hashCode(obj);
     }
+
+    @Override
+    public ShortArrayType copy() {
+        return new ShortArrayType(obj.clone());
+    }
 }

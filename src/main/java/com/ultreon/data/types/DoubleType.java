@@ -51,4 +51,9 @@ public class DoubleType implements IType<Double> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public DoubleType copy() {
+        return new DoubleType(obj);
+    }
 }

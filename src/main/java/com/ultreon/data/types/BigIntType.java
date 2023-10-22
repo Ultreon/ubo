@@ -62,4 +62,9 @@ public class BigIntType implements IType<BigInteger> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public BigIntType copy() {
+        return new BigIntType(obj);
+    }
 }

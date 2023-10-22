@@ -59,4 +59,9 @@ public class ByteArrayType implements IType<byte[]> {
     public int hashCode() {
         return Arrays.hashCode(obj);
     }
+
+    @Override
+    public ByteArrayType copy() {
+        return new ByteArrayType(obj.clone());
+    }
 }

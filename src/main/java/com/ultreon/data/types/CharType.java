@@ -51,4 +51,9 @@ public class CharType implements IType<Character> {
     public int hashCode() {
         return Objects.hash(obj);
     }
+
+    @Override
+    public CharType copy() {
+        return new CharType(obj);
+    }
 }

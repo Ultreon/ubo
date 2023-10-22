@@ -12,4 +12,6 @@ public interface IType<T> {
     boolean equals(Object other);
 
     int hashCode();
+
+    IType<T> copy();
 }
