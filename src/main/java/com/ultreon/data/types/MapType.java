@@ -452,4 +452,8 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public MapType copy() {
         return new MapType(obj.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().copy(), (a, b) -> b)));
     }
+
+    public int size() {
+        return obj.size();
+    }
 }

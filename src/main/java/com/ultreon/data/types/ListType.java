@@ -164,4 +164,8 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     public ListType<T> copy() {
         return new ListType<T>(obj.stream().map(t -> (T) t.copy()).collect(Collectors.toList()));
     }
+
+    public int size() {
+        return obj.size();
+    }
 }

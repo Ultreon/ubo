@@ -65,4 +65,8 @@ public class LongArrayType implements IType<long[]> {
     public LongArrayType copy() {
         return new LongArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }

@@ -64,4 +64,8 @@ public class ShortArrayType implements IType<short[]> {
     public ShortArrayType copy() {
         return new ShortArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }

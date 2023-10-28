@@ -64,4 +64,8 @@ public class DoubleArrayType implements IType<double[]> {
     public DoubleArrayType copy() {
         return new DoubleArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }

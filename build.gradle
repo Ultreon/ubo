@@ -11,7 +11,11 @@ apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
 group 'com.ultreon'
-version "${project_version}+${getenv("GITHUB_BUILD_NUMBER") == null ? "local" : getenv("GITHUB_BUILD_NUMBER")}"
+version "${project_version}"
+
+base {
+    archivesName = "ubo"
+}
 
 repositories {
     mavenCentral()
@@ -27,26 +31,23 @@ compileJava {
     targetCompatibility "1.8"
 }
 
+java {
+    withSourcesJar()
+}
+
 test {
     useJUnitPlatform()
 }
 
 publishing {
     publications {
-        //noinspection GroovyAssignabilityCheck
-        mavenJava(MavenPublication) {
-            //noinspection GroovyAssignabilityCheck
+        register('mavenJava', MavenPublication) {
             from components.java
         }
     }
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/Ultreon/ultreon-data"
-            credentials {
-                username = getenv("GITHUB_ACTOR")
-                password = getenv("GITHUB_TOKEN")
-            }
+            url "file://${rootProject.projectDir}/.mvnrepo"
         }
     }
 }

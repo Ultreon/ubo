@@ -64,4 +64,8 @@ public class ByteArrayType implements IType<byte[]> {
     public ByteArrayType copy() {
         return new ByteArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }

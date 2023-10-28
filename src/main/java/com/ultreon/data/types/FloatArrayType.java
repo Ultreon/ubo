@@ -64,4 +64,8 @@ public class FloatArrayType implements IType<float[]> {
     public FloatArrayType copy() {
         return new FloatArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }

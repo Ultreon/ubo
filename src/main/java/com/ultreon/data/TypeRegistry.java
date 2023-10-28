@@ -33,6 +33,7 @@ public class TypeRegistry {
         register(Types.FLOAT_ARRAY, FloatArrayType::read);
         register(Types.DOUBLE_ARRAY, DoubleArrayType::read);
         register(Types.UUID, UUIDType::read);
+        register(Types.BIT_SET, BitSetType::read);
     }
 
     @SafeVarargs

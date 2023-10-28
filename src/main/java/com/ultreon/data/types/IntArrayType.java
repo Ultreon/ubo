@@ -64,4 +64,8 @@ public class IntArrayType implements IType<int[]> {
     public IntArrayType copy() {
         return new IntArrayType(obj.clone());
     }
+
+    public int size() {
+        return obj.length;
+    }
 }
