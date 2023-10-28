@@ -175,6 +175,14 @@ public class MapType implements IType<Map<String, IType<?>>> {
         put(key, new DoubleArrayType(value));
     }
 
+    public void putBitSet(String key, byte[] value) {
+        put(key, new BitSetType(value));
+    }
+
+    public void putBitSet(String key, BitSet value) {
+        put(key, new BitSetType(value));
+    }
+
     public void putUUID(String key, UUID value) {
         put(key, new UUIDType(value));
     }
@@ -383,6 +391,18 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return def;
     }
 
+    public BitSet getBitSet(String key) {
+        return getBitSet(key, null);
+    }
+
+    public BitSet getBitSet(String key, BitSet def) {
+        IType<?> iType = get(key);
+        if (iType instanceof BitSetType) {
+            return ((BitSetType) iType).getValue();
+        }
+        return def;
+    }
+
     public MapType getMap(String key) {
         return getMap(key, null);
     }
@@ -394,6 +414,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
         }
         return def;
     }
+
     @SafeVarargs
     public final <T extends IType<?>> ListType<T> getList(String key, T... type) {
         return getList(key, new ListType<>(type));
