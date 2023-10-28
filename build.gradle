@@ -10,7 +10,7 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
-group 'com.ultreon'
+group 'io.github.ultreon'
 version "${project_version}"
 
 base {
