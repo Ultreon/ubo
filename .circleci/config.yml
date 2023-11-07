@@ -10,8 +10,11 @@ jobs:
       - image: gradle:jdk8
     steps:
       - run:
+          name: Make 'gradlew' executable
+          command: chmod +x ./gradlew
+      - run:
           name: Build Project
-          command: gradle clean build
+          command: ./gradlew clean build
 
 workflows:
   echo:
