@@ -6,17 +6,28 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
+    # Specify the execution environment. You can specify an image from Dockerhub, or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: gradle:jdk8
+      - image: gradle:jdk17
+    description: "Build Linux DEB package"
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
+      - checkout
       - run:
-          name: Make 'gradlew' executable
-          command: chmod +x ./gradlew
+          name: "Make gradlew executable"
+          command: "chmod +x gradlew"
       - run:
-          name: Build Project
-          command: ./gradlew clean build
+          name: "Build Project"
+          command: |
+            ./gradlew clean build
+          environment:
+            CIRCLE_CI: "true"
 
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  echo:
+  build-workflow:
     jobs:
       - build
