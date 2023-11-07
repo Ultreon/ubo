@@ -1,0 +1,19 @@
+name: Deploy Javadoc
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Deploy JavaDoc Release
+        uses: MathieuSoysal/Javadoc-publisher.yml@v2.4.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          javadoc-branch: javadoc
+          java-version: 17
+          target-folder: docs/${{ github.event.release.tag_name }}
+          project: gradle

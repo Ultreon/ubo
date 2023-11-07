@@ -61,3 +61,17 @@ publish.dependsOn build
 tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
+
+afterEvaluate {
+    javadoc {
+        source(sourceSets.main.allJava.sourceDirectories)
+        title = "CoreLibs"
+        description = "CoreLibs is the core library collection for Ultreon Team projects."
+        setDestinationDir(file("$rootProject.projectDir/build/docs/javadoc"))
+        // Configure the classpath
+        classpath = files(sourceSets.main.compileClasspath)
+        (options as StandardJavadocDocletOptions).links(
+                // Kinda empty in here lmao.
+        )
+    }
+}
