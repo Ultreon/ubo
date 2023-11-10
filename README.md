@@ -1,6 +1,6 @@
 # Ultreon Binary Object
 **File Extension:** `.ubo`  
-**API Language:** `Java 17`  
+**API Language:** `Java 8`  
 
 ## Usage
 Assuming you use gradle.
