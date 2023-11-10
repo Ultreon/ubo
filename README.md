@@ -8,13 +8,13 @@ Assuming you use gradle.
     ```gradle
     repositories {
         // ...
-        maven { url 'https://jitpack.io' }
+        maven { url "https://github.com/Ultreon/ultreon-data/raw/main/.mvnrepo/" }
     }
     ```
 2.  Then, in `build.gradle`, define the dependency:  
     ```gradle
     dependencies {
-        implementation 'com.github.Ultreon:ultreon-data:0.1.0'
+        implementation 'io.github.ultreon:ubo:1.2.1+patch.1'
     }
     ```
 3.  We can now proceed to the using section. The `DataIo` class is capable of reading and writing UBO data.  
@@ -35,4 +35,5 @@ Assuming you use gradle.
     ```
 4.  You can now build it. You can change the example in step 3 to suit your needs. 
 
-Here's the [jitpack listing](https://jitpack.io/#Ultreon/ultreon-data) for the current versions and builds you can use. 
+~~Here's the [jitpack listing](https://jitpack.io/#Ultreon/ultreon-data) for the current versions and builds you can use.~~ (Temporarily not used)  
+Check out the releases page for latest releases.
