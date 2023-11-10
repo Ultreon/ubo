@@ -19,6 +19,13 @@ public class DataIo {
     }
 
     @SafeVarargs
+    public static <T extends IType<?>> T read(URL url, T... type) throws IOException {
+        try (InputStream stream = url.openStream()) {
+            return read(stream, type);
+        }
+    }
+
+    @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T extends IType<?>> T read(InputStream stream, T... type) throws IOException {
         DataInputStream inputStream;
@@ -71,6 +78,12 @@ public class DataIo {
 
     public static void write(IType<?> type, File file) throws IOException {
         try (FileOutputStream stream = new FileOutputStream(file)) {
+            write(type, stream);
+        }
+    }
+
+    public static void write(IType<?> type, URL file) throws IOException {
+        try (OutputStream stream = file.openConnection().getOutputStream()) {
             write(type, stream);
         }
     }
