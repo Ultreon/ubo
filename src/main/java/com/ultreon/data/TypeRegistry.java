@@ -2,8 +2,8 @@ package com.ultreon.data;
 
 import com.ultreon.data.types.*;
 
-import java.io.IOException;
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

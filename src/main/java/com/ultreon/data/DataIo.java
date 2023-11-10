@@ -68,7 +68,7 @@ public class DataIo {
         GZIPInputStream gzipStream = new GZIPInputStream(stream);
         return read(gzipStream, type);
     }
-    
+
     public static void write(IType<?> type, File file) throws IOException {
         try (FileOutputStream stream = new FileOutputStream(file)) {
             write(type, stream);
@@ -89,7 +89,7 @@ public class DataIo {
         type.write(outputStream);
         outputStream.flush();
     }
-    
+
     public static void writeCompressed(IType<?> type, URL file) throws IOException {
         try (OutputStream stream = file.openConnection().getOutputStream()) {
             writeCompressed(type, stream);

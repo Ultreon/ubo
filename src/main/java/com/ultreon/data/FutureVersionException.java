@@ -1,6 +1,6 @@
 package com.ultreon.data;
 
-public class FutureVersionException extends RuntimeException {
+public class FutureVersionException extends IllegalStateException {
     private final short read;
     private final short current;
 

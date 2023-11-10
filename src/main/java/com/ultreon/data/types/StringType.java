@@ -2,9 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class StringType implements IType<String> {
@@ -45,6 +45,19 @@ public class StringType implements IType<String> {
             bytes[j] = stream.readByte();
         }
         return new StringType(new String(bytes, StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StringType that = (StringType) o;
+        return obj.equals(that.obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return obj.hashCode();
     }
 
     @Override

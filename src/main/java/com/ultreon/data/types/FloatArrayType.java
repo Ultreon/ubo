@@ -2,9 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class FloatArrayType implements IType<float[]> {

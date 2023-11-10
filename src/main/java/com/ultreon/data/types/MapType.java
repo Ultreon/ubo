@@ -3,9 +3,9 @@ package com.ultreon.data.types;
 import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +33,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public void setValue(Map<String, IType<?>> obj) {
         this.obj = obj;
     }
-    
+
     public Set<String> keys() {
         return obj.keySet();
     }
@@ -78,7 +78,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
             byte id = stream.readByte();
             map.put(key, TypeRegistry.read(id, stream));
         }
-        
+
         return new MapType(map);
     }
 
@@ -138,7 +138,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public void putBigDec(String key, BigDecimal value) {
         put(key, new BigDecType(value));
     }
-    
+
     public void putChar(String key, char value) {
         put(key, new CharType(value));
     }
@@ -461,12 +461,12 @@ public class MapType implements IType<Map<String, IType<?>>> {
         if (this == other) return true;
         if (!(other instanceof MapType)) return false;
         MapType mapType = (MapType) other;
-        return Objects.equals(obj, mapType.obj);
+        return obj.equals(mapType.obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj.hashCode();
     }
 
     @Override

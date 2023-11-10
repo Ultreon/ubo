@@ -2,10 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.Objects;
+import java.io.IOException;
 
 public class LongType implements IType<Long> {
     private long obj;
@@ -49,7 +48,7 @@ public class LongType implements IType<Long> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return (int) (obj ^ obj >>> 32);
     }
 
     @Override

@@ -2,11 +2,10 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class LongArrayType implements IType<long[]> {
     private long[] obj;

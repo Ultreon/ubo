@@ -92,7 +92,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
         for (int i = 0; i < len; i++) {
             list.add(TypeRegistry.read(id, stream));
         }
-        
+
         return new ListType<>(list, id);
     }
 
@@ -162,7 +162,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     @Override
     @SuppressWarnings("unchecked")
     public ListType<T> copy() {
-        return new ListType<T>(obj.stream().map(t -> (T) t.copy()).collect(Collectors.toList()));
+        return new ListType<>(obj.stream().map(t -> (T) t.copy()).collect(Collectors.toList()));
     }
 
     public int size() {

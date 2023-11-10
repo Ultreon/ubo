@@ -5,7 +5,6 @@ import com.ultreon.data.Types;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.Objects;
 
 public class BooleanType implements IType<Boolean> {
     private boolean obj;
@@ -49,7 +48,7 @@ public class BooleanType implements IType<Boolean> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj ? 1231 : 1237;
     }
 
     @Override

@@ -2,9 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -53,7 +53,7 @@ public class UUIDType implements IType<UUID> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj.hashCode();
     }
 
     @Override

@@ -47,7 +47,7 @@ public class BitSetType implements IType<BitSet> {
     public static BitSetType read(DataInputStream stream) throws IOException {
         int len = stream.readUnsignedShort();
         byte[] arr = new byte[len];
-        for (int  i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             arr[i] = stream.readByte();
         }
         return new BitSetType(arr);
@@ -63,7 +63,7 @@ public class BitSetType implements IType<BitSet> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj.hashCode();
     }
 
     @Override

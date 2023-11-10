@@ -2,10 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.util.Objects;
+import java.io.IOException;
 
 public class IntType implements IType<Integer> {
     private int obj;
@@ -49,7 +48,7 @@ public class IntType implements IType<Integer> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj;
     }
 
     @Override

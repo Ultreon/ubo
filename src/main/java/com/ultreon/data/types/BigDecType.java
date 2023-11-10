@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Objects;
 
 public class BigDecType implements IType<BigDecimal> {
     private BigDecimal obj;
@@ -58,12 +57,12 @@ public class BigDecType implements IType<BigDecimal> {
         if (this == other) return true;
         if (!(other instanceof BigDecType)) return false;
         BigDecType that = (BigDecType) other;
-        return Objects.equals(obj, that.obj);
+        return obj.equals(that.obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(obj);
+        return obj.hashCode();
     }
 
     @Override

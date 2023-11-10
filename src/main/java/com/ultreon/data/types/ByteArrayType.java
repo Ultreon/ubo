@@ -2,9 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.IOException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class ByteArrayType implements IType<byte[]> {
@@ -41,7 +41,7 @@ public class ByteArrayType implements IType<byte[]> {
     public static ByteArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
         byte[] arr = new byte[len];
-        for (int  i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             arr[i] = stream.readByte();
         }
         return new ByteArrayType(arr);
