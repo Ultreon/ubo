@@ -83,7 +83,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     public static ListType<?> read(DataInputStream stream) throws IOException {
-        byte id = stream.readByte();
+        int id = stream.readUnsignedByte();
         int len = stream.readInt();
         List<IType<?>> list = new ArrayList<>();
         for (int i = 0; i < len; i++) {

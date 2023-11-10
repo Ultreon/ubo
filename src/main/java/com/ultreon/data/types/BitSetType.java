@@ -38,6 +38,7 @@ public class BitSetType implements IType<BitSet> {
     @Override
     public void write(DataOutputStream stream) throws IOException {
         byte[] arr = this.obj.toByteArray();
+        if (arr.length >= 32768) throw new IllegalArgumentException("Bitset is too big to be written");
         stream.writeShort(arr.length);
         for (byte b : arr) {
             stream.writeByte(b);
@@ -45,7 +46,7 @@ public class BitSetType implements IType<BitSet> {
     }
 
     public static BitSetType read(DataInputStream stream) throws IOException {
-        int len = stream.readUnsignedShort();
+        int len = stream.readShort();
         byte[] arr = new byte[len];
         for (int i = 0; i < len; i++) {
             arr[i] = stream.readByte();

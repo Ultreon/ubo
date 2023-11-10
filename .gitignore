@@ -43,3 +43,5 @@ bin/
 .DS_Store
 /map-compressed.ubo
 /map-normal.ubo
+/list-compressed.ubo
+/list-normal.ubo

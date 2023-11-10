@@ -75,7 +75,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
                 bytes[j] = stream.readByte();
             }
             String key = new String(bytes, StandardCharsets.UTF_8);
-            byte id = stream.readByte();
+            int id = stream.readUnsignedByte();
             map.put(key, TypeRegistry.read(id, stream));
         }
 
@@ -248,7 +248,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public float getFloat(String key) {
-        return getFloat(key, (float) 0);
+        return getFloat(key, 0);
     }
 
     public float getFloat(String key, float def) {

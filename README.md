@@ -37,3 +37,12 @@ Assuming you use gradle.
 
 ~~Here's the [jitpack listing](https://jitpack.io/#Ultreon/ultreon-data) for the current versions and builds you can use.~~ (Temporarily not used)  
 Check out the releases page for latest releases.
+
+## Naming conventions
+The following conventions are for map keys:
+ * `MapType` and `ListType` are in `DromedaryCase`.
+ * Any other types are in `camelCase`.
+
+Do note that in some cases keys can have a different case.  
+For example if the key is used for identifiers. (Like those: `namespace:id`)  
+Tho it's generally not recommended to use map keys for objects like identifiers or numbers.

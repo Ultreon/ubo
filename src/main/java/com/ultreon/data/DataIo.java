@@ -51,7 +51,7 @@ public class DataIo {
 
         Class<T> componentType = (Class<T>) type.getClass().getComponentType();
         int componentId = TypeRegistry.getId(componentType);
-        int id = inputStream.readByte();
+        int id = inputStream.readUnsignedByte();
 
         if (componentId != id) {
             throw new DataTypeException("The read data id " + id + " is different from the expected id: " + componentId);

@@ -1,10 +1,10 @@
 package com.ultreon.tests.data;
 
 import com.ultreon.data.DataIo;
-import com.ultreon.data.Types;
 import com.ultreon.data.types.ListType;
 import com.ultreon.data.types.MapType;
 import com.ultreon.data.types.StringType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,18 +12,29 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.BitSet;
 import java.util.UUID;
 
-public class ReadWriteTests {
+class ReadWriteTests {
     @Test
-    @DisplayName("Write -> Map")
-    void writeMap() {
+    @DisplayName("MapTypes")
+    void readWriteMap() {
+        BitSet bitSet = new BitSet(16);
+        bitSet.set(0);
+        bitSet.set(2);
+        bitSet.set(5);
+        bitSet.set(8);
+        bitSet.set(12);
+        bitSet.set(14);
+        bitSet.set(15);
+
         MapType type = new MapType();
         type.putInt("integer", 123456789);
         type.putString("string", "Hello World");
         type.putByte("byte", 64);
         type.putShort("short", 1024);
         type.putUUID("uuid", UUID.nameUUIDFromBytes("Hello World".getBytes()));
+        type.putBitSet("bitSet", bitSet);
         type.putDouble("double", 123456.123456789);
         type.putFloat("float", 123.456f);
         type.putLong("long", 7342041283402173783L);
@@ -45,7 +56,7 @@ public class ReadWriteTests {
         inner.putLong("fileSize", 7_323_358_494L);
         type.put("Map", inner);
 
-        ListType list = new ListType(Types.STRING);
+        ListType<StringType> list = new ListType<>();
         list.add(new StringType("Glitch"));
         list.add(new StringType("Qboi"));
         list.add(new StringType("QTechCommunity"));
@@ -65,23 +76,66 @@ public class ReadWriteTests {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        MapType readMap;
+        try {
+            System.out.println("Reading normal map data...");
+            readMap = DataIo.read(new File("map-normal.ubo"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertEquals(readMap, type);
+
+        MapType readCompressedMap;
+        try {
+            System.out.println("Reading compressed map data...");
+            readCompressedMap = DataIo.readCompressed(new File("map-compressed.ubo"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertEquals(readCompressedMap, type);
     }
 
     @Test
-    @DisplayName("Read -> Map")
-    void readMap() {
+    @DisplayName("ListTypes")
+    void readWriteList() {
+        ListType<StringType> list = new ListType<>();
+        list.add(new StringType("Apple"));
+        list.add(new StringType("Banana"));
+        list.add(new StringType("Pear"));
+        list.add(new StringType("Orange"));
+        list.add(new StringType("Watermelon"));
+
         try {
-            System.out.println("Reading normal map data...");
-            MapType map = DataIo.read(new File("map-normal.ubo"));
+            System.out.println("Writing normal list data...");
+            DataIo.write(list, new File("list-normal.ubo"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            System.out.println("Reading compressed map data...");
-            MapType map = DataIo.readCompressed(new File("map-compressed.ubo"));
+            System.out.println("Writing compressed list data...");
+            DataIo.writeCompressed(list, new File("list-compressed.ubo"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        ListType<StringType> readList;
+        try {
+            System.out.println("Reading normal list data...");
+            readList = DataIo.read(new File("list-normal.ubo"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertEquals(readList, list);
+
+        ListType<StringType> readCompressedList;
+        try {
+            System.out.println("Reading compressed list data...");
+            readCompressedList = DataIo.readCompressed(new File("list-compressed.ubo"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assertions.assertEquals(readCompressedList, list);
     }
 }
