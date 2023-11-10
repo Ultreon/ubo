@@ -1,6 +1,11 @@
 package com.ultreon.data;
 
-public class FutureVersionException extends IllegalStateException {
+import java.io.IOException;
+
+/**
+ * An exception thrown when an attempt is made to read UBO data that is from a newer version than the current version.
+ */
+public class FutureVersionException extends IOException {
     private final short read;
     private final short current;
 

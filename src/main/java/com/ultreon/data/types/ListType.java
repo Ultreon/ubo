@@ -6,10 +6,7 @@ import com.ultreon.data.Types;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
@@ -32,12 +29,12 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     private ListType(Class<?> type) {
-        this(new ArrayList<>(), TypeRegistry.getId(type));
+        this(new ArrayList<>(), TypeRegistry.getIdOrThrow(type));
     }
 
     private ListType(List<T> obj, Class<?> type) {
         this.obj = obj;
-        this.id = TypeRegistry.getId(type);
+        this.id = TypeRegistry.getIdOrThrow(type);
         this.componentType = type;
     }
 
@@ -113,7 +110,10 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
             @Override
             public T next() {
-                return list.get(index++);
+                if (index++ >= list.size())
+                    throw new NoSuchElementException("No more elements in list");
+
+                return list.get(index);
             }
         };
     }

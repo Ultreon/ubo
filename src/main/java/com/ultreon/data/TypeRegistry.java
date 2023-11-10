@@ -46,6 +46,9 @@ public class TypeRegistry {
     }
 
     public static IType<?> read(int id, DataInputStream stream) throws IOException {
+        if (!READERS.containsKey(id))
+            throw new DataTypeException("Unknown datatype id: " + id);
+
         return READERS.get(id).read(stream);
     }
 
@@ -54,6 +57,13 @@ public class TypeRegistry {
     }
 
     public static int getId(Class<?> componentType) {
+        return ID_MAP.get(componentType.getName());
+    }
+
+    public static int getIdOrThrow(Class<?> componentType) {
+        if (!ID_MAP.containsKey(componentType.getName()))
+            throw new IllegalArgumentException("No type registered for " + componentType.getName());
+
         return ID_MAP.get(componentType.getName());
     }
 }

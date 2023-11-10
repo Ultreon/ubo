@@ -1,6 +1,11 @@
 package com.ultreon.data;
 
-public class DataTypeException extends RuntimeException {
+import java.io.IOException;
+
+/**
+ * Exception thrown when a data type cannot be read from or written to.
+ */
+public class DataTypeException extends IOException {
     public DataTypeException(String message) {
         super(message);
     }

@@ -25,6 +25,10 @@ public class DataIo {
         }
     }
 
+    /**
+     * @throws IOException when an I/O error occurs.
+     * @throws DataTypeException when the read data type is invalid.
+     */
     @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T extends IType<?>> T read(InputStream stream, T... type) throws IOException {
