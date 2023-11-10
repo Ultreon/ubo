@@ -32,7 +32,7 @@ public class BitSetType implements IType<BitSet> {
 
     @Override
     public int id() {
-        return Types.UUID;
+        return Types.BIT_SET;
     }
 
     @Override
