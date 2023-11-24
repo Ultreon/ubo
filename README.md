@@ -40,7 +40,7 @@ Check out the releases page for latest releases.
 
 ## Naming conventions
 The following conventions are for map keys:
- * `MapType` and `ListType` are in `DromedaryCase`.
+ * `MapType` and `ListType` are in `PascalCase`.
  * Any other types are in `camelCase`.
 
 Do note that in some cases keys can have a different case.  
