@@ -55,10 +55,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.size());
         for (Entry<String, IType<?>> e : obj.entrySet()) {
-            stream.writeShort(e.getKey().length());
-            for (byte aByte : e.getKey().getBytes(StandardCharsets.UTF_8)) {
-                stream.writeByte(aByte);
-            }
+            stream.writeUTF(e.getKey());
             IType<?> value = e.getValue();
             stream.writeByte(value.id());
             value.write(stream);
@@ -69,12 +66,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
         int len = stream.readInt();
         Map<String, IType<?>> map = new HashMap<>();
         for (int i = 0; i < len; i++) {
-            short strLen = stream.readShort();
-            byte[] bytes = new byte[strLen];
-            for (int j = 0; j < strLen; j++) {
-                bytes[j] = stream.readByte();
-            }
-            String key = new String(bytes, StandardCharsets.UTF_8);
+            String key = stream.readUTF();
             int id = stream.readUnsignedByte();
             map.put(key, TypeRegistry.read(id, stream));
         }
@@ -173,6 +165,10 @@ public class MapType implements IType<Map<String, IType<?>>> {
 
     public void putDoubleArray(String key, double[] value) {
         put(key, new DoubleArrayType(value));
+    }
+
+    public void putCharArray(String key, char[] value) {
+        put(key, new CharArrayType(value));
     }
 
     public void putBitSet(String key, byte[] value) {
@@ -391,6 +387,18 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return def;
     }
 
+    public char[] getCharArray(String key) {
+        return getCharArray(key, null);
+    }
+
+    public char[] getCharArray(String key, char[] def) {
+        IType<?> iType = get(key);
+        if (iType instanceof CharArrayType) {
+            return ((CharArrayType) iType).getValue();
+        }
+        return def;
+    }
+
     public BitSet getBitSet(String key) {
         return getBitSet(key, null);
     }
@@ -461,7 +469,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
         if (this == other) return true;
         if (!(other instanceof MapType)) return false;
         MapType mapType = (MapType) other;
-        return obj.equals(mapType.obj);
+        return Objects.equals(obj, mapType.obj);
     }
 
     @Override
@@ -474,7 +482,34 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return new MapType(obj.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().copy(), (a, b) -> b)));
     }
 
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("{");
+        for (Map.Entry<String, IType<?>> entry : obj.entrySet()) {
+            builder.append("\"").append(entry.getKey().replace("\"", "\\\"")).append("\": ").append(entry.getValue().writeUso()).append(", ");
+        }
+
+        if (this.obj.size() > 1) {
+            return builder.substring(0, builder.length() - 2) + "}";
+        }
+
+        return builder + "}";
+    }
+
     public int size() {
         return obj.size();
+    }
+
+    public void clear() {
+        obj.clear();
+    }
+
+    public boolean isEmpty() {
+        return obj.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
     }
 }

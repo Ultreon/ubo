@@ -55,4 +55,14 @@ public class ShortType implements IType<Short> {
     public ShortType copy() {
         return new ShortType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "s";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

@@ -55,4 +55,14 @@ public class DoubleType implements IType<Double> {
     public DoubleType copy() {
         return new DoubleType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "d";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

@@ -55,4 +55,14 @@ public class FloatType implements IType<Float> {
     public FloatType copy() {
         return new FloatType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "f";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

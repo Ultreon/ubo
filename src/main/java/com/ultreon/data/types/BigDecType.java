@@ -69,4 +69,14 @@ public class BigDecType implements IType<BigDecimal> {
     public BigDecType copy() {
         return new BigDecType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj.toString() + "D";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

@@ -64,4 +64,14 @@ public class StringType implements IType<String> {
     public StringType copy() {
         return new StringType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return "\"" + obj.replace("\"", "\\\"") + "\"";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

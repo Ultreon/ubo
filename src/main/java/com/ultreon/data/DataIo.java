@@ -1,14 +1,19 @@
 package com.ultreon.data;
 
-import com.ultreon.data.types.IType;
+import com.ultreon.data.types.*;
+import com.ultreon.data.util.DataTypeVisitor;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
+import java.util.BitSet;
+import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class DataIo {
-    private static final short VERSION = 2;
+    private static final short VERSION = 3;
     private static final int HEADER = 0xff804269;
 
     @SafeVarargs
@@ -124,5 +129,26 @@ public class DataIo {
         write(type, gzipStream);
         gzipStream.finish();
         gzipStream.flush();
+    }
+
+    public static String toUso(IType<?> type) {
+        return type.writeUso();
+    }
+
+    public static <T> T visit(DataTypeVisitor<T> visitor, IType<?> type) {
+        return type.accept(visitor);
+    }
+
+    @SuppressWarnings("unchecked")
+    @SafeVarargs
+    public static <T extends IType<?>> T fromUso(String value, T... type) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new StringReader(value))) {
+            IType<?> iType = readUso(reader.readLine());
+            return (T) iType;
+        }
+    }
+
+    private static IType<?> readUso(String value) throws IOException {
+        return new UsoParser(value).parse();
     }
 }

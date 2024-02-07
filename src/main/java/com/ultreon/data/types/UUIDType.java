@@ -60,4 +60,14 @@ public class UUIDType implements IType<UUID> {
     public UUIDType copy() {
         return new UUIDType(new UUID(obj.getMostSignificantBits(), obj.getLeastSignificantBits()));
     }
+
+    @Override
+    public String writeUso() {
+        return '<' + obj.toString() + '>';
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

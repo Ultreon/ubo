@@ -68,4 +68,23 @@ public class FloatArrayType implements IType<float[]> {
     public int size() {
         return obj.length;
     }
+
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("(f;");
+        for (float v : obj) {
+            builder.append(v).append(",");
+        }
+
+        if (obj.length > 0) {
+            return builder.substring(0, builder.length() - 1) + ")";
+        }
+
+        return builder.append(")").toString();
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

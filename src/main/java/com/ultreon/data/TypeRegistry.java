@@ -32,6 +32,7 @@ public class TypeRegistry {
         register(Types.LONG_ARRAY, LongArrayType::read);
         register(Types.FLOAT_ARRAY, FloatArrayType::read);
         register(Types.DOUBLE_ARRAY, DoubleArrayType::read);
+        register(Types.CHAR_ARRAY, CharArrayType::read);
         register(Types.UUID, UUIDType::read);
         register(Types.BIT_SET, BitSetType::read);
     }

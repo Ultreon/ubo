@@ -55,4 +55,14 @@ public class IntType implements IType<Integer> {
     public IntType copy() {
         return new IntType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "i";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

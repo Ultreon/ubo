@@ -1,3 +1,4 @@
+
 package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
@@ -7,51 +8,51 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ShortArrayType implements IType<short[]> {
-    private short[] obj;
+public class CharArrayType implements IType<char[]> {
+    private char[] obj;
 
-    public ShortArrayType(short[] obj) {
+    public CharArrayType(char[] obj) {
         this.obj = obj;
     }
 
     @Override
-    public short[] getValue() {
+    public char[] getValue() {
         return obj;
     }
 
     @Override
-    public void setValue(short[] obj) {
+    public void setValue(char[] obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
     }
 
     @Override
     public int id() {
-        return Types.SHORT_ARRAY;
+        return Types.CHAR_ARRAY;
     }
 
     @Override
     public void write(DataOutputStream stream) throws IOException {
         stream.writeInt(obj.length);
-        for (int i : obj) {
-            stream.writeShort(i);
+        for (char i : obj) {
+            stream.writeChar(i);
         }
     }
 
-    public static ShortArrayType read(DataInputStream stream) throws IOException {
+    public static CharArrayType read(DataInputStream stream) throws IOException {
         int len = stream.readInt();
-        short[] arr = new short[len];
+        char[] arr = new char[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readShort();
+            arr[i] = stream.readChar();
         }
-        return new ShortArrayType(arr);
+        return new CharArrayType(arr);
     }
 
     @Override
     public boolean equals(Object other) {
         if (this == other) return true;
-        if (!(other instanceof ShortArrayType)) return false;
-        ShortArrayType that = (ShortArrayType) other;
+        if (!(other instanceof CharArrayType)) return false;
+        CharArrayType that = (CharArrayType) other;
         return Arrays.equals(obj, that.obj);
     }
 
@@ -61,22 +62,22 @@ public class ShortArrayType implements IType<short[]> {
     }
 
     @Override
-    public ShortArrayType copy() {
-        return new ShortArrayType(obj.clone());
-    }
-
-    public int size() {
-        return obj.length;
+    public CharArrayType copy() {
+        return new CharArrayType(obj.clone());
     }
 
     @Override
     public String writeUso() {
-        StringBuilder builder = new StringBuilder("(s;");
-        for (short v : obj) {
-            builder.append(v).append(",");
+        StringBuilder builder = new StringBuilder("(c;");
+        for (char v : obj) {
+            builder.append("'").append(v == '\'' ? "\\'" : v).append("'").append(",");
         }
 
         return builder.substring(0, builder.length() - 1) + ")";
+    }
+
+    public int size() {
+        return obj.length;
     }
 
     @Override

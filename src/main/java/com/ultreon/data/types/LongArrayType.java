@@ -68,4 +68,19 @@ public class LongArrayType implements IType<long[]> {
     public int size() {
         return obj.length;
     }
+
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("(l;");
+        for (long v : obj) {
+            builder.append(v).append(",");
+        }
+
+        return builder.substring(0, builder.length() - 1) + ")";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

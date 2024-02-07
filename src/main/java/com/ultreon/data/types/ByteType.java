@@ -55,4 +55,14 @@ public class ByteType implements IType<Byte> {
     public ByteType copy() {
         return new ByteType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "b";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

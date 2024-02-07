@@ -68,4 +68,23 @@ public class DoubleArrayType implements IType<double[]> {
     public int size() {
         return obj.length;
     }
+
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("(d;");
+        for (double v : obj) {
+            builder.append(v).append(",");
+        }
+
+        if (obj.length > 0) {
+            return builder.substring(0, builder.length() - 1) + ")";
+        }
+
+        return builder.append(")").toString();
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

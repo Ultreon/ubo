@@ -24,6 +24,8 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    compileOnly(group: 'org.jetbrains', name: 'annotations', version: '23.0.0')
 }
 
 compileJava {
@@ -65,8 +67,8 @@ tasks.withType(GenerateModuleMetadata) {
 afterEvaluate {
     javadoc {
         source(sourceSets.main.allJava.sourceDirectories)
-        title = "CoreLibs"
-        description = "CoreLibs is the core library collection for Ultreon Team projects."
+        title = "Ultreon Data API (UBO/USO)"
+        description = "Extensible NBT-like data API."
         setDestinationDir(file("$rootProject.projectDir/build/docs/javadoc"))
         // Configure the classpath
         classpath = files(sourceSets.main.compileClasspath)

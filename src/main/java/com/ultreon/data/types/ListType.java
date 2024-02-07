@@ -94,6 +94,8 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     public void add(T type) {
+        if (type.id() != id)
+            throw new IllegalArgumentException("Type has invalid id: " + type.id() + " (expected " + id + ")");
         obj.add(type);
     }
 
@@ -165,7 +167,47 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
         return new ListType<>(obj.stream().map(t -> (T) t.copy()).collect(Collectors.toList()));
     }
 
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("[");
+        for (T t : obj)
+            builder.append(t.writeUso()).append(", ");
+
+        if (this.obj.size() > 0)
+            return builder.substring(0, builder.length() - 2) + "]";
+
+        return builder + "]";
+    }
+
     public int size() {
         return obj.size();
+    }
+
+    public void clear() {
+        obj.clear();
+    }
+
+    public T set(int index, T type) {
+        if (type.id() != id)
+            throw new IllegalArgumentException("Type at index " + index + " has invalid id: " + type.id() + " (expected " + id + ")");
+        return obj.set(index, type);
+    }
+
+    public T remove(T type) {
+        obj.remove(type);
+        return type;
+    }
+
+    public boolean contains(T type) {
+        return obj.contains(type);
+    }
+
+    public boolean isEmpty() {
+        return obj.isEmpty();
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
     }
 }

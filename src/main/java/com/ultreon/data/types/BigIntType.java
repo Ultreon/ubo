@@ -66,4 +66,14 @@ public class BigIntType implements IType<BigInteger> {
     public BigIntType copy() {
         return new BigIntType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj.toString() + "I";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

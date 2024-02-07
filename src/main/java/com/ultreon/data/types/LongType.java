@@ -55,4 +55,14 @@ public class LongType implements IType<Long> {
     public LongType copy() {
         return new LongType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj + "l";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

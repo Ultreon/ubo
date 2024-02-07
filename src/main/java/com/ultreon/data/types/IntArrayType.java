@@ -68,4 +68,19 @@ public class IntArrayType implements IType<int[]> {
     public int size() {
         return obj.length;
     }
+
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("(i;");
+        for (int v : obj) {
+            builder.append(v).append(",");
+        }
+
+        return builder.substring(0, builder.length() - 1) + ")";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

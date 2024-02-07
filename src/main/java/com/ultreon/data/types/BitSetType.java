@@ -11,8 +11,12 @@ import java.util.Objects;
 public class BitSetType implements IType<BitSet> {
     private BitSet obj;
 
-    public BitSetType(byte[] bytes) {
-        this.obj = BitSet.valueOf(bytes);
+    public BitSetType(byte[] bits) {
+        this.obj = BitSet.valueOf(bits);
+    }
+
+    public BitSetType(long[] bits) {
+        this.obj = BitSet.valueOf(bits);
     }
 
     public BitSetType(BitSet obj) {
@@ -70,5 +74,53 @@ public class BitSetType implements IType<BitSet> {
     @Override
     public BitSetType copy() {
         return new BitSetType((BitSet) this.obj.clone());
+    }
+
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("x");
+        for (int i = 0; i < obj.length(); i++) {
+            builder.append(obj.get(i) ? "1" : "0");
+        }
+
+        return builder.toString() + ";";
+    }
+
+    public void setBit(int index, boolean value) {
+        if (value) obj.set(index);
+        else obj.clear(index);
+    }
+
+    public boolean getBit(int index) {
+        return obj.get(index);
+    }
+
+    public int length() {
+        return obj.length();
+    }
+
+    public int cardinality() {
+        return obj.cardinality();
+    }
+
+    public int nextSetBit(int fromIndex) {
+        return obj.nextSetBit(fromIndex);
+    }
+
+    public int nextClearBit(int fromIndex) {
+        return obj.nextClearBit(fromIndex);
+    }
+
+    public int previousSetBit(int fromIndex) {
+        return obj.previousSetBit(fromIndex);
+    }
+
+    public int previousClearBit(int fromIndex) {
+        return obj.previousClearBit(fromIndex);
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
     }
 }

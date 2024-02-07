@@ -55,4 +55,14 @@ public class BooleanType implements IType<Boolean> {
     public BooleanType copy() {
         return new BooleanType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return obj ? "true" : "false";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }

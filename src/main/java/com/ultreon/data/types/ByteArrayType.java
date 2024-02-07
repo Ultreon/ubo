@@ -5,6 +5,9 @@ import com.ultreon.data.Types;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 public class ByteArrayType implements IType<byte[]> {
@@ -12,6 +15,34 @@ public class ByteArrayType implements IType<byte[]> {
 
     public ByteArrayType(byte[] obj) {
         this.obj = obj;
+    }
+
+    public ByteArrayType(ByteBuffer buffer) {
+        this.obj = new byte[buffer.remaining()];
+        buffer.get(obj);
+    }
+
+    public ByteArrayType(String str) {
+        this.obj = str.getBytes(StandardCharsets.UTF_8);
+    }
+
+    public ByteArrayType(String str, Charset charset) {
+        this.obj = str.getBytes(charset);
+    }
+
+    public ByteArrayType(int len) {
+        this.obj = new byte[len];
+    }
+
+    public ByteArrayType(byte[] obj, int len) {
+        this.obj = Arrays.copyOf(obj, len);
+    }
+
+    public ByteArrayType(Byte[] array) {
+        this.obj = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            this.obj[i] = array[i];
+        }
     }
 
     @Override
@@ -65,7 +96,22 @@ public class ByteArrayType implements IType<byte[]> {
         return new ByteArrayType(obj.clone());
     }
 
+    @Override
+    public String writeUso() {
+        StringBuilder builder = new StringBuilder("(b;");
+        for (byte v : obj) {
+            builder.append(v).append(",");
+        }
+
+        return builder.substring(0, builder.length() - 1) + ")";
+    }
+
     public int size() {
         return obj.length;
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
     }
 }

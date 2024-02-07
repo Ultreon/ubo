@@ -55,4 +55,14 @@ public class CharType implements IType<Character> {
     public CharType copy() {
         return new CharType(obj);
     }
+
+    @Override
+    public String writeUso() {
+        return "'" + (obj == '\'' ? "\\'" : String.valueOf(obj)) + "'";
+    }
+
+    @Override
+    public String toString() {
+        return writeUso();
+    }
 }
