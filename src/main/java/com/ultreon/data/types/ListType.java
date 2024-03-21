@@ -2,6 +2,7 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
+import org.jetbrains.annotations.Contract;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -112,10 +113,11 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
             @Override
             public T next() {
-                if (index++ >= list.size())
+                int oldIdx = index++;
+                if (oldIdx >= list.size())
                     throw new NoSuchElementException("No more elements in list");
 
-                return list.get(index);
+                return list.get(oldIdx);
             }
         };
     }
@@ -141,7 +143,14 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     public boolean remove(int index) {
-        return obj.remove(get(index));
+        if (index >= obj.size())
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        if (index < 0)
+            index = obj.size() + index;
+        if (index < 0)
+            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        obj.remove(index);
+        return true;
     }
 
     public T pop(int index) {

@@ -23,6 +23,13 @@ public class BitSetType implements IType<BitSet> {
         this.obj = obj;
     }
 
+    public BitSetType(String bits) {
+        this.obj = new BitSet(bits.length());
+        for (int i = 0; i < bits.length(); i++) {
+            this.obj.set(i, bits.charAt(i) == '1');
+        }
+    }
+
     @Override
     public BitSet getValue() {
         return obj;
@@ -83,7 +90,7 @@ public class BitSetType implements IType<BitSet> {
             builder.append(obj.get(i) ? "1" : "0");
         }
 
-        return builder.toString() + ";";
+        return builder + ";";
     }
 
     public void setBit(int index, boolean value) {

@@ -13,6 +13,10 @@ public class ShortType implements IType<Short> {
         this.obj = obj;
     }
 
+    public ShortType(int obj) {
+        this.obj = (short) obj;
+    }
+
     @Override
     public Short getValue() {
         return obj;

@@ -14,6 +14,10 @@ public class BigIntType implements IType<BigInteger> {
         this.obj = obj;
     }
 
+    public BigIntType(String number) {
+        this.obj = new BigInteger(number);
+    }
+
     @Override
     public BigInteger getValue() {
         return obj;

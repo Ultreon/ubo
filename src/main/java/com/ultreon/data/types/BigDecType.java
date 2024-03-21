@@ -15,6 +15,10 @@ public class BigDecType implements IType<BigDecimal> {
         this.obj = obj;
     }
 
+    public BigDecType(String number) {
+        this.obj = new BigDecimal(number);
+    }
+
     @Override
     public BigDecimal getValue() {
         return obj;

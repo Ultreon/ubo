@@ -13,6 +13,10 @@ public class ByteType implements IType<Byte> {
         this.obj = obj;
     }
 
+    public ByteType(int obj) {
+        this.obj = (byte) obj;
+    }
+
     @Override
     public Byte getValue() {
         return obj;
