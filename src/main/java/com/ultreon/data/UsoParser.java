@@ -51,7 +51,7 @@ public class UsoParser {
         StringBuilder builder = new StringBuilder();
         while (true) {
             int r = read();
-            if (r == -1) throw new EOFException("Invalid boolean: EOF");
+            if (r == -1) break;
             if (!Character.isAlphabetic(r)) break;
             builder.append((char) r);
         }

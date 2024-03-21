@@ -22,6 +22,8 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     @SafeVarargs
     public ListType(T... type) {
         this(type.getClass().getComponentType());
+
+        this.setValue(Arrays.asList(type));
     }
 
     @SafeVarargs
@@ -179,7 +181,7 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     @Override
     public String writeUso() {
         StringBuilder builder = new StringBuilder("[");
-        for (T t : obj)
+        for (T t : this)
             builder.append(t.writeUso()).append(", ");
 
         if (this.obj.size() > 0)

@@ -1,17 +1,20 @@
 package com.ultreon.tests.data;
 
 import com.ultreon.data.DataIo;
-import com.ultreon.data.types.ListType;
-import com.ultreon.data.types.MapType;
-import com.ultreon.data.types.StringType;
+import com.ultreon.data.types.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.BitSet;
+import java.util.Map;
+import java.util.UUID;
 
 class UsoReadWriteTests {
     @Test
@@ -58,5 +61,25 @@ class UsoReadWriteTests {
             throw new RuntimeException(e);
         }
         Assertions.assertEquals(readList, list);
+    }
+    
+    @Test
+    @DisplayName("PrimitiveTypes")
+    void readWritePrimitive() {
+        Assertions.assertEquals(DataIo.toUso(new StringType("Apple")), "\"Apple\"");
+        Assertions.assertEquals(DataIo.toUso(new BooleanType(true)), "true");
+        Assertions.assertEquals(DataIo.toUso(new ByteType(5)), "5b");
+        Assertions.assertEquals(DataIo.toUso(new ShortType(5)), "5s");
+        Assertions.assertEquals(DataIo.toUso(new IntType(5)), "5i");
+        Assertions.assertEquals(DataIo.toUso(new LongType(5)), "5l");
+        Assertions.assertEquals(DataIo.toUso(new FloatType(5.5f)), "5.5f");
+        Assertions.assertEquals(DataIo.toUso(new DoubleType(5.5)), "5.5d");
+        Assertions.assertEquals(DataIo.toUso(new CharType('a')), "'a'");
+        Assertions.assertEquals(DataIo.toUso(new BigIntType(BigInteger.ONE)), "1I");
+        Assertions.assertEquals(DataIo.toUso(new BigDecType(BigDecimal.ONE)), "1D");
+        Assertions.assertEquals(DataIo.toUso(new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000"))), "<00000000-0000-0000-0000-000000000000>");
+        Assertions.assertEquals(DataIo.toUso(new BitSetType(new BitSet())), "x;");
+        Assertions.assertEquals(DataIo.toUso(new ListType<>(new StringType("Apple"))), "[\"Apple\"]");
+        Assertions.assertEquals(DataIo.toUso(new MapType()), "{}");
     }
 }
