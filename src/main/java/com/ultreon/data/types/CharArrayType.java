@@ -3,8 +3,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -32,18 +32,18 @@ public class CharArrayType implements IType<char[]> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj.length);
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj.length);
         for (char i : obj) {
-            stream.writeChar(i);
+            output.writeChar(i);
         }
     }
 
-    public static CharArrayType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
+    public static CharArrayType read(DataInput input) throws IOException {
+        int len = input.readInt();
         char[] arr = new char[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readChar();
+            arr[i] = input.readChar();
         }
         return new CharArrayType(arr);
     }

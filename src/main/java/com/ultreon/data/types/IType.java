@@ -2,7 +2,7 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.util.DataTypeVisitor;
 
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 
 public interface IType<T> {
@@ -12,7 +12,7 @@ public interface IType<T> {
 
     int id();
 
-    void write(DataOutputStream stream) throws IOException;
+    void write(DataOutput output) throws IOException;
 
     boolean equals(Object other);
 

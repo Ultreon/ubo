@@ -2,10 +2,10 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
-import org.jetbrains.annotations.Contract;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -77,20 +77,20 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeByte(id);
-        stream.writeInt(obj.size());
+    public void write(DataOutput output) throws IOException {
+        output.writeByte(id);
+        output.writeInt(obj.size());
         for (IType<?> l : obj) {
-            l.write(stream);
+            l.write(output);
         }
     }
 
-    public static ListType<?> read(DataInputStream stream) throws IOException {
-        int id = stream.readUnsignedByte();
-        int len = stream.readInt();
-        List<IType<?>> list = new ArrayList<>();
+    public static ListType<?> read(DataInput input) throws IOException {
+        int id = input.readUnsignedByte();
+        int len = input.readInt();
+        List<IType<?>> list = new ArrayList<>(len);
         for (int i = 0; i < len; i++) {
-            list.add(TypeRegistry.read(id, stream));
+            list.add(TypeRegistry.read(id, input));
         }
 
         return new ListType<>(list, id);

@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.BitSet;
 import java.util.Objects;
@@ -47,20 +47,20 @@ public class BitSetType implements IType<BitSet> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
+    public void write(DataOutput output) throws IOException {
         byte[] arr = this.obj.toByteArray();
         if (arr.length >= 32768) throw new IllegalArgumentException("Bitset is too big to be written");
-        stream.writeShort(arr.length);
+        output.writeShort(arr.length);
         for (byte b : arr) {
-            stream.writeByte(b);
+            output.writeByte(b);
         }
     }
 
-    public static BitSetType read(DataInputStream stream) throws IOException {
-        int len = stream.readShort();
+    public static BitSetType read(DataInput input) throws IOException {
+        int len = input.readUnsignedShort();
         byte[] arr = new byte[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readByte();
+            arr[i] = input.readByte();
         }
         return new BitSetType(arr);
     }

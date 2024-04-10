@@ -3,12 +3,12 @@ package com.ultreon.data.types;
 import com.ultreon.data.TypeRegistry;
 import com.ultreon.data.Types;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -52,23 +52,23 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj.size());
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj.size());
         for (Entry<String, IType<?>> e : obj.entrySet()) {
-            stream.writeUTF(e.getKey());
+            output.writeUTF(e.getKey());
             IType<?> value = e.getValue();
-            stream.writeByte(value.id());
-            value.write(stream);
+            output.writeByte(value.id());
+            value.write(output);
         }
     }
 
-    public static MapType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
-        Map<String, IType<?>> map = new HashMap<>();
+    public static MapType read(DataInput input) throws IOException {
+        int len = input.readInt();
+        Map<String, IType<?>> map = new HashMap<>(len);
         for (int i = 0; i < len; i++) {
-            String key = stream.readUTF();
-            int id = stream.readUnsignedByte();
-            map.put(key, TypeRegistry.read(id, stream));
+            String key = input.readUTF();
+            int id = input.readUnsignedByte();
+            map.put(key, TypeRegistry.read(id, input));
         }
 
         return new MapType(map);

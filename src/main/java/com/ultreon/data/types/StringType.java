@@ -2,8 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
@@ -31,18 +32,18 @@ public class StringType implements IType<String> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeShort(obj.length());
+    public void write(DataOutput output) throws IOException {
+        output.writeShort(obj.length());
         for (byte aByte : obj.getBytes(StandardCharsets.UTF_8)) {
-            stream.writeByte(aByte);
+            output.writeByte(aByte);
         }
     }
 
-    public static StringType read(DataInputStream stream) throws IOException {
-        short strLen = stream.readShort();
+    public static StringType read(DataInput input) throws IOException {
+        int strLen = input.readUnsignedShort();
         byte[] bytes = new byte[strLen];
         for (int j = 0; j < strLen; j++) {
-            bytes[j] = stream.readByte();
+            bytes[j] = input.readByte();
         }
         return new StringType(new String(bytes, StandardCharsets.UTF_8));
     }

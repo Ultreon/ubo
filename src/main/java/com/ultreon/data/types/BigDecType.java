@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -36,21 +36,21 @@ public class BigDecType implements IType<BigDecimal> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
+    public void write(DataOutput output) throws IOException {
         byte[] bytes = obj.unscaledValue().toByteArray();
-        stream.writeInt(bytes.length);
-        stream.writeInt(obj.scale());
+        output.writeInt(bytes.length);
+        output.writeInt(obj.scale());
         for (byte aByte : bytes) {
-            stream.writeByte(aByte);
+            output.writeByte(aByte);
         }
     }
 
-    public static BigDecType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
-        int scale = stream.readInt();
+    public static BigDecType read(DataInput input) throws IOException {
+        int len = input.readInt();
+        int scale = input.readInt();
         byte[] bytes = new byte[len];
         for (int i = 0; i < len; i++) {
-            bytes[i] = stream.readByte();
+            bytes[i] = input.readByte();
         }
 
         return new BigDecType(new BigDecimal(new BigInteger(bytes), scale));
