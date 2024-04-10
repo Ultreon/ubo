@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.math.BigInteger;
 
@@ -35,19 +35,19 @@ public class BigIntType implements IType<BigInteger> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
+    public void write(DataOutput output) throws IOException {
         byte[] bytes = obj.toByteArray();
-        stream.writeInt(bytes.length);
+        output.writeInt(bytes.length);
         for (byte aByte : bytes) {
-            stream.writeByte(aByte);
+            output.writeByte(aByte);
         }
     }
 
-    public static BigIntType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
+    public static BigIntType read(DataInput input) throws IOException {
+        int len = input.readInt();
         byte[] bytes = new byte[len];
         for (int i = 0; i < len; i++) {
-            bytes[i] = stream.readByte();
+            bytes[i] = input.readByte();
         }
 
         return new BigIntType(new BigInteger(bytes));

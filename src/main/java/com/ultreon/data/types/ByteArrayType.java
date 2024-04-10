@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -62,18 +62,18 @@ public class ByteArrayType implements IType<byte[]> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj.length);
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj.length);
         for (byte b : obj) {
-            stream.writeByte(b);
+            output.writeByte(b);
         }
     }
 
-    public static ByteArrayType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
+    public static ByteArrayType read(DataInput input) throws IOException {
+        int len = input.readInt();
         byte[] arr = new byte[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readByte();
+            arr[i] = input.readByte();
         }
         return new ByteArrayType(arr);
     }

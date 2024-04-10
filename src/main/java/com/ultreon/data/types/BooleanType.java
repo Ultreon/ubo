@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 
 public class BooleanType implements IType<Boolean> {
@@ -30,12 +30,12 @@ public class BooleanType implements IType<Boolean> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeBoolean(obj);
+    public void write(DataOutput output) throws IOException {
+        output.writeBoolean(obj);
     }
 
-    public static BooleanType read(DataInputStream stream) throws IOException {
-        return new BooleanType(stream.readBoolean());
+    public static BooleanType read(DataInput input) throws IOException {
+        return new BooleanType(input.readBoolean());
     }
 
     @Override

@@ -2,8 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -32,14 +33,14 @@ public class UUIDType implements IType<UUID> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeLong(obj.getMostSignificantBits());
-        stream.writeLong(obj.getLeastSignificantBits());
+    public void write(DataOutput output) throws IOException {
+        output.writeLong(obj.getMostSignificantBits());
+        output.writeLong(obj.getLeastSignificantBits());
     }
 
-    public static UUIDType read(DataInputStream stream) throws IOException {
-        long msb = stream.readLong();
-        long lsb = stream.readLong();
+    public static UUIDType read(DataInput input) throws IOException {
+        long msb = input.readLong();
+        long lsb = input.readLong();
         return new UUIDType(new UUID(msb, lsb));
     }
 

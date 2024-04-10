@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -31,18 +31,18 @@ public class DoubleArrayType implements IType<double[]> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj.length);
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj.length);
         for (double i : obj) {
-            stream.writeDouble(i);
+            output.writeDouble(i);
         }
     }
 
-    public static DoubleArrayType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
+    public static DoubleArrayType read(DataInput input) throws IOException {
+        int len = input.readInt();
         double[] arr = new double[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readDouble();
+            arr[i] = input.readDouble();
         }
         return new DoubleArrayType(arr);
     }

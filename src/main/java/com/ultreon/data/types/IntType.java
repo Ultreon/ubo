@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 
 public class IntType implements IType<Integer> {
@@ -30,12 +30,12 @@ public class IntType implements IType<Integer> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj);
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj);
     }
 
-    public static IntType read(DataInputStream stream) throws IOException {
-        return new IntType(stream.readInt());
+    public static IntType read(DataInput input) throws IOException {
+        return new IntType(input.readInt());
     }
 
     @Override

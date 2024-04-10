@@ -2,8 +2,8 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.IOException;
 
 public class DoubleType implements IType<Double> {
@@ -30,12 +30,12 @@ public class DoubleType implements IType<Double> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeDouble(obj);
+    public void write(DataOutput output) throws IOException {
+        output.writeDouble(obj);
     }
 
-    public static DoubleType read(DataInputStream stream) throws IOException {
-        return new DoubleType(stream.readDouble());
+    public static DoubleType read(DataInput input) throws IOException {
+        return new DoubleType(input.readDouble());
     }
 
     @Override

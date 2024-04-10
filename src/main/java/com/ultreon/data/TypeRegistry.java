@@ -2,6 +2,7 @@ package com.ultreon.data;
 
 import com.ultreon.data.types.*;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,11 +47,11 @@ public class TypeRegistry {
         ID_MAP.put(componentType.getName(), id);
     }
 
-    public static IType<?> read(int id, DataInputStream stream) throws IOException {
+    public static IType<?> read(int id, DataInput input) throws IOException {
         if (!READERS.containsKey(id))
             throw new DataTypeException("Unknown datatype id: " + id);
 
-        return READERS.get(id).read(stream);
+        return READERS.get(id).read(input);
     }
 
     public static Class<? extends IType<?>> getType(int id) {
@@ -62,9 +63,12 @@ public class TypeRegistry {
     }
 
     public static int getIdOrThrow(Class<?> componentType) {
-        if (!ID_MAP.containsKey(componentType.getName()))
-            throw new IllegalArgumentException("No type registered for " + componentType.getName());
+        String name = componentType.getName();
+        Integer id = ID_MAP.get(name);
 
-        return ID_MAP.get(componentType.getName());
+        if (id == null)
+            throw new IllegalArgumentException("No type registered for " + name);
+
+        return id;
     }
 }

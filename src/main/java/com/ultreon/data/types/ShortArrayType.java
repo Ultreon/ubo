@@ -2,8 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -31,18 +32,18 @@ public class ShortArrayType implements IType<short[]> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeInt(obj.length);
+    public void write(DataOutput output) throws IOException {
+        output.writeInt(obj.length);
         for (int i : obj) {
-            stream.writeShort(i);
+            output.writeShort(i);
         }
     }
 
-    public static ShortArrayType read(DataInputStream stream) throws IOException {
-        int len = stream.readInt();
+    public static ShortArrayType read(DataInput input) throws IOException {
+        int len = input.readInt();
         short[] arr = new short[len];
         for (int i = 0; i < len; i++) {
-            arr[i] = stream.readShort();
+            arr[i] = input.readShort();
         }
         return new ShortArrayType(arr);
     }

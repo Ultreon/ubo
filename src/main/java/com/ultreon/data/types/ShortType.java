@@ -2,8 +2,9 @@ package com.ultreon.data.types;
 
 import com.ultreon.data.Types;
 
+import java.io.DataInput;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.DataOutput;
 import java.io.IOException;
 
 public class ShortType implements IType<Short> {
@@ -34,12 +35,12 @@ public class ShortType implements IType<Short> {
     }
 
     @Override
-    public void write(DataOutputStream stream) throws IOException {
-        stream.writeShort(obj);
+    public void write(DataOutput output) throws IOException {
+        output.writeShort(obj);
     }
 
-    public static ShortType read(DataInputStream stream) throws IOException {
-        return new ShortType(stream.readShort());
+    public static ShortType read(DataInput input) throws IOException {
+        return new ShortType(input.readShort());
     }
 
     @Override
