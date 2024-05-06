@@ -1,5 +1,3 @@
-import static java.lang.System.getenv
-
 plugins {
     id 'java'
     id 'java-library'
@@ -10,7 +8,7 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
-group 'io.github.ultreon'
+group 'dev.ultreon'
 version "${project_version}"
 
 base {

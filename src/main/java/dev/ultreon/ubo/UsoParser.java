@@ -1,0 +1,631 @@
+package dev.ultreon.ubo;
+
+import dev.ultreon.ubo.types.*;
+import dev.ultreon.ubo.types.*;
+
+import java.io.EOFException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.BitSet;
+import java.util.UUID;
+
+public class UsoParser {
+    private final String input;
+    private final char[] chars;
+    private int pos;
+    private char c;
+
+    public UsoParser(String input) {
+        this.input = input;
+        this.chars = input.toCharArray();
+    }
+
+    private IType<?> readUso() throws IOException {
+        int read = read();
+        switch (read) {
+            case '[':
+                return readList();
+            case '{':
+                return readMap();
+            case '(':
+                return readArray();
+            case '<':
+                return readUUID();
+            case '"':
+                return readString();
+            case '\'':
+                return new CharType(readChar());
+            case 'x':
+                return readBitSet();
+            case 't':
+            case 'f':
+                this.unread();
+                return readBoolean();
+            default:
+                if (Character.isDigit(read)) return readNumber(read);
+                throw new IOException("Invalid USO: " + (char) read);
+        }
+    }
+
+    private IType<?> readBoolean() throws IOException {
+        StringBuilder builder = new StringBuilder();
+        while (true) {
+            int r = read();
+            if (r == -1) break;
+            if (!Character.isAlphabetic(r)) break;
+            builder.append((char) r);
+        }
+
+        unread();
+
+        String string = builder.toString();
+        if (string.equalsIgnoreCase("true")) return new BooleanType(true);
+        if (string.equalsIgnoreCase("false")) return new BooleanType(false);
+        throw new IOException("Invalid boolean: " + string);
+    }
+
+    private IType<?> readArray() throws IOException {
+        int read = read();
+        switch ((char) read) {
+            case 'b':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readByteArray();
+            case 's':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readShortArray();
+            case 'i':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readIntArray();
+            case 'l':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readLongArray();
+            case 'f':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readFloatArray();
+            case 'd':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readDoubleArray();
+            case 'B':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readBitSet();
+            case 'c':
+                if (read() != ';') throw new IOException("Invalid array: expected ';'");
+                return readCharArray();
+            default:
+                throw new IOException("Invalid array");
+        }
+    }
+
+    private CharArrayType readCharArray() throws IOException {
+        char[] chars = new char[0];
+        while (true) {
+            int r;
+            if ((r = read()) == -1) {
+                throw new EOFException("Invalid character: EOF");
+            }
+
+            if (r != '\'') {
+                throw new IOException("Invalid character: expected ' but got " + (char) r);
+            }
+
+            char c = readChar();
+
+            r = read();
+
+            chars = add(chars, c);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected , or ) but got " + (char) r);
+        }
+
+        return new CharArrayType(chars);
+    }
+
+    private ByteArrayType readByteArray() throws IOException {
+        byte[] bytes = new byte[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r)) break;
+                builder.append((char) r);
+                first = false;
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+
+            byte number = Byte.parseByte(builder.toString());
+            bytes = add(bytes, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new ByteArrayType(bytes);
+    }
+
+    private ShortArrayType readShortArray() throws IOException {
+        short[] shorts = new short[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r)) break;
+                builder.append((char) r);
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+            short number = Short.parseShort(builder.toString());
+            shorts = add(shorts, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new ShortArrayType(shorts);
+    }
+
+    private IntArrayType readIntArray() throws IOException {
+        int[] ints = new int[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r)) break;
+                builder.append((char) r);
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+            int number = Integer.parseInt(builder.toString());
+            ints = add(ints, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new IntArrayType(ints);
+    }
+
+    private LongArrayType readLongArray() throws IOException {
+        long[] longs = new long[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r)) break;
+                builder.append((char) r);
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+            long number = Long.parseLong(builder.toString());
+            longs = add(longs, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new LongArrayType(longs);
+    }
+
+    private FloatArrayType readFloatArray() throws IOException {
+        float[] floats = new float[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r) && r != '.') break;
+                builder.append((char) r);
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+            float number = Float.parseFloat(builder.toString());
+            floats = add(floats, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new FloatArrayType(floats);
+    }
+
+    private DoubleArrayType readDoubleArray() throws IOException {
+        double[] doubles = new double[0];
+        while (true) {
+            StringBuilder builder = new StringBuilder();
+            int r;
+            boolean first = true;
+            while (true) {
+                r = read();
+                if (first && r == '-') {
+                    builder.append((char) r);
+                    first = false;
+                    continue;
+                }
+                if (!Character.isDigit(r) && r != '.') break;
+                builder.append((char) r);
+            }
+
+            if (r == -1) {
+                throw new IOException("Invalid number");
+            }
+
+            double number = Double.parseDouble(builder.toString());
+            doubles = add(doubles, number);
+
+            if (r == ',') continue;
+            if (r == ')') break;
+            throw new IOException("Invalid array: expected ',' or ')' but got " + (char) r);
+        }
+
+        return new DoubleArrayType(doubles);
+    }
+
+    private char readChar() throws IOException {
+        int read = read();
+        if (read == '\\') {
+            read = read();
+            if (read == 't') {
+                read = '\t';
+            } else if (read == 'n') {
+                read = '\n';
+            } else if (read == 'r') {
+                read = '\r';
+            } else if (read == 'b') {
+                read = '\b';
+            } else if (read == 'f') {
+                read = '\f';
+            } else if (read == '0') {
+                read = '\0';
+            } else if (read == 'u') {
+                read = read();
+                read = (read << 4) + read();
+                read = (read << 4) + read();
+                read = (read << 4) + read();
+            }
+        } else if (read == -1) {
+            throw new EOFException("Invalid char: reached end of stream");
+        }
+
+        if (read() != '\'') throw new IOException("Invalid char: expected ' but got " + (char) read);
+        return (char) read;
+    }
+
+    private byte[] add(byte[] bytes, byte number) {
+        byte[] newBytes = new byte[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private short[] add(short[] bytes, short number) {
+        short[] newBytes = new short[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private int[] add(int[] bytes, int number) {
+        int[] newBytes = new int[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private long[] add(long[] bytes, long number) {
+        long[] newBytes = new long[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private float[] add(float[] bytes, float number) {
+        float[] newBytes = new float[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private double[] add(double[] bytes, double number) {
+        double[] newBytes = new double[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private char[] add(char[] bytes, char number) {
+        char[] newBytes = new char[bytes.length + 1];
+        System.arraycopy(bytes, 0, newBytes, 0, bytes.length);
+        newBytes[bytes.length] = number;
+        return newBytes;
+    }
+
+    private BitSetType readBitSet() throws IOException {
+        BitSet set = new BitSet();
+        int i = 0;
+
+        loop:
+        while (true) {
+            int read = read();
+            switch (read) {
+                case '0':
+                    set.clear(i);
+                    break;
+                case '1':
+                    set.set(i);
+                    break;
+                case ';':
+                    break loop;
+                case -1:
+                    throw new EOFException("Invalid bitset: EOF");
+                default:
+                    throw new IOException("Invalid bitset: expected '0', '1' or ';', got " + (char) read);
+            }
+            i++;
+        }
+
+        return new BitSetType(set);
+    }
+
+    private IType<?> readNumber(int read) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        builder.append((char) read);
+        while (true) {
+            read = read();
+            if (!Character.isDigit(read) && read != '.') break;
+            builder.append((char) read);
+        }
+
+        if (read == -1) {
+            throw new IOException("Invalid number");
+        }
+
+        switch ((char) read) {
+            case 'b':
+                return new ByteType(Byte.parseByte(builder.toString()));
+            case 's':
+                return new ShortType(Short.parseShort(builder.toString()));
+            case 'i':
+                return new IntType(Integer.parseInt(builder.toString()));
+            case 'l':
+                return new LongType(Long.parseLong(builder.toString()));
+            case 'f':
+                return new FloatType(Float.parseFloat(builder.toString()));
+            case 'd':
+                return new DoubleType(Double.parseDouble(builder.toString()));
+            case 'I':
+                return new BigIntType(new BigInteger(builder.toString()));
+            case 'D':
+                return new BigDecType(new BigDecimal(builder.toString()));
+            default:
+                throw new IOException("Invalid number");
+        }
+    }
+
+    private IType<?> readList() throws IOException {
+        IType<?> iType = readUso();
+        if (iType == null) {
+            throw new IOException("Invalid list: expected at least one element");
+        }
+
+        int id = iType.id();
+        int read = read();
+        if (read == ']') {
+            ListType<IType<?>> list = new ListType<>(id);
+            list.add(iType);
+            return list;
+        } else if (read != ',') {
+            throw new IOException("Invalid list: expected ',' or ']'");
+        }
+
+        readWhitespace();
+
+        ListType<IType<?>> list = new ListType<>(id);
+        list.add(iType);
+        while (true) {
+            IType<?> cur = readUso();
+            if (cur == null) {
+                throw new IOException("Invalid list: invalid element at index " + list.size());
+            }
+
+            if (cur.id() != id) {
+                throw new IOException("Invalid list, ID mismatch: should be " + id + " but was " + cur.id());
+            }
+
+            list.add(cur);
+
+            readWhitespace();
+            read = read();
+            if (read == ',') {
+                readWhitespace();
+                read = read();
+                if (read == ']') {
+                    return list;
+                } else {
+                    unread();
+                }
+            } else if (read == ']') {
+                return list;
+            } else {
+                throw new IOException("Invalid list: expected ',' or ']' but got " + (char) read);
+            }
+        }
+    }
+
+    private IType<?> readMap() throws IOException {
+        MapType map = new MapType();
+        int read = read();
+        while (read != '}') {
+            if (read != '"') throw new IOException("Invalid map: expected '\"' but got " + (char) read);
+            StringType key = readString();
+
+            readWhitespace();
+            if (read() != ':') throw new IOException("Invalid map: expected ':' but got " + (char) read);
+            read();
+            readWhitespace();
+            IType<?> value = readUso();
+
+            map.put(key.getValue(), value);
+
+            readWhitespace();
+            read = read();
+            if (read == ',') {
+                readWhitespace();
+                read = read();
+                if (read == '}') {
+                    read();
+                    break;
+                }
+            } else if (read == '}') {
+                break;
+            } else {
+                throw new IOException("Invalid map: expected ',' or '}' but got " + (char) read);
+            }
+        }
+
+        return map;
+    }
+
+    private StringType readString() {
+        StringBuilder builder = new StringBuilder();
+        int read = read();
+        while (read != '"') {
+            builder.append((char) read);
+            if (read == '\\') {
+                read = read();
+                if (read == 'n') {
+                    builder.append('\n');
+                } else if (read == 'r') {
+                    builder.append('\r');
+                } else if (read == 't') {
+                    builder.append('\t');
+                } else if (read == 'b') {
+                    builder.append('\b');
+                } else if (read == 'f') {
+                    builder.append('\f');
+                } else if (read == '0') {
+                    builder.append('\0');
+                } else if (read == 'u') {
+                    builder.append((char) (read() << 12
+                            | read() << 8
+                            | read() << 4
+                            | read()));
+                } else {
+                    builder.append((char) read);
+                }
+            }
+            read = read();
+        }
+        return new StringType(builder.toString());
+    }
+
+    private void readWhitespace() {
+        while (true) {
+            int read = read();
+            if (!Character.isWhitespace(read)) {
+                unread();
+                return;
+            }
+        }
+    }
+
+    private UUIDType readUUID() throws IOException {
+        StringBuilder builder = new StringBuilder();
+        while (true) {
+            int read = read();
+            if (read == '>') break;
+
+            if (read == -1) throw new EOFException("Invalid UUID: EOF");
+
+            if (Character.isWhitespace(read)) continue;
+
+            builder.append((char) read);
+        }
+
+        try {
+            return new UUIDType(UUID.fromString(builder.toString()));
+        } catch (IllegalArgumentException e) {
+            throw new IOException("Invalid UUID: " + builder, e);
+        }
+    }
+
+    private int unread() {
+        if (this.pos <= 0) {
+            return -1;
+        }
+
+        return this.c = this.chars[--this.pos];
+    }
+
+    private int read() {
+        if (this.pos >= this.chars.length) {
+            return -1;
+        }
+
+        return this.c = this.chars[this.pos++];
+    }
+
+    public IType<?> parse() throws IOException {
+        try {
+            return readUso();
+        } catch (Exception e) {
+            throw new IOException("Unable to parse USO at pos " + pos + ": " + e.getMessage(), e);
+        }
+    }
+}

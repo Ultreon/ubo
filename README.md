@@ -17,22 +17,22 @@ Assuming you use gradle.
         implementation 'io.github.ultreon:ubo:1.2.1+patch.1'
     }
     ```
-3.  We can now proceed to the using section. The `DataIo` class is capable of reading and writing UBO data.  
+3. We can now proceed to the using section. The `DataIo` class is capable of reading and writing UBO data.  
     Example:
-    ```java
-    import com.ultreon.data.DataIo;
-    import com.ultreon.data.types.MapType;
-    import java.io.File;
-    
-    public class DataTest {
-        public static void main(String[] args) {
-            MapType type = new MapType();
-            type.putString("greetings", "Hello World");
-            
-            DataIo.write(type, new File("data.ubo"));
-        }
-    }
-    ```
+   ```java
+   import dev.ultreon.ubo.DataIo;
+   import dev.ultreon.ubo.types.MapType;
+   import java.io.File;
+   
+   public class DataTest {
+       public static void main(String[] args) {
+           MapType type = new MapType();
+           type.putString("greetings", "Hello World");
+           
+           DataIo.write(type, new File("data.ubo"));
+       }
+   }
+   ```
 4.  You can now build it. You can change the example in step 3 to suit your needs. 
 
 ~~Here's the [jitpack listing](https://jitpack.io/#Ultreon/ultreon-data) for the current versions and builds you can use.~~ (Temporarily not used)  
