@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.ultreon.data"},{"l":"com.ultreon.data.types"},{"l":"com.ultreon.data.util"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"dev.ultreon.ubo"},{"l":"dev.ultreon.ubo.types"},{"l":"dev.ultreon.ubo.util"}];updateSearchResults();
