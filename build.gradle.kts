@@ -106,39 +106,6 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            url = uri("file://${rootProject.projectDir}/.mvnrepo")
-        }
-
-        val ossrhUsername = findProperty("ossrh.username") ?: System.getenv("OSSRH_USERNAME")
-        val ossrhPassword = findProperty("ossrh.password") ?: System.getenv("OSSRH_PASSWORD")
-
-        if (ossrhUsername != null && ossrhPassword != null) {
-            maven {
-                name = "OssSonatype"
-                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-
-                credentials {
-                    username = ossrhUsername.toString()
-                    password = ossrhPassword.toString()
-                }
-
-            }
-
-            maven {
-                name = "OssSnapshots"
-                url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-
-                credentials {
-                    username = ossrhUsername.toString()
-                    password = ossrhPassword.toString()
-                }
-            }
-        } else {
-            logger.warn("No OSSRH credentials found, skipping upload to OSSRH.")
-        }
-    }
 }
 
 tasks.test {
@@ -149,11 +116,6 @@ tasks.publish.get().dependsOn(tasks.build)
 
 tasks.withType<GenerateModuleMetadata> {
     enabled = false
-}
-
-extensions.configure<SigningExtension>("signing") {
-    useGpgCmd()
-    sign(publishing.publications["mavenJava"])
 }
 
 afterEvaluate {
