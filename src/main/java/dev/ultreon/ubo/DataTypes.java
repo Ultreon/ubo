@@ -1,6 +1,6 @@
 package dev.ultreon.ubo;
 
-public class Types {
+public class DataTypes {
     public static int BYTE = 0x01;
     public static int SHORT = 0x02;
     public static int INT = 0x03;

@@ -1,6 +1,6 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class BigDecType implements IType<BigDecimal> {
+public class BigDecType implements DataType<BigDecimal> {
     private BigDecimal obj;
 
     public BigDecType(BigDecimal obj) {
@@ -32,7 +32,7 @@ public class BigDecType implements IType<BigDecimal> {
 
     @Override
     public int id() {
-        return Types.BIG_DEC;
+        return DataTypes.BIG_DEC;
     }
 
     @Override

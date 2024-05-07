@@ -1,6 +1,6 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-public class ByteArrayType implements IType<byte[]> {
+public class ByteArrayType implements DataType<byte[]> {
     private byte[] obj;
 
     public ByteArrayType(byte[] obj) {
@@ -58,7 +58,7 @@ public class ByteArrayType implements IType<byte[]> {
 
     @Override
     public int id() {
-        return Types.BYTE_ARRAY;
+        return DataTypes.BYTE_ARRAY;
     }
 
     @Override

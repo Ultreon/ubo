@@ -1,6 +1,6 @@
 package dev.ultreon.ubo.util;
 
-import dev.ultreon.ubo.types.IType;
+import dev.ultreon.ubo.types.DataType;
 import dev.ultreon.ubo.types.ListType;
 import dev.ultreon.ubo.types.MapType;
 
@@ -13,28 +13,28 @@ import java.util.Map;
  * @author XyperCode
  */
 public interface DataTypeVisitor<T> {
-    DataTypeVisitor<String> WRITE_USO = IType::writeUso;
+    DataTypeVisitor<String> WRITE_USO = DataType::writeUso;
 
     /**
      * Visits a data type.
      *
-     * @param type the data type to visit.
+     * @param dataType the data type to visit.
      * @return the result of visiting the data type.
      */
-    T visit(IType<?> type);
+    T visit(DataType<?> dataType);
 
     /**
      * Creates a data type visitor that deep copies the data type.
      *
      * @return the copied data type visitor.
      */
-    static DataTypeVisitor<IType<?>> deepCopy() {
+    static DataTypeVisitor<DataType<?>> deepCopy() {
         return type1 -> {
             if (type1 instanceof ListType<?>) {
                 ListType<?> original = (ListType<?>) type1;
-                ListType<IType<?>> listType = new ListType<>(original.type());
-                for (IType<?> iType : ((ListType<?>) type1).getValue()) {
-                    listType.add(deepCopy(iType));
+                ListType<DataType<?>> listType = new ListType<>(original.type());
+                for (DataType<?> dataType : ((ListType<?>) type1).getValue()) {
+                    listType.add(deepCopy(dataType));
                 }
 
                 return listType;
@@ -42,7 +42,7 @@ public interface DataTypeVisitor<T> {
 
             if (type1 instanceof MapType) {
                 MapType mapType = new MapType();
-                for (Map.Entry<String, IType<?>> entry : ((MapType) type1).getValue().entrySet()) {
+                for (Map.Entry<String, DataType<?>> entry : ((MapType) type1).getValue().entrySet()) {
                     mapType.put(entry.getKey(), deepCopy(entry.getValue()));
                 }
 
@@ -61,7 +61,7 @@ public interface DataTypeVisitor<T> {
      * @param <T> the type of the data type.
      */
     @SuppressWarnings("unchecked")
-    static <T extends IType<?>> T deepCopy(T type) {
+    static <T extends DataType<?>> T deepCopy(T type) {
         return (T) type.accept(deepCopy());
     }
 }

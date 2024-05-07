@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class FloatType implements IType<Float> {
+public class FloatType implements DataType<Float> {
     private float obj;
 
     public FloatType(float obj) {
@@ -26,7 +26,7 @@ public class FloatType implements IType<Float> {
 
     @Override
     public int id() {
-        return Types.FLOAT;
+        return DataTypes.FLOAT;
     }
 
     @Override

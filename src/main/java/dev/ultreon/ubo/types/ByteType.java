@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class ByteType implements IType<Byte> {
+public class ByteType implements DataType<Byte> {
     private byte obj;
 
     public ByteType(byte obj) {
@@ -30,7 +30,7 @@ public class ByteType implements IType<Byte> {
 
     @Override
     public int id() {
-        return Types.BYTE;
+        return DataTypes.BYTE;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class CharType implements IType<Character> {
+public class CharType implements DataType<Character> {
     private char obj;
 
     public CharType(char obj) {
@@ -26,7 +26,7 @@ public class CharType implements IType<Character> {
 
     @Override
     public int id() {
-        return Types.CHAR;
+        return DataTypes.CHAR;
     }
 
     @Override

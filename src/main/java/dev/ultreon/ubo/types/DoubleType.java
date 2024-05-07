@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class DoubleType implements IType<Double> {
+public class DoubleType implements DataType<Double> {
     private double obj;
 
     public DoubleType(double obj) {
@@ -26,7 +26,7 @@ public class DoubleType implements IType<Double> {
 
     @Override
     public int id() {
-        return Types.DOUBLE;
+        return DataTypes.DOUBLE;
     }
 
     @Override

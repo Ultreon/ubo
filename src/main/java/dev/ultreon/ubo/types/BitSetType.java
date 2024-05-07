@@ -1,6 +1,6 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.BitSet;
 import java.util.Objects;
 
-public class BitSetType implements IType<BitSet> {
+public class BitSetType implements DataType<BitSet> {
     private BitSet obj;
 
     public BitSetType(byte[] bits) {
@@ -43,7 +43,7 @@ public class BitSetType implements IType<BitSet> {
 
     @Override
     public int id() {
-        return Types.BIT_SET;
+        return DataTypes.BIT_SET;
     }
 
     @Override

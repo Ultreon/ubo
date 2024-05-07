@@ -1,6 +1,6 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
-public class UUIDType implements IType<UUID> {
+public class UUIDType implements DataType<UUID> {
     private UUID obj;
 
     public UUIDType(UUID obj) {
@@ -28,7 +28,7 @@ public class UUIDType implements IType<UUID> {
 
     @Override
     public int id() {
-        return Types.UUID;
+        return DataTypes.UUID;
     }
 
     @Override

@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.math.BigInteger;
 
-public class BigIntType implements IType<BigInteger> {
+public class BigIntType implements DataType<BigInteger> {
     private BigInteger obj;
 
     public BigIntType(BigInteger obj) {
@@ -31,7 +31,7 @@ public class BigIntType implements IType<BigInteger> {
 
     @Override
     public int id() {
-        return Types.BIG_INT;
+        return DataTypes.BIG_INT;
     }
 
     @Override

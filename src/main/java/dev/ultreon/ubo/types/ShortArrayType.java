@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ShortArrayType implements IType<short[]> {
+public class ShortArrayType implements DataType<short[]> {
     private short[] obj;
 
     public ShortArrayType(short[] obj) {
@@ -27,7 +27,7 @@ public class ShortArrayType implements IType<short[]> {
 
     @Override
     public int id() {
-        return Types.SHORT_ARRAY;
+        return DataTypes.SHORT_ARRAY;
     }
 
     @Override

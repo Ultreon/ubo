@@ -5,10 +5,10 @@ plugins {
 
 }
 
-apply(plugin="java")
-apply(plugin="java-library")
-apply(plugin="maven-publish")
-apply(plugin="signing")
+apply(plugin = "java")
+apply(plugin = "java-library")
+apply(plugin = "maven-publish")
+apply(plugin = "signing")
 
 group = project.property("group")!!
 version = "${project.property("version")}"
@@ -28,10 +28,10 @@ dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
-//tasks.compileJava {
-//    sourceCompatibility = JavaVersion("1.8")
-//    targetCompatibility = JavaVersion("1.8")
-//}
+tasks.compileJava {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+}
 
 java {
     withSourcesJar()
@@ -46,6 +46,64 @@ publishing {
     publications {
         register("mavenJava", MavenPublication::class) {
             from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+
+            pom {
+                name.set("UBO")
+                description.set("Extensible NBT-like data API.")
+
+                url.set("https://github.com/Ultreon/ubo")
+                inceptionYear.set("2022")
+
+                developers {
+                    developer {
+                        name.set("XyperCode")
+                        email.set("qboiwastaken@gmail.com")
+
+                        organization.set("Ultreon")
+                        organizationUrl.set("https://github.com/Ultreon")
+                    }
+                }
+
+                organization {
+                    name.set("Ultreon")
+                    url.set("https://github.com/Ultreon")
+                }
+
+                issueManagement {
+                    system.set("GitHub")
+                    url.set("https://github.com/Ultreon/ubo/issues")
+                }
+
+                licenses {
+                    license {
+                        name.set("Apache License")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/Ultreon/ubo.git")
+                    developerConnection.set("scm:git:ssh://github.com/Ultreon/ubo.git")
+
+                    url.set("https://github.com/Ultreon/ubo/tree/main")
+                }
+
+                contributors {
+                    contributor {
+                        name.set("XyperCode")
+                        url.set("https://github.com/XyperCode")
+                    }
+
+                    contributor {
+                        name.set("AndEditor7")
+                        url.set("https://github.com/AndEditor7")
+                    }
+                }
+            }
         }
     }
     repositories {
@@ -56,26 +114,29 @@ publishing {
         val ossrhUsername = findProperty("ossrh.username") ?: System.getenv("OSSRH_USERNAME")
         val ossrhPassword = findProperty("ossrh.password") ?: System.getenv("OSSRH_PASSWORD")
 
-        maven {
-            name = "OssSonatype"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                if (ossrhUsername != null && ossrhPassword != null) {
-                    username = ossrhUsername.toString()
-                    password = ossrhPassword.toString()
-                }
-            }
-        }
+        if (ossrhUsername != null && ossrhPassword != null) {
+            maven {
+                name = "OssSonatype"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
 
-        maven {
-            name = "OssSnapshots"
-            url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            credentials {
-                if (ossrhUsername != null && ossrhPassword != null) {
+                credentials {
+                    username = ossrhUsername.toString()
+                    password = ossrhPassword.toString()
+                }
+
+            }
+
+            maven {
+                name = "OssSnapshots"
+                url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+
+                credentials {
                     username = ossrhUsername.toString()
                     password = ossrhPassword.toString()
                 }
             }
+        } else {
+            logger.warn("No OSSRH credentials found, skipping upload to OSSRH.")
         }
     }
 }
@@ -90,9 +151,10 @@ tasks.withType<GenerateModuleMetadata> {
     enabled = false
 }
 
-//tasks.signing {
-//    sign(configurations["archives"])
-//}
+extensions.configure<SigningExtension>("signing") {
+    useGpgCmd()
+    sign(publishing.publications["mavenJava"])
+}
 
 afterEvaluate {
     tasks.javadoc {

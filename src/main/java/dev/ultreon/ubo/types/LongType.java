@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class LongType implements IType<Long> {
+public class LongType implements DataType<Long> {
     private long obj;
 
     public LongType(long obj) {
@@ -26,7 +26,7 @@ public class LongType implements IType<Long> {
 
     @Override
     public int id() {
-        return Types.LONG;
+        return DataTypes.LONG;
     }
 
     @Override

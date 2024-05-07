@@ -1,7 +1,6 @@
 package dev.ultreon.ubo;
 
 import dev.ultreon.ubo.types.*;
-import dev.ultreon.ubo.types.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class UsoParser {
         this.chars = input.toCharArray();
     }
 
-    private IType<?> readUso() throws IOException {
+    private DataType<?> readUso() throws IOException {
         int read = read();
         switch (read) {
             case '[':
@@ -48,7 +47,7 @@ public class UsoParser {
         }
     }
 
-    private IType<?> readBoolean() throws IOException {
+    private DataType<?> readBoolean() throws IOException {
         StringBuilder builder = new StringBuilder();
         while (true) {
             int r = read();
@@ -65,7 +64,7 @@ public class UsoParser {
         throw new IOException("Invalid boolean: " + string);
     }
 
-    private IType<?> readArray() throws IOException {
+    private DataType<?> readArray() throws IOException {
         int read = read();
         switch ((char) read) {
             case 'b':
@@ -423,7 +422,7 @@ public class UsoParser {
         return new BitSetType(set);
     }
 
-    private IType<?> readNumber(int read) throws IOException {
+    private DataType<?> readNumber(int read) throws IOException {
         StringBuilder builder = new StringBuilder();
         builder.append((char) read);
         while (true) {
@@ -458,17 +457,17 @@ public class UsoParser {
         }
     }
 
-    private IType<?> readList() throws IOException {
-        IType<?> iType = readUso();
-        if (iType == null) {
+    private DataType<?> readList() throws IOException {
+        DataType<?> dataType = readUso();
+        if (dataType == null) {
             throw new IOException("Invalid list: expected at least one element");
         }
 
-        int id = iType.id();
+        int id = dataType.id();
         int read = read();
         if (read == ']') {
-            ListType<IType<?>> list = new ListType<>(id);
-            list.add(iType);
+            ListType<DataType<?>> list = new ListType<>(id);
+            list.add(dataType);
             return list;
         } else if (read != ',') {
             throw new IOException("Invalid list: expected ',' or ']'");
@@ -476,10 +475,10 @@ public class UsoParser {
 
         readWhitespace();
 
-        ListType<IType<?>> list = new ListType<>(id);
-        list.add(iType);
+        ListType<DataType<?>> list = new ListType<>(id);
+        list.add(dataType);
         while (true) {
-            IType<?> cur = readUso();
+            DataType<?> cur = readUso();
             if (cur == null) {
                 throw new IOException("Invalid list: invalid element at index " + list.size());
             }
@@ -508,7 +507,7 @@ public class UsoParser {
         }
     }
 
-    private IType<?> readMap() throws IOException {
+    private DataType<?> readMap() throws IOException {
         MapType map = new MapType();
         int read = read();
         while (read != '}') {
@@ -519,7 +518,7 @@ public class UsoParser {
             if (read() != ':') throw new IOException("Invalid map: expected ':' but got " + (char) read);
             read();
             readWhitespace();
-            IType<?> value = readUso();
+            DataType<?> value = readUso();
 
             map.put(key.getValue(), value);
 
@@ -621,7 +620,7 @@ public class UsoParser {
         return this.c = this.chars[this.pos++];
     }
 
-    public IType<?> parse() throws IOException {
+    public DataType<?> parse() throws IOException {
         try {
             return readUso();
         } catch (Exception e) {

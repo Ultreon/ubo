@@ -1,7 +1,7 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.TypeRegistry;
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypeRegistry;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -12,24 +12,29 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-public class MapType implements IType<Map<String, IType<?>>> {
-    private Map<String, IType<?>> obj;
+public class MapType implements DataType<Map<String, DataType<?>>> {
+    private Map<String, DataType<?>> obj;
 
     public MapType() {
         obj = new HashMap<>();
     }
 
-    public MapType(Map<String, IType<?>> list) {
-        setValue(list);
+    public MapType(Map<String, DataType<?>> map) {
+        setValue(map);
+    }
+
+    public MapType(String key, DataType<?> value) {
+        obj = new HashMap<>();
+        obj.put(key, value);
     }
 
     @Override
-    public Map<String, IType<?>> getValue() {
+    public Map<String, DataType<?>> getValue() {
         return obj;
     }
 
     @Override
-    public void setValue(Map<String, IType<?>> obj) {
+    public void setValue(Map<String, DataType<?>> obj) {
         this.obj = obj;
     }
 
@@ -37,25 +42,25 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return obj.keySet();
     }
 
-    public Set<Entry<String, IType<?>>> entries() {
+    public Set<Entry<String, DataType<?>>> entries() {
         return obj.entrySet();
     }
 
-    public Collection<IType<?>> values() {
+    public Collection<DataType<?>> values() {
         return obj.values();
     }
 
     @Override
     public int id() {
-        return Types.MAP;
+        return DataTypes.MAP;
     }
 
     @Override
     public void write(DataOutput output) throws IOException {
         output.writeInt(obj.size());
-        for (Entry<String, IType<?>> e : obj.entrySet()) {
+        for (Entry<String, DataType<?>> e : obj.entrySet()) {
             output.writeUTF(e.getKey());
-            IType<?> value = e.getValue();
+            DataType<?> value = e.getValue();
             output.writeByte(value.id());
             value.write(output);
         }
@@ -63,31 +68,31 @@ public class MapType implements IType<Map<String, IType<?>>> {
 
     public static MapType read(DataInput input) throws IOException {
         int len = input.readInt();
-        Map<String, IType<?>> map = new HashMap<>(len);
+        Map<String, DataType<?>> map = new HashMap<>(len);
         for (int i = 0; i < len; i++) {
             String key = input.readUTF();
             int id = input.readUnsignedByte();
-            map.put(key, TypeRegistry.read(id, input));
+            map.put(key, DataTypeRegistry.read(id, input));
         }
 
         return new MapType(map);
     }
 
     public boolean contains(String key, int type) {
-        IType<?> data = obj.get(key);
+        DataType<?> data = obj.get(key);
 
         return data != null && data.id() == type;
     }
 
     @SafeVarargs
-    public final <T extends IType<?>> boolean contains(String key, T... type) {
-        IType<?> data = obj.get(key);
+    public final <T extends DataType<?>> boolean contains(String key, T... type) {
+        DataType<?> data = obj.get(key);
 
         return data != null && type.getClass().getComponentType().isAssignableFrom(data.getClass());
     }
 
-    public void put(String key, IType<?> type) {
-        obj.put(key, type);
+    public void put(String key, DataType<?> dataType) {
+        obj.put(key, dataType);
     }
 
     public void putByte(String key, byte value) {
@@ -187,9 +192,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public byte getByte(String key, byte def) {
-        IType<?> iType = get(key);
-        if (iType instanceof ByteType) {
-            return ((ByteType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof ByteType) {
+            return ((ByteType) dataType).getValue();
         }
         return def;
     }
@@ -199,9 +204,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public short getShort(String key, short def) {
-        IType<?> iType = get(key);
-        if (iType instanceof ShortType) {
-            return ((ShortType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof ShortType) {
+            return ((ShortType) dataType).getValue();
         }
         return def;
     }
@@ -211,9 +216,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public int getInt(String key, int def) {
-        IType<?> iType = get(key);
-        if (iType instanceof IntType) {
-            return ((IntType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof IntType) {
+            return ((IntType) dataType).getValue();
         }
         return def;
     }
@@ -223,9 +228,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public long getLong(String key, long def) {
-        IType<?> iType = get(key);
-        if (iType instanceof LongType) {
-            return ((LongType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof LongType) {
+            return ((LongType) dataType).getValue();
         }
         return def;
     }
@@ -235,9 +240,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public BigInteger getBigInt(String key, BigInteger def) {
-        IType<?> iType = get(key);
-        if (iType instanceof BigIntType) {
-            return ((BigIntType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof BigIntType) {
+            return ((BigIntType) dataType).getValue();
         }
         return def;
     }
@@ -247,9 +252,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public float getFloat(String key, float def) {
-        IType<?> iType = get(key);
-        if (iType instanceof FloatType) {
-            return ((FloatType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof FloatType) {
+            return ((FloatType) dataType).getValue();
         }
         return def;
     }
@@ -259,9 +264,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public double getDouble(String key, double def) {
-        IType<?> iType = get(key);
-        if (iType instanceof DoubleType) {
-            return ((DoubleType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof DoubleType) {
+            return ((DoubleType) dataType).getValue();
         }
         return def;
     }
@@ -271,9 +276,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public BigDecimal getBigDec(String key, BigDecimal def) {
-        IType<?> iType = get(key);
-        if (iType instanceof BigDecType) {
-            return ((BigDecType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof BigDecType) {
+            return ((BigDecType) dataType).getValue();
         }
         return def;
     }
@@ -283,9 +288,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public char getChar(String key, char def) {
-        IType<?> iType = get(key);
-        if (iType instanceof CharType) {
-            return ((CharType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof CharType) {
+            return ((CharType) dataType).getValue();
         }
         return def;
     }
@@ -295,9 +300,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public boolean getBoolean(String key, boolean def) {
-        IType<?> iType = get(key);
-        if (iType instanceof BooleanType) {
-            return ((BooleanType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof BooleanType) {
+            return ((BooleanType) dataType).getValue();
         }
         return def;
     }
@@ -307,9 +312,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public String getString(String key, String def) {
-        IType<?> iType = get(key);
-        if (iType instanceof StringType) {
-            return ((StringType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof StringType) {
+            return ((StringType) dataType).getValue();
         }
         return def;
     }
@@ -319,9 +324,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public byte[] getByteArray(String key, byte[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof ByteArrayType) {
-            return ((ByteArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof ByteArrayType) {
+            return ((ByteArrayType) dataType).getValue();
         }
         return def;
     }
@@ -331,9 +336,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public short[] getShortArray(String key, short[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof ShortArrayType) {
-            return ((ShortArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof ShortArrayType) {
+            return ((ShortArrayType) dataType).getValue();
         }
         return def;
     }
@@ -343,9 +348,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public int[] getIntArray(String key, int[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof IntArrayType) {
-            return ((IntArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof IntArrayType) {
+            return ((IntArrayType) dataType).getValue();
         }
         return def;
     }
@@ -355,9 +360,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public long[] getLongArray(String key, long[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof LongArrayType) {
-            return ((LongArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof LongArrayType) {
+            return ((LongArrayType) dataType).getValue();
         }
         return def;
     }
@@ -367,9 +372,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public float[] getFloatArray(String key, float[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof FloatArrayType) {
-            return ((FloatArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof FloatArrayType) {
+            return ((FloatArrayType) dataType).getValue();
         }
         return def;
     }
@@ -379,9 +384,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public double[] getDoubleArray(String key, double[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof DoubleArrayType) {
-            return ((DoubleArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof DoubleArrayType) {
+            return ((DoubleArrayType) dataType).getValue();
         }
         return def;
     }
@@ -391,9 +396,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public char[] getCharArray(String key, char[] def) {
-        IType<?> iType = get(key);
-        if (iType instanceof CharArrayType) {
-            return ((CharArrayType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof CharArrayType) {
+            return ((CharArrayType) dataType).getValue();
         }
         return def;
     }
@@ -403,9 +408,9 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public BitSet getBitSet(String key, BitSet def) {
-        IType<?> iType = get(key);
-        if (iType instanceof BitSetType) {
-            return ((BitSetType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof BitSetType) {
+            return ((BitSetType) dataType).getValue();
         }
         return def;
     }
@@ -415,22 +420,22 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public MapType getMap(String key, MapType def) {
-        IType<?> iType = get(key);
-        if (iType instanceof MapType) {
-            return (MapType) iType;
+        DataType<?> dataType = get(key);
+        if (dataType instanceof MapType) {
+            return (MapType) dataType;
         }
         return def;
     }
 
     @SafeVarargs
-    public final <T extends IType<?>> ListType<T> getList(String key, T... type) {
+    public final <T extends DataType<?>> ListType<T> getList(String key, T... type) {
         return getList(key, new ListType<>(type));
     }
 
-    public <T extends IType<?>> ListType<T> getList(String key, ListType<T> def) {
-        IType<?> iType = get(key);
-        if (iType instanceof ListType<?>) {
-            ListType<?> obj = (ListType<?>) iType;
+    public <T extends DataType<?>> ListType<T> getList(String key, ListType<T> def) {
+        DataType<?> dataType = get(key);
+        if (dataType instanceof ListType<?>) {
+            ListType<?> obj = (ListType<?>) dataType;
             if (obj.type() != def.type()) {
                 return def;
             }
@@ -444,14 +449,14 @@ public class MapType implements IType<Map<String, IType<?>>> {
     }
 
     public UUID getUUID(String key, UUID def) {
-        IType<?> iType = get(key);
-        if (iType instanceof UUIDType) {
-            return ((UUIDType) iType).getValue();
+        DataType<?> dataType = get(key);
+        if (dataType instanceof UUIDType) {
+            return ((UUIDType) dataType).getValue();
         }
         return def;
     }
 
-    public IType<?> get(String key) {
+    public DataType<?> get(String key) {
         return obj.get(key);
     }
 
@@ -459,7 +464,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
         return obj.remove(key, get(key));
     }
 
-    public IType<?> pop(String key) {
+    public DataType<?> pop(String key) {
         return obj.remove(key);
     }
 
@@ -484,7 +489,7 @@ public class MapType implements IType<Map<String, IType<?>>> {
     @Override
     public String writeUso() {
         StringBuilder builder = new StringBuilder("{");
-        for (Map.Entry<String, IType<?>> entry : obj.entrySet()) {
+        for (Map.Entry<String, DataType<?>> entry : obj.entrySet()) {
             builder.append("\"").append(entry.getKey().replace("\"", "\\\"")).append("\": ").append(entry.getValue().writeUso()).append(", ");
         }
 

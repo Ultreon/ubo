@@ -5,7 +5,7 @@ import dev.ultreon.ubo.util.DataTypeVisitor;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public interface IType<T> {
+public interface DataType<T> {
     T getValue();
 
     void setValue(T obj);
@@ -18,7 +18,7 @@ public interface IType<T> {
 
     int hashCode();
 
-    IType<T> copy();
+    DataType<T> copy();
 
     String writeUso();
 

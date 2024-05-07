@@ -1,14 +1,14 @@
 
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CharArrayType implements IType<char[]> {
+public class CharArrayType implements DataType<char[]> {
     private char[] obj;
 
     public CharArrayType(char[] obj) {
@@ -28,7 +28,7 @@ public class CharArrayType implements IType<char[]> {
 
     @Override
     public int id() {
-        return Types.CHAR_ARRAY;
+        return DataTypes.CHAR_ARRAY;
     }
 
     @Override

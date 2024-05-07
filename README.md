@@ -26,10 +26,10 @@ Assuming you use gradle.
    
    public class DataTest {
        public static void main(String[] args) {
-           MapType type = new MapType();
-           type.putString("greetings", "Hello World");
+           MapType dataType = new MapType();
+           dataType.putString("greetings", "Hello World");
            
-           DataIo.write(type, new File("data.ubo"));
+           DataIo.write(dataType, new File("data.ubo"));
        }
    }
    ```

@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class IntArrayType implements IType<int[]> {
+public class IntArrayType implements DataType<int[]> {
     private int[] obj;
 
     public IntArrayType(int[] obj) {
@@ -27,7 +27,7 @@ public class IntArrayType implements IType<int[]> {
 
     @Override
     public int id() {
-        return Types.INT_ARRAY;
+        return DataTypes.INT_ARRAY;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class BooleanType implements IType<Boolean> {
+public class BooleanType implements DataType<Boolean> {
     private boolean obj;
 
     public BooleanType(boolean obj) {
@@ -26,7 +26,7 @@ public class BooleanType implements IType<Boolean> {
 
     @Override
     public int id() {
-        return Types.BOOLEAN;
+        return DataTypes.BOOLEAN;
     }
 
     @Override

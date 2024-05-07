@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class StringType implements IType<String> {
+public class StringType implements DataType<String> {
     private String obj;
 
     public StringType(String obj) {
@@ -27,7 +27,7 @@ public class StringType implements IType<String> {
 
     @Override
     public int id() {
-        return Types.STRING;
+        return DataTypes.STRING;
     }
 
     @Override

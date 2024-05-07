@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class LongArrayType implements IType<long[]> {
+public class LongArrayType implements DataType<long[]> {
     private long[] obj;
 
     public LongArrayType(long[] obj) {
@@ -27,7 +27,7 @@ public class LongArrayType implements IType<long[]> {
 
     @Override
     public int id() {
-        return Types.LONG_ARRAY;
+        return DataTypes.LONG_ARRAY;
     }
 
     @Override

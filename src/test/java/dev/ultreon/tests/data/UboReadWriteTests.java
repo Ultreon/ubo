@@ -2,7 +2,6 @@ package dev.ultreon.tests.data;
 
 import dev.ultreon.ubo.DataIo;
 import dev.ultreon.ubo.types.*;
-import dev.ultreon.ubo.types.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.BitSet;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -121,13 +120,18 @@ class UboReadWriteTests {
             readWriteTest(() -> new FloatArrayType(new float[]{0.0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f}), new File("floatarray.ubo"));
             readWriteTest(() -> new DoubleArrayType(new double[]{0.000000001, 0.0000001, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0, 100.0, 1000.0}), new File("doublearray.ubo"));
             readWriteTest(() -> new ListType<>(new StringType("Apple"), new StringType("Banana"), new StringType("Pear")), new File("list.ubo"));
-            readWriteTest(() -> new MapType(Map.of("Apple", new StringType("Apple"), "Banana", new StringType("Banana"), "Pear", new StringType("Pear"))), new File("map.ubo"));
+            HashMap<String, DataType<?>> map = new HashMap<>();
+            map.put("Apple", new StringType("Apple"));
+            map.put("Banana", new StringType("Banana"));
+            map.put("Pear", new StringType("Pear"));
+            readWriteTest(() -> new MapType(map), new File("map.ubo"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static <T extends IType<?>> void readWriteTest(Supplier<T> supplier, File file, T... typeGetter) throws IOException {
+    @SafeVarargs
+    private static <T extends DataType<?>> void readWriteTest(Supplier<T> supplier, File file, T... typeGetter) throws IOException {
         System.out.println("Writing primitive data for " + file.getName() + "...");
         DataIo.write(supplier.get(), file);
 

@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class ShortType implements IType<Short> {
+public class ShortType implements DataType<Short> {
     private short obj;
 
     public ShortType(short obj) {
@@ -30,7 +30,7 @@ public class ShortType implements IType<Short> {
 
     @Override
     public int id() {
-        return Types.SHORT;
+        return DataTypes.SHORT;
     }
 
     @Override

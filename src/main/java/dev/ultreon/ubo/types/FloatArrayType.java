@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class FloatArrayType implements IType<float[]> {
+public class FloatArrayType implements DataType<float[]> {
     private float[] obj;
 
     public FloatArrayType(float[] obj) {
@@ -27,7 +27,7 @@ public class FloatArrayType implements IType<float[]> {
 
     @Override
     public int id() {
-        return Types.FLOAT_ARRAY;
+        return DataTypes.FLOAT_ARRAY;
     }
 
     @Override

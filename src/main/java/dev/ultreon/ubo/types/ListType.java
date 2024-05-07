@@ -1,7 +1,7 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.TypeRegistry;
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypeRegistry;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T> {
+public class ListType<T extends DataType<?>> implements DataType<List<T>>, Iterable<T> {
     private final int id;
     Class<?> componentType;
     private List<T> obj;
@@ -31,19 +31,19 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     private ListType(Class<?> type) {
-        this(new ArrayList<>(), TypeRegistry.getIdOrThrow(type));
+        this(new ArrayList<>(), DataTypeRegistry.getIdOrThrow(type));
     }
 
     private ListType(List<T> obj, Class<?> type) {
         this.obj = obj;
-        this.id = TypeRegistry.getIdOrThrow(type);
+        this.id = DataTypeRegistry.getIdOrThrow(type);
         this.componentType = type;
     }
 
     private ListType(List<T> list, int id) {
         setValue(list);
         this.id = id;
-        this.componentType = TypeRegistry.getType(id);
+        this.componentType = DataTypeRegistry.getType(id);
     }
 
     @Override
@@ -72,14 +72,14 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
 
     @Override
     public int id() {
-        return Types.LIST;
+        return DataTypes.LIST;
     }
 
     @Override
     public void write(DataOutput output) throws IOException {
         output.writeByte(id);
         output.writeInt(obj.size());
-        for (IType<?> l : obj) {
+        for (DataType<?> l : obj) {
             l.write(output);
         }
     }
@@ -87,9 +87,9 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     public static ListType<?> read(DataInput input) throws IOException {
         int id = input.readUnsignedByte();
         int len = input.readInt();
-        List<IType<?>> list = new ArrayList<>(len);
+        List<DataType<?>> list = new ArrayList<>(len);
         for (int i = 0; i < len; i++) {
-            list.add(TypeRegistry.read(id, input));
+            list.add(DataTypeRegistry.read(id, input));
         }
 
         return new ListType<>(list, id);
@@ -128,12 +128,12 @@ public class ListType<T extends IType<?>> implements IType<List<T>>, Iterable<T>
     }
 
     @SafeVarargs
-    public final <C extends IType<?>> ListType<C> cast(C... type) {
+    public final <C extends DataType<?>> ListType<C> cast(C... type) {
         return this.cast(type.getClass().getComponentType());
     }
 
     @SuppressWarnings("unchecked")
-    final <C extends IType<?>> ListType<C> cast(Class<?> type) {
+    final <C extends DataType<?>> ListType<C> cast(Class<?> type) {
         ListType<C> cs = new ListType<>(type);
         cs.setValue((List<C>) obj);
         return cs;

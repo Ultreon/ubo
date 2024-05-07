@@ -1,12 +1,12 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class IntType implements IType<Integer> {
+public class IntType implements DataType<Integer> {
     private int obj;
 
     public IntType(int obj) {
@@ -26,7 +26,7 @@ public class IntType implements IType<Integer> {
 
     @Override
     public int id() {
-        return Types.INT;
+        return DataTypes.INT;
     }
 
     @Override

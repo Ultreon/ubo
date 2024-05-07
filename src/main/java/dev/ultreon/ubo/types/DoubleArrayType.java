@@ -1,13 +1,13 @@
 package dev.ultreon.ubo.types;
 
-import dev.ultreon.ubo.Types;
+import dev.ultreon.ubo.DataTypes;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class DoubleArrayType implements IType<double[]> {
+public class DoubleArrayType implements DataType<double[]> {
     private double[] obj;
 
     public DoubleArrayType(double[] obj) {
@@ -27,7 +27,7 @@ public class DoubleArrayType implements IType<double[]> {
 
     @Override
     public int id() {
-        return Types.DOUBLE_ARRAY;
+        return DataTypes.DOUBLE_ARRAY;
     }
 
     @Override
