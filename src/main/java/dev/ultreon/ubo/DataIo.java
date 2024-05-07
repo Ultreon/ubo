@@ -5,18 +5,18 @@ import dev.ultreon.ubo.types.IType;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class DataIo {
-
     private static final short VERSION = 3;
     private static final int HEADER = 0xff804269;
     private static final int BUFFER_SIZE = 4096;
 
     @SafeVarargs
     public static <T extends IType<?>> T read(File file, T... type) throws IOException {
-        try (InputStream stream = new BufferedInputStream(new FileInputStream(file), BUFFER_SIZE)) {
+        try (InputStream stream = new BufferedInputStream(Files.newInputStream(file.toPath()), BUFFER_SIZE)) {
             return read(stream, type);
         }
     }
@@ -33,7 +33,6 @@ public class DataIo {
      * @throws DataTypeException when the read data type is invalid.
      */
     @SafeVarargs
-    @SuppressWarnings("unchecked")
     public static <T extends IType<?>> T read(InputStream stream, T... type) throws IOException {
         if (stream instanceof DataInput) {
             return read((DataInput) stream, type);
@@ -71,7 +70,7 @@ public class DataIo {
 
     @SafeVarargs
     public static <T extends IType<?>> T readCompressed(File file, T... type) throws IOException {
-        try (InputStream stream = new BufferedInputStream(new FileInputStream(file), BUFFER_SIZE)) {
+        try (InputStream stream = new BufferedInputStream(Files.newInputStream(file.toPath()), BUFFER_SIZE)) {
             return readCompressed(stream, type);
         }
     }
@@ -90,7 +89,7 @@ public class DataIo {
     }
 
     public static void write(IType<?> type, File file) throws IOException {
-        try (OutputStream stream = new BufferedOutputStream(new FileOutputStream(file), BUFFER_SIZE)) {
+        try (OutputStream stream = new BufferedOutputStream(Files.newOutputStream(file.toPath()), BUFFER_SIZE)) {
             write(type, stream);
         }
     }
@@ -122,7 +121,7 @@ public class DataIo {
     }
 
     public static void writeCompressed(IType<?> type, File file) throws IOException {
-        try (OutputStream stream = new BufferedOutputStream(new FileOutputStream(file), BUFFER_SIZE)) {
+        try (OutputStream stream = new BufferedOutputStream(Files.newOutputStream(file.toPath()), BUFFER_SIZE)) {
             writeCompressed(type, stream);
         }
     }

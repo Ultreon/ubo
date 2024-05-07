@@ -30,6 +30,12 @@ public class TypeTests {
 
         Assertions.assertEquals(list.size(), 5);
 
+        Assertions.assertDoesNotThrow(() -> {
+            for (StringType s : list) {
+                Assertions.assertNotNull(s);
+            }
+        });
+
         list.remove(0);
 
         Assertions.assertEquals(list.size(), 4);
