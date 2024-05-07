@@ -68,7 +68,7 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">Package</span>&nbsp;<a href="package-summary.html">dev.ultreon.ubo.types</a></div>
-<h1 title="Class ListType" class="title">Class ListType&lt;T extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</h1>
+<h1 title="Class ListType" class="title">Class ListType&lt;T extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
 <div class="inheritance">dev.ultreon.ubo.types.ListType&lt;T&gt;</div>
@@ -76,12 +76,12 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;T&gt;</code></dd>
+<dd><code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;T&gt;</code></dd>
 </dl>
 <hr>
-<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ListType&lt;T extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</span>
+<div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">ListType&lt;T extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;&gt;, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;T&gt;</span></div>
+implements <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;T&gt;&gt;, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;T&gt;</span></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -117,7 +117,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#add(T)" class="member-name-link">add</a><wbr>(<a href="ListType.html" title="type parameter in ListType">T</a>&nbsp;type)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final &lt;C extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;<br><a href="ListType.html" title="class in dev.ultreon.ubo.types">ListType</a>&lt;C&gt;</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final &lt;C extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;<br><a href="ListType.html" title="class in dev.ultreon.ubo.types">ListType</a>&lt;C&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cast(C...)" class="member-name-link">cast</a><wbr>(C...&nbsp;type)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
@@ -191,11 +191,11 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
+<h3 id="methods-inherited-from-class-dev.ultreon.ubo.types.DataType">Methods inherited from interface&nbsp;dev.ultreon.ubo.types.<a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a></h3>
+<code><a href="DataType.html#accept(dev.ultreon.ubo.util.DataTypeVisitor)">accept</a></code></div>
+<div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Iterable">Methods inherited from interface&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#forEach(java.util.function.Consumer)" title="class or interface in java.lang" class="external-link">forEach</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#spliterator()" title="class or interface in java.lang" class="external-link">spliterator</a></code></div>
-<div class="inherited-list">
-<h3 id="methods-inherited-from-class-dev.ultreon.ubo.types.IType">Methods inherited from interface&nbsp;dev.ultreon.ubo.types.<a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a></h3>
-<code><a href="IType.html#accept(dev.ultreon.ubo.util.DataTypeVisitor)">accept</a></code></div>
 </section>
 </li>
 </ul>
@@ -215,14 +215,14 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(T...)">
-<h3 id="&lt;init&gt;(dev.ultreon.ubo.types.IType[])">ListType</h3>
+<h3 id="&lt;init&gt;(dev.ultreon.ubo.types.DataType[])">ListType</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
 </span><span class="modifiers">public</span>&nbsp;<span class="element-name">ListType</span><wbr><span class="parameters">(<a href="ListType.html" title="type parameter in ListType">T</a>...&nbsp;type)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="&lt;init&gt;(java.util.List,T...)">
-<h3 id="&lt;init&gt;(java.util.List,dev.ultreon.ubo.types.IType[])">ListType</h3>
+<h3 id="&lt;init&gt;(java.util.List,dev.ultreon.ubo.types.DataType[])">ListType</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
 </span><span class="modifiers">public</span>&nbsp;<span class="element-name">ListType</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a>&gt;&nbsp;obj,
  <a href="ListType.html" title="type parameter in ListType">T</a>...&nbsp;type)</span></div>
@@ -242,7 +242,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a>&gt;</span>&nbsp;<span class="element-name">getValue</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#getValue()">getValue</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#getValue()">getValue</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -252,7 +252,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setValue</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html" title="class or interface in java.util" class="external-link">List</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a>&gt;&nbsp;obj)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#setValue(T)">setValue</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#setValue(T)">setValue</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -262,7 +262,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">id</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#id()">id</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#id()">id</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -273,7 +273,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
            throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#write(java.io.DataOutput)">write</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#write(java.io.DataOutput)">write</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
 </dl>
@@ -292,7 +292,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 </li>
 <li>
 <section class="detail" id="add(T)">
-<h3 id="add(dev.ultreon.ubo.types.IType)">add</h3>
+<h3 id="add(dev.ultreon.ubo.types.DataType)">add</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">add</span><wbr><span class="parameters">(<a href="ListType.html" title="type parameter in ListType">T</a>&nbsp;type)</span></div>
 </section>
 </li>
@@ -302,7 +302,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Iterator.html" title="class or interface in java.util" class="external-link">Iterator</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a>&gt;</span>&nbsp;<span class="element-name">iterator</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#iterator()" title="class or interface in java.lang" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html#iterator()" title="class or interface in java.lang" class="external-link">iterator</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Iterable.html" title="class or interface in java.lang" class="external-link">Iterable</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -314,9 +314,9 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 </li>
 <li>
 <section class="detail" id="cast(C...)">
-<h3 id="cast(dev.ultreon.ubo.types.IType[])">cast</h3>
+<h3 id="cast(dev.ultreon.ubo.types.DataType[])">cast</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/SafeVarargs.html" title="class or interface in java.lang" class="external-link">@SafeVarargs</a>
-</span><span class="modifiers">public final</span>&nbsp;<span class="type-parameters">&lt;C extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</span>&nbsp;<span class="return-type"><a href="ListType.html" title="class in dev.ultreon.ubo.types">ListType</a>&lt;C&gt;</span>&nbsp;<span class="element-name">cast</span><wbr><span class="parameters">(C...&nbsp;type)</span></div>
+</span><span class="modifiers">public final</span>&nbsp;<span class="type-parameters">&lt;C extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</span>&nbsp;<span class="return-type"><a href="ListType.html" title="class in dev.ultreon.ubo.types">ListType</a>&lt;C&gt;</span>&nbsp;<span class="element-name">cast</span><wbr><span class="parameters">(C...&nbsp;type)</span></div>
 </section>
 </li>
 <li>
@@ -343,7 +343,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
@@ -355,7 +355,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#hashCode()">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#hashCode()">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
@@ -367,7 +367,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ListType.html" title="class in dev.ultreon.ubo.types">ListType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a>&gt;</span>&nbsp;<span class="element-name">copy</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#copy()">copy</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#copy()">copy</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -377,7 +377,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">writeUso</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#writeUso()">writeUso</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;?&gt;&gt;</code></dd>
+<dd><code><a href="DataType.html#writeUso()">writeUso</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="ListType.html" title="type parameter in ListType">T</a> extends <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -395,20 +395,20 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 </li>
 <li>
 <section class="detail" id="set(int,T)">
-<h3 id="set(int,dev.ultreon.ubo.types.IType)">set</h3>
+<h3 id="set(int,dev.ultreon.ubo.types.DataType)">set</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ListType.html" title="type parameter in ListType">T</a></span>&nbsp;<span class="element-name">set</span><wbr><span class="parameters">(int&nbsp;index,
  <a href="ListType.html" title="type parameter in ListType">T</a>&nbsp;type)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="remove(T)">
-<h3 id="remove(dev.ultreon.ubo.types.IType)">remove</h3>
+<h3 id="remove(dev.ultreon.ubo.types.DataType)">remove</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="ListType.html" title="type parameter in ListType">T</a></span>&nbsp;<span class="element-name">remove</span><wbr><span class="parameters">(<a href="ListType.html" title="type parameter in ListType">T</a>&nbsp;type)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="contains(T)">
-<h3 id="contains(dev.ultreon.ubo.types.IType)">contains</h3>
+<h3 id="contains(dev.ultreon.ubo.types.DataType)">contains</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">contains</span><wbr><span class="parameters">(<a href="ListType.html" title="type parameter in ListType">T</a>&nbsp;type)</span></div>
 </section>
 </li>

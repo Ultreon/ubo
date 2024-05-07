@@ -76,12 +76,12 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">CharType</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</span></div>
+implements <a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</span></div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -146,8 +146,8 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-dev.ultreon.ubo.types.IType">Methods inherited from interface&nbsp;dev.ultreon.ubo.types.<a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a></h3>
-<code><a href="IType.html#accept(dev.ultreon.ubo.util.DataTypeVisitor)">accept</a></code></div>
+<h3 id="methods-inherited-from-class-dev.ultreon.ubo.types.DataType">Methods inherited from interface&nbsp;dev.ultreon.ubo.types.<a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a></h3>
+<code><a href="DataType.html#accept(dev.ultreon.ubo.util.DataTypeVisitor)">accept</a></code></div>
 </section>
 </li>
 </ul>
@@ -179,7 +179,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a></span>&nbsp;<span class="element-name">getValue</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#getValue()">getValue</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#getValue()">getValue</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -189,7 +189,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setValue</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&nbsp;obj)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#setValue(T)">setValue</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#setValue(T)">setValue</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -199,7 +199,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">id</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#id()">id</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#id()">id</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -210,7 +210,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
            throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#write(java.io.DataOutput)">write</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#write(java.io.DataOutput)">write</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
 </dl>
@@ -233,7 +233,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">equals</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;other)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#equals(java.lang.Object)">equals</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
@@ -245,7 +245,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">hashCode</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#hashCode()">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#hashCode()">hashCode</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 <dt>Overrides:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></code></dd>
 </dl>
@@ -257,7 +257,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="CharType.html" title="class in dev.ultreon.ubo.types">CharType</a></span>&nbsp;<span class="element-name">copy</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#copy()">copy</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#copy()">copy</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -267,7 +267,7 @@ implements <a href="IType.html" title="interface in dev.ultreon.ubo.types">IType
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">writeUso</span>()</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="IType.html#writeUso()">writeUso</a></code>&nbsp;in interface&nbsp;<code><a href="IType.html" title="interface in dev.ultreon.ubo.types">IType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
+<dd><code><a href="DataType.html#writeUso()">writeUso</a></code>&nbsp;in interface&nbsp;<code><a href="DataType.html" title="interface in dev.ultreon.ubo.types">DataType</a>&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Character.html" title="class or interface in java.lang" class="external-link">Character</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
