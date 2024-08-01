@@ -106,6 +106,20 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            url = uri("https://gitlab.com/api/v4/projects/60101946/packages/maven")
+            credentials(HttpHeaderCredentials::class) {
+                name = "Private-Token"
+                value =
+                    findProperty("gitLabPrivateToken") as String? // the variable resides in $GRADLE_USER_HOME/gradle.properties
+            }
+            authentication {
+                create("header", HttpHeaderAuthentication::class)
+            }
+        }
+    }
 }
 
 tasks.test {
