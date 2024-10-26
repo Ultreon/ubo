@@ -7,7 +7,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class DoubleArrayType implements DataType<double[]> {
+public class DoubleArrayType implements ArrayType<double[]> {
     private double[] obj;
 
     public DoubleArrayType(double[] obj) {

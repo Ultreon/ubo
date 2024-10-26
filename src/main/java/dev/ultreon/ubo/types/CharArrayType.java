@@ -8,7 +8,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class CharArrayType implements DataType<char[]> {
+public class CharArrayType implements ArrayType<char[]> {
     private char[] obj;
 
     public CharArrayType(char[] obj) {

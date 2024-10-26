@@ -7,7 +7,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class FloatArrayType implements DataType<float[]> {
+public class FloatArrayType implements ArrayType<float[]> {
     private float[] obj;
 
     public FloatArrayType(float[] obj) {

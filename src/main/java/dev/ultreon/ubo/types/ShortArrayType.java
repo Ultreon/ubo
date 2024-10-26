@@ -7,7 +7,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ShortArrayType implements DataType<short[]> {
+public class ShortArrayType implements ArrayType<short[]> {
     private short[] obj;
 
     public ShortArrayType(short[] obj) {

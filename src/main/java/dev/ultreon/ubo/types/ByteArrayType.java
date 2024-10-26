@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-public class ByteArrayType implements DataType<byte[]> {
+public class ByteArrayType implements ArrayType<byte[]> {
     private byte[] obj;
 
     public ByteArrayType(byte[] obj) {

@@ -7,7 +7,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class IntArrayType implements DataType<int[]> {
+public class IntArrayType implements ArrayType<int[]> {
     private int[] obj;
 
     public IntArrayType(int[] obj) {

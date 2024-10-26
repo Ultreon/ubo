@@ -7,7 +7,7 @@ import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class LongArrayType implements DataType<long[]> {
+public class LongArrayType implements ArrayType<long[]> {
     private long[] obj;
 
     public LongArrayType(long[] obj) {
