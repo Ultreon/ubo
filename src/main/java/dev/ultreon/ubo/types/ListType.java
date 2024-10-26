@@ -2,6 +2,7 @@ package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypeRegistry;
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -102,25 +103,8 @@ public class ListType<T extends DataType<?>> implements DataType<List<T>>, Itera
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            private final List<T> list = new ArrayList<>(getValue());
-            private int index = 0;
-
-            @Override
-            public boolean hasNext() {
-                return index < list.size();
-            }
-
-            @Override
-            public T next() {
-                int oldIdx = index++;
-                if (oldIdx >= list.size())
-                    throw new NoSuchElementException("No more elements in list");
-
-                return list.get(oldIdx);
-            }
-        };
+    public @NotNull Iterator<T> iterator() {
+        return getValue().listIterator();
     }
 
     public int type() {
