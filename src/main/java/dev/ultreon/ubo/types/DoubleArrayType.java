@@ -1,17 +1,23 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class DoubleArrayType implements ArrayType<double[]> {
+public class DoubleArrayType implements ArrayType<double[], Double> {
     private double[] obj;
 
     public DoubleArrayType(double[] obj) {
         this.obj = obj;
+    }
+
+    public DoubleArrayType(int size) {
+        this.obj = new double[size];
     }
 
     @Override
@@ -65,8 +71,27 @@ public class DoubleArrayType implements ArrayType<double[]> {
         return new DoubleArrayType(obj.clone());
     }
 
+    @Override
     public int size() {
         return obj.length;
+    }
+
+    @Override
+    public Double get(int index) {
+        return obj[index];
+    }
+
+    @Override
+    public void set(int index, Double value) {
+        obj[index] = value;
+    }
+
+    public double getDouble(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, double value) {
+        obj[index] = value;
     }
 
     @Override
@@ -86,5 +111,33 @@ public class DoubleArrayType implements ArrayType<double[]> {
     @Override
     public String toString() {
         return writeUso();
+    }
+
+    @Override
+    public @NotNull Iterator<Double> iterator() {
+        return new DoubleIterator(obj);
+    }
+
+    public static class DoubleIterator implements Iterator<Double> {
+        private final double[] obj;
+        private int index;
+
+        public DoubleIterator(double[] obj) {
+            this.obj = obj;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < obj.length;
+        }
+
+        @Override
+        public Double next() {
+            return obj[index++];
+        }
+
+        public double nextDouble() {
+            return obj[index++];
+        }
     }
 }

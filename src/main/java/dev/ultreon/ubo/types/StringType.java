@@ -5,6 +5,7 @@ import dev.ultreon.ubo.DataTypes;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class StringType implements DataType<String> {
@@ -12,6 +13,22 @@ public class StringType implements DataType<String> {
 
     public StringType(String obj) {
         this.obj = obj;
+    }
+
+    public StringType(StringBuilder obj) {
+        this.obj = obj.toString();
+    }
+
+    public StringType(byte[] obj) {
+        this.obj = new String(obj, StandardCharsets.UTF_8);
+    }
+
+    public StringType(byte[] obj, Charset charset) {
+        this.obj = new String(obj, charset);
+    }
+
+    public StringType(char[] obj) {
+        this.obj = new String(obj);
     }
 
     @Override

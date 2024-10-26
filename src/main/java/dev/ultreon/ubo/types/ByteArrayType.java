@@ -1,6 +1,7 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -9,8 +10,9 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ByteArrayType implements ArrayType<byte[]> {
+public class ByteArrayType implements ArrayType<byte[], Byte> {
     private byte[] obj;
 
     public ByteArrayType(byte[] obj) {
@@ -106,12 +108,60 @@ public class ByteArrayType implements ArrayType<byte[]> {
         return builder.substring(0, builder.length() - 1) + ")";
     }
 
+    @Override
     public int size() {
         return obj.length;
     }
 
     @Override
+    public @NotNull Byte get(int index) {
+        return obj[index];
+    }
+
+    @Override
+    public void set(int index, Byte value) {
+        obj[index] = value;
+    }
+
+    public byte getByte(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, byte value) {
+        obj[index] = value;
+    }
+
+    @Override
     public String toString() {
         return writeUso();
+    }
+
+    @Override
+    public @NotNull ByteIterator iterator() {
+        return new ByteIterator(obj);
+    }
+
+    public static class ByteIterator implements Iterator<@NotNull Byte> {
+        private final byte[] obj;
+        private int index;
+
+        public ByteIterator(byte[] obj) {
+            this.obj = obj;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < obj.length;
+        }
+
+        @Override
+        @Deprecated
+        public Byte next() {
+            return obj[index++];
+        }
+
+        public byte nextByte() {
+            return obj[index++];
+        }
     }
 }

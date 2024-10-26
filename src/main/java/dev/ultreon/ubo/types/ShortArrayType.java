@@ -1,13 +1,15 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ShortArrayType implements ArrayType<short[]> {
+public class ShortArrayType implements ArrayType<short[], Short> {
     private short[] obj;
 
     public ShortArrayType(short[] obj) {
@@ -65,8 +67,19 @@ public class ShortArrayType implements ArrayType<short[]> {
         return new ShortArrayType(obj.clone());
     }
 
+    @Override
     public int size() {
         return obj.length;
+    }
+
+    @Override
+    public Short get(int index) {
+        return obj[index];
+    }
+
+    @Override
+    public void set(int index, Short value) {
+        obj[index] = value;
     }
 
     @Override
@@ -82,5 +95,33 @@ public class ShortArrayType implements ArrayType<short[]> {
     @Override
     public String toString() {
         return writeUso();
+    }
+
+    @Override
+    public @NotNull Iterator<Short> iterator() {
+        return new ShortIterator(obj);
+    }
+
+    public static class ShortIterator implements Iterator<Short> {
+        private final short[] obj;
+        private int index;
+
+        public ShortIterator(short[] obj) {
+            this.obj = obj;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < obj.length;
+        }
+
+        @Override
+        public Short next() {
+            return obj[index++];
+        }
+
+        public short nextShort() {
+            return obj[index++];
+        }
     }
 }

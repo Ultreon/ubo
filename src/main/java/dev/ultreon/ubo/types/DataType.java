@@ -4,6 +4,7 @@ import dev.ultreon.ubo.util.DataTypeVisitor;
 
 import java.io.DataOutput;
 import java.io.IOException;
+import java.util.function.Function;
 
 public interface DataType<T> {
     T getValue();
@@ -24,5 +25,21 @@ public interface DataType<T> {
 
     default <R> R accept(DataTypeVisitor<R> visitor) {
         return visitor.visit(this);
+    }
+
+    default <R> R map(Function<DataType<T>, R> mapper) {
+        return mapper.apply(this);
+    }
+
+    default <R extends DataType<?>> R cast(Class<R> type, R def) {
+        if (this.equals(def)) {
+            return def;
+        }
+
+        if (type.isInstance(this)) {
+            return type.cast(this);
+        }
+
+        return def;
     }
 }

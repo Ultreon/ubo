@@ -8,7 +8,9 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListType<T extends DataType<?>> implements DataType<List<T>>, Iterable<T> {
     private final int id;
@@ -194,6 +196,22 @@ public class ListType<T extends DataType<?>> implements DataType<List<T>>, Itera
 
     public boolean contains(T type) {
         return obj.contains(type);
+    }
+
+    public <R> List<R> mapTo(Function<T, R> mapper) {
+        return mapTo(mapper, new ArrayList<>());
+    }
+
+    public <R> List<R> mapTo(Function<T, R> mapper, List<R> list) {
+        for (T t : obj) {
+            R r = mapper.apply(t);
+            list.add(r);
+        }
+        return list;
+    }
+
+    public Stream<T> stream() {
+        return obj.stream();
     }
 
     public boolean isEmpty() {

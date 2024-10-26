@@ -1,13 +1,15 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class LongArrayType implements ArrayType<long[]> {
+public class LongArrayType implements ArrayType<long[], Long> {
     private long[] obj;
 
     public LongArrayType(long[] obj) {
@@ -65,8 +67,27 @@ public class LongArrayType implements ArrayType<long[]> {
         return new LongArrayType(obj.clone());
     }
 
+    @Override
     public int size() {
         return obj.length;
+    }
+
+    @Override
+    public Long get(int index) {
+        return obj[index];
+    }
+
+    @Override
+    public void set(int index, Long value) {
+        obj[index] = value;
+    }
+
+    public long getLong(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, long value) {
+        obj[index] = value;
     }
 
     @Override
@@ -82,5 +103,33 @@ public class LongArrayType implements ArrayType<long[]> {
     @Override
     public String toString() {
         return writeUso();
+    }
+
+    @Override
+    public @NotNull Iterator<Long> iterator() {
+        return new LongIterator(obj);
+    }
+
+    public static class LongIterator implements Iterator<Long> {
+        private final long[] obj;
+        private int index;
+
+        public LongIterator(long[] obj) {
+            this.obj = obj;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < obj.length;
+        }
+
+        @Override
+        public Long next() {
+            return obj[index++];
+        }
+
+        public long nextLong() {
+            return obj[index++];
+        }
     }
 }

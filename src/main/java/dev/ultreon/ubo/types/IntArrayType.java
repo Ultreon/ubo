@@ -1,13 +1,15 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class IntArrayType implements ArrayType<int[]> {
+public class IntArrayType implements ArrayType<int[], Integer> {
     private int[] obj;
 
     public IntArrayType(int[] obj) {
@@ -65,8 +67,27 @@ public class IntArrayType implements ArrayType<int[]> {
         return new IntArrayType(obj.clone());
     }
 
+    @Override
     public int size() {
         return obj.length;
+    }
+
+    @Override
+    public Integer get(int index) {
+        return obj[index];
+    }
+
+    @Override
+    public void set(int index, Integer value) {
+        obj[index] = value;
+    }
+
+    public int getInt(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, int value) {
+        obj[index] = value;
     }
 
     @Override
@@ -82,5 +103,33 @@ public class IntArrayType implements ArrayType<int[]> {
     @Override
     public String toString() {
         return writeUso();
+    }
+
+    @Override
+    public @NotNull IntIterator iterator() {
+        return new IntIterator(obj);
+    }
+
+    public static class IntIterator implements Iterator<Integer> {
+        private final int[] obj;
+        private int index;
+
+        public IntIterator(int[] obj) {
+            this.obj = obj;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < obj.length;
+        }
+
+        @Override
+        public Integer next() {
+            return obj[index++];
+        }
+
+        public int nextInt() {
+            return obj[index++];
+        }
     }
 }

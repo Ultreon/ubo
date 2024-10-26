@@ -2,6 +2,7 @@ package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypeRegistry;
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -10,6 +11,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MapType implements DataType<Map<String, DataType<?>>> {
@@ -460,8 +463,21 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
         return obj.get(key);
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends DataType<?>> T get(String key, @NotNull T def) {
+        DataType<?> dataType = get(key);
+        if (dataType == null) {
+            return def;
+        }
+        return dataType.cast((Class<T>) def.getClass(), def);
+    }
+
     public boolean remove(String key) {
         return obj.remove(key, get(key));
+    }
+
+    public boolean contains(String key) {
+        return obj.containsKey(key);
     }
 
     public DataType<?> pop(String key) {
@@ -484,6 +500,30 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     @Override
     public MapType copy() {
         return new MapType(obj.entrySet().stream().collect(Collectors.toMap(Entry::getKey, entry -> entry.getValue().copy(), (a, b) -> b)));
+    }
+
+    public <R> Map<String, R> mapTo(Function<DataType<?>, R> mapper) {
+        return mapTo(mapper, new HashMap<>());
+    }
+
+    public <R> Map<String, R> mapTo(Function<DataType<?>, R> mapper, Map<String, R> map) {
+        for (Entry<String, DataType<?>> entry : obj.entrySet()) {
+            if (map.put(entry.getKey(), mapper.apply(entry.getValue())) != null) {
+                throw new IllegalStateException("Duplicate key");
+            }
+        }
+        return map;
+    }
+
+    public <R> List<R> reduce(BiFunction<String, DataType<?>, R> reducer) {
+        return reduce(reducer, new ArrayList<>());
+    }
+
+    public <R> List<R> reduce(BiFunction<String, DataType<?>, R> reducer, List<R> list) {
+        for (Entry<String, DataType<?>> entry : obj.entrySet()) {
+            list.add(reducer.apply(entry.getKey(), entry.getValue()));
+        }
+        return list;
     }
 
     @Override
