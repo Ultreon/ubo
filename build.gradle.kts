@@ -1,8 +1,13 @@
+import org.jreleaser.gradle.plugin.JReleaserExtension
+import org.jreleaser.model.Active
+import org.jreleaser.model.api.deploy.maven.MavenCentralMavenDeployer.Stage
+import org.jreleaser.model.api.signing.Signing
+
 plugins {
     id("java")
     id("java-library")
     id("maven-publish")
-
+    id("org.jreleaser") version "1.14.0"
 }
 
 apply(plugin = "java")
@@ -42,7 +47,56 @@ tasks.test {
     useJUnitPlatform()
 }
 
+extensions.configure<JReleaserExtension>("jreleaser") {
+    project {
+        group = "dev.ultreon"
+        authors.set(listOf("XyperCode"))
+        license = "Apache-2.0"
+        description = "Extensible NBT-like data API."
+        copyright.set("(C) Copyright 2023 Quinten Jungblut. All rights reserved.")
+        links {
+            homepage = "https://ultreon.dev"
+        }
+        inceptionYear = "2022"
+    }
+
+    gitRootSearch = true
+
+    release {
+        gitlab {
+            branch.set("main")
+        }
+    }
+
+    signing {
+        active.set(Active.ALWAYS)
+        armored = true
+    }
+
+    deploy {
+        maven {
+            this@maven.active.set(Active.ALWAYS)
+
+            mavenCentral {
+                create("sonatype") {
+                    active.set(Active.ALWAYS)
+                    url.set("https://central.sonatype.com/api/v1/publisher")
+                    stagingRepository(projectDir.path + "/build/staging-deploy")
+                }
+            }
+        }
+    }
+}
+
 publishing {
+    repositories {
+        maven {
+            mkdir("build/staging-deploy")
+            name = "Staging"
+            url = uri("file://${projectDir.path.replace("\\", "/")}/build/staging-deploy")
+        }
+    }
+
     publications {
         register("mavenJava", MavenPublication::class) {
             from(components["java"])
@@ -61,7 +115,7 @@ publishing {
                 developers {
                     developer {
                         name.set("XyperCode")
-                        email.set("qboiwastaken@gmail.com")
+                        email.set("xyppercode@ultreon.dev")
 
                         organization.set("Ultreon")
                         organizationUrl.set("https://github.com/Ultreon")
