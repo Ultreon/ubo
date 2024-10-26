@@ -7,7 +7,7 @@ Assuming you use gradle.
 1. Then, in `build.gradle`, define the dependency:  
     ```gradle
     dependencies {
-        implementation 'dev.ultreon:ubo:1.4.0'
+        implementation 'dev.ultreon:ubo:1.5.0'
     }
     ```
 2. We can now proceed to the using section. The `DataIo` class is capable of reading and writing UBO data.  
