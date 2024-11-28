@@ -13,6 +13,10 @@ public class DataTypeRegistry {
     private static final Map<String, Integer> ID_MAP = new HashMap<>();
 
     static {
+        init();
+    }
+
+    public static void init() {
         register(DataTypes.BYTE, ByteType::read);
         register(DataTypes.SHORT, ShortType::read);
         register(DataTypes.INT, IntType::read);
@@ -37,6 +41,12 @@ public class DataTypeRegistry {
         register(DataTypes.BIT_SET, BitSetType::read);
     }
 
+    public static void clear() {
+        READERS.clear();
+        TYPES.clear();
+        ID_MAP.clear();
+    }
+
     @SafeVarargs
     @SuppressWarnings("unchecked")
     public static <T extends DataType<?>> void register(int id, DataReader<T> reader, T... type) {
@@ -47,10 +57,12 @@ public class DataTypeRegistry {
     }
 
     public static DataType<?> read(int id, DataInput input) throws IOException {
-        if (!READERS.containsKey(id))
+        DataReader<? extends DataType<?>> reader = READERS.get(id);
+
+        if (reader == null)
             throw new DataTypeException("Unknown datatype id: " + id);
 
-        return READERS.get(id).read(input);
+        return reader.read(input);
     }
 
     public static Class<? extends DataType<?>> getType(int id) {

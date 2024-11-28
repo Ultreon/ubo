@@ -58,7 +58,7 @@ public class UUIDType implements DataType<UUID> {
 
     @Override
     public UUIDType copy() {
-        return new UUIDType(new UUID(obj.getMostSignificantBits(), obj.getLeastSignificantBits()));
+        return new UUIDType(obj);
     }
 
     @Override

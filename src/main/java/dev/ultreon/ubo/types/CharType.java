@@ -18,10 +18,18 @@ public class CharType implements DataType<Character> {
         return obj;
     }
 
+    public char getCharValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Character obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(char val) {
+        this.obj = val;
     }
 
     @Override

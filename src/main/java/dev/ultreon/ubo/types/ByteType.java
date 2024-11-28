@@ -22,10 +22,18 @@ public class ByteType implements DataType<Byte> {
         return obj;
     }
 
+    public byte getByteValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Byte obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(byte val) {
+        this.obj = val;
     }
 
     @Override

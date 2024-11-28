@@ -197,7 +197,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public byte getByte(String key, byte def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof ByteType) {
-            return ((ByteType) dataType).getValue();
+            return ((ByteType) dataType).getByteValue();
         }
         return def;
     }
@@ -209,7 +209,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public short getShort(String key, short def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof ShortType) {
-            return ((ShortType) dataType).getValue();
+            return ((ShortType) dataType).getShortValue();
         }
         return def;
     }
@@ -221,7 +221,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public int getInt(String key, int def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof IntType) {
-            return ((IntType) dataType).getValue();
+            return ((IntType) dataType).getIntValue();
         }
         return def;
     }
@@ -233,7 +233,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public long getLong(String key, long def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof LongType) {
-            return ((LongType) dataType).getValue();
+            return ((LongType) dataType).getLongValue();
         }
         return def;
     }
@@ -257,7 +257,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public float getFloat(String key, float def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof FloatType) {
-            return ((FloatType) dataType).getValue();
+            return ((FloatType) dataType).getFloatValue();
         }
         return def;
     }
@@ -269,7 +269,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public double getDouble(String key, double def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof DoubleType) {
-            return ((DoubleType) dataType).getValue();
+            return ((DoubleType) dataType).getDoubleValue();
         }
         return def;
     }
@@ -293,7 +293,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public char getChar(String key, char def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof CharType) {
-            return ((CharType) dataType).getValue();
+            return ((CharType) dataType).getCharValue();
         }
         return def;
     }
@@ -305,7 +305,7 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
     public boolean getBoolean(String key, boolean def) {
         DataType<?> dataType = get(key);
         if (dataType instanceof BooleanType) {
-            return ((BooleanType) dataType).getValue();
+            return ((BooleanType) dataType).getBooleanValue();
         }
         return def;
     }

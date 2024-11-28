@@ -15,8 +15,10 @@ public interface DataType<T> {
 
     void write(DataOutput output) throws IOException;
 
+    @Override
     boolean equals(Object other);
 
+    @Override
     int hashCode();
 
     DataType<T> copy();

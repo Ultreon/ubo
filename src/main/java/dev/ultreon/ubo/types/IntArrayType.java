@@ -16,6 +16,10 @@ public class IntArrayType implements ArrayType<int[], Integer> {
         this.obj = obj;
     }
 
+    public IntArrayType(int size) {
+        this.obj = new int[size];
+    }
+
     @Override
     public int[] getValue() {
         return obj;

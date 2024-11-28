@@ -18,10 +18,18 @@ public class BooleanType implements DataType<Boolean> {
         return obj;
     }
 
+    public boolean getBooleanValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Boolean obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(boolean val) {
+        this.obj = val;
     }
 
     @Override

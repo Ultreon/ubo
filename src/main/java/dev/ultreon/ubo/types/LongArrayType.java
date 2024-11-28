@@ -16,6 +16,10 @@ public class LongArrayType implements ArrayType<long[], Long> {
         this.obj = obj;
     }
 
+    public LongArrayType(int size) {
+        this.obj = new long[size];
+    }
+
     @Override
     public long[] getValue() {
         return obj;
