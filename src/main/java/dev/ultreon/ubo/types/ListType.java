@@ -106,7 +106,11 @@ public class ListType<T extends DataType<?>> implements DataType<List<T>>, Itera
 
     @Override
     public @NotNull Iterator<T> iterator() {
-        return getValue().listIterator();
+        return obj.iterator();
+    }
+
+    public @NotNull ListIterator<T> listIterator() {
+        return obj.listIterator();
     }
 
     public int type() {
