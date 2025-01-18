@@ -16,6 +16,10 @@ public class ShortArrayType implements ArrayType<short[], Short> {
         this.obj = obj;
     }
 
+    public ShortArrayType(int size) {
+        this.obj = new short[size];
+    }
+
     @Override
     public short[] getValue() {
         return obj;
@@ -79,6 +83,14 @@ public class ShortArrayType implements ArrayType<short[], Short> {
 
     @Override
     public void set(int index, Short value) {
+        obj[index] = value;
+    }
+
+    public short getShort(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, short value) {
         obj[index] = value;
     }
 

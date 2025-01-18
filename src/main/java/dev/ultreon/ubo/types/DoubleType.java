@@ -18,10 +18,18 @@ public class DoubleType implements DataType<Double> {
         return obj;
     }
 
+    public double getDoubleValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Double obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(double val) {
+        this.obj = val;
     }
 
     @Override

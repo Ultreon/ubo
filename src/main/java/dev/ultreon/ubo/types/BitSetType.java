@@ -48,8 +48,8 @@ public class BitSetType implements DataType<BitSet> {
 
     @Override
     public void write(DataOutput output) throws IOException {
-        byte[] arr = this.obj.toByteArray();
-        if (arr.length >= 32768) throw new IllegalArgumentException("Bitset is too big to be written");
+        byte[] arr = obj.toByteArray();
+        if (arr.length > 65535) throw new IllegalArgumentException("Bitset is too big to be written");
         output.writeShort(arr.length);
         for (byte b : arr) {
             output.writeByte(b);

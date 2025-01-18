@@ -18,10 +18,18 @@ public class IntType implements DataType<Integer> {
         return obj;
     }
 
+    public int getIntValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Integer obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(int val) {
+        this.obj = val;
     }
 
     @Override

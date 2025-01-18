@@ -22,10 +22,18 @@ public class ShortType implements DataType<Short> {
         return obj;
     }
 
+    public short getShortValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Short obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(short val) {
+        this.obj = val;
     }
 
     @Override

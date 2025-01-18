@@ -86,6 +86,14 @@ public class FloatArrayType implements ArrayType<float[], Float> {
         obj[index] = value;
     }
 
+    public float getFloat(int index) {
+        return obj[index];
+    }
+
+    public void set(int index, float value) {
+        obj[index] = value;
+    }
+
     @Override
     public String writeUso() {
         StringBuilder builder = new StringBuilder("(f;");

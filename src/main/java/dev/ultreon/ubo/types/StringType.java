@@ -1,6 +1,7 @@
 package dev.ultreon.ubo.types;
 
 import dev.ultreon.ubo.DataTypes;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class StringType implements DataType<String> {
+public class StringType implements DataType<String>, CharSequence {
     private String obj;
 
     public StringType(String obj) {
@@ -49,6 +50,7 @@ public class StringType implements DataType<String> {
 
     @Override
     public void write(DataOutput output) throws IOException {
+        if (obj.length() > 65535) throw new IllegalArgumentException("String is too big to be written (length > 65535)");
         output.writeShort(obj.length());
         for (byte aByte : obj.getBytes(StandardCharsets.UTF_8)) {
             output.writeByte(aByte);
@@ -85,6 +87,22 @@ public class StringType implements DataType<String> {
     @Override
     public String writeUso() {
         return "\"" + obj.replace("\"", "\\\"") + "\"";
+    }
+
+    @Override
+    public int length() {
+        return obj.length();
+    }
+
+    @Override
+    public char charAt(int index) {
+        return obj.charAt(index);
+    }
+
+    @NotNull
+    @Override
+    public CharSequence subSequence(int start, int end) {
+        return obj.subSequence(start, end);
     }
 
     @Override

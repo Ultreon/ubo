@@ -57,7 +57,7 @@ public class ListType<T extends DataType<?>> implements DataType<List<T>>, Itera
     @Override
     public void setValue(List<T> obj) {
         int id = -1;
-        List<T> list = new ArrayList<>();
+        List<T> list = new ArrayList<>(obj.size());
         for (int i = 0, objSize = obj.size(); i < objSize; i++) {
             T iType = obj.get(i);
             if (id == -1) {
@@ -106,7 +106,11 @@ public class ListType<T extends DataType<?>> implements DataType<List<T>>, Itera
 
     @Override
     public @NotNull Iterator<T> iterator() {
-        return getValue().listIterator();
+        return obj.iterator();
+    }
+
+    public @NotNull ListIterator<T> listIterator() {
+        return obj.listIterator();
     }
 
     public int type() {

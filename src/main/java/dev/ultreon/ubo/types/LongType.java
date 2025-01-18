@@ -18,10 +18,18 @@ public class LongType implements DataType<Long> {
         return obj;
     }
 
+    public long getLongValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Long obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(long val) {
+        this.obj = val;
     }
 
     @Override

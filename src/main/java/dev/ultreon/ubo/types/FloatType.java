@@ -18,10 +18,18 @@ public class FloatType implements DataType<Float> {
         return obj;
     }
 
+    public float getFloatValue() {
+        return obj;
+    }
+
     @Override
     public void setValue(Float obj) {
         if (obj == null) throw new IllegalArgumentException("Value can't be set to null");
         this.obj = obj;
+    }
+
+    public void setValue(float val) {
+        this.obj = val;
     }
 
     @Override

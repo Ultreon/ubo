@@ -10,13 +10,10 @@ import java.util.BitSet;
 import java.util.UUID;
 
 public class UsoParser {
-    private final String input;
     private final char[] chars;
     private int pos;
-    private char c;
 
     public UsoParser(String input) {
-        this.input = input;
         this.chars = input.toCharArray();
     }
 
@@ -609,7 +606,7 @@ public class UsoParser {
             return -1;
         }
 
-        return this.c = this.chars[--this.pos];
+        return this.chars[--this.pos];
     }
 
     private int read() {
@@ -617,7 +614,7 @@ public class UsoParser {
             return -1;
         }
 
-        return this.c = this.chars[this.pos++];
+        return this.chars[this.pos++];
     }
 
     public DataType<?> parse() throws IOException {
