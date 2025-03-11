@@ -15,6 +15,9 @@ Assuming you use Gradle.
     // Add the dependency
     dependencies {
         implementation 'dev.ultreon:ubo:1.5.0'
+   
+        // Or use the 1.6.0 snapshot
+        implementation 'dev.ultreon:ubo:1.6.0-SNAPSHOT'
     }
     ```
     Or if you use the Kotlin DSL:
@@ -28,6 +31,9 @@ Assuming you use Gradle.
     // Add the dependency
     dependencies {
         implementation("dev.ultreon:ubo:1.5.0")
+   
+        // Or use the 1.6.0 snapshot
+        implementation("dev.ultreon:ubo:1.6.0-SNAPSHOT")
     } 
 2. We can now proceed to the using section. The `DataIo` class is capable of reading and writing UBO data.  
     Example:
