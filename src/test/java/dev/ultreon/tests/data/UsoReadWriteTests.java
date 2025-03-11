@@ -2,7 +2,6 @@ package dev.ultreon.tests.data;
 
 import dev.ultreon.ubo.DataIo;
 import dev.ultreon.ubo.types.*;
-import dev.ultreon.ubo.types.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,20 +65,20 @@ class UsoReadWriteTests {
     @Test
     @DisplayName("PrimitiveTypes")
     void readWritePrimitive() {
-        Assertions.assertEquals(DataIo.toUso(new StringType("Apple")), "\"Apple\"");
-        Assertions.assertEquals(DataIo.toUso(new BooleanType(true)), "true");
-        Assertions.assertEquals(DataIo.toUso(new ByteType(5)), "5b");
-        Assertions.assertEquals(DataIo.toUso(new ShortType(5)), "5s");
-        Assertions.assertEquals(DataIo.toUso(new IntType(5)), "5i");
-        Assertions.assertEquals(DataIo.toUso(new LongType(5)), "5l");
-        Assertions.assertEquals(DataIo.toUso(new FloatType(5.5f)), "5.5f");
-        Assertions.assertEquals(DataIo.toUso(new DoubleType(5.5)), "5.5d");
-        Assertions.assertEquals(DataIo.toUso(new CharType('a')), "'a'");
-        Assertions.assertEquals(DataIo.toUso(new BigIntType(BigInteger.ONE)), "1I");
-        Assertions.assertEquals(DataIo.toUso(new BigDecType(BigDecimal.ONE)), "1D");
-        Assertions.assertEquals(DataIo.toUso(new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000"))), "<00000000-0000-0000-0000-000000000000>");
-        Assertions.assertEquals(DataIo.toUso(new BitSetType(new BitSet())), "x;");
-        Assertions.assertEquals(DataIo.toUso(new ListType<>(new StringType("Apple"))), "[\"Apple\"]");
-        Assertions.assertEquals(DataIo.toUso(new MapType()), "{}");
+        Assertions.assertEquals("\"Apple\"", DataIo.toUso(new StringType("Apple")));
+        Assertions.assertEquals("true", DataIo.toUso(new BooleanType(true)));
+        Assertions.assertEquals("5b", DataIo.toUso(new ByteType(5)));
+        Assertions.assertEquals("5s", DataIo.toUso(new ShortType(5)));
+        Assertions.assertEquals("5i", DataIo.toUso(new IntType(5)));
+        Assertions.assertEquals("5l", DataIo.toUso(new LongType(5)));
+        Assertions.assertEquals("5.5f", DataIo.toUso(new FloatType(5.5f)));
+        Assertions.assertEquals("5.5d", DataIo.toUso(new DoubleType(5.5)));
+        Assertions.assertEquals("'a'", DataIo.toUso(new CharType('a')));
+        Assertions.assertEquals("1I", DataIo.toUso(new BigIntType(BigInteger.ONE)));
+        Assertions.assertEquals("1D", DataIo.toUso(new BigDecType(BigDecimal.ONE)));
+        Assertions.assertEquals("<00000000-0000-0000-0000-000000000000>", DataIo.toUso(new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        Assertions.assertEquals("x;", DataIo.toUso(new BitSetType(new BitSet())));
+        Assertions.assertEquals("[\"Apple\"]", DataIo.toUso(new ListType<>(new StringType("Apple"))));
+        Assertions.assertEquals("{}", DataIo.toUso(new MapType()));
     }
 }

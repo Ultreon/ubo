@@ -102,6 +102,11 @@ class UboReadWriteTests {
     void readWritePrimitive() {
         try {
             readWriteTest(() -> new StringType("Apple"), new File("string.ubo"));
+            for (char i = 0x20; i <= 0xff; i++) {
+                char finalI = i;
+                readWriteTest(() -> new CharType(finalI), new File("char-" + i + ".ubo"));
+            }
+            readWriteTest(() -> new CharType('A'), new File("char.ubo"));
             readWriteTest(() -> new ByteType((byte) 1), new File("byte.ubo"));
             readWriteTest(() -> new ShortType((short) 1), new File("short.ubo"));
             readWriteTest(() -> new IntType(1), new File("int.ubo"));
@@ -113,6 +118,8 @@ class UboReadWriteTests {
             readWriteTest(() -> new BooleanType(true), new File("boolean.ubo"));
             readWriteTest(() -> new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000")), new File("uuid.ubo"));
             readWriteTest(() -> new BitSetType(new BitSet()), new File("integer.ubo"));
+            readWriteTest(() -> new CharArrayType(new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}), new File("chararray.ubo"));
+            readWriteTest(() -> new BooleanArrayType(new boolean[]{true, true, false, true, false, true, true, false, true, false, true, false, true, false, true, false}), new File("booleanarray.ubo"));
             readWriteTest(() -> new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}), new File("bytearray.ubo"));
             readWriteTest(() -> new ShortArrayType(new short[]{0, 32, 128, 512, 2048, 8192, 32767}), new File("shortarray.ubo"));
             readWriteTest(() -> new IntArrayType(new int[]{0, 128, 512, 2048, 8192, 32767, 262140, 1048576, 4194304, 16777216, 67108864, 268435456, 1073741824, 2147483647}), new File("intarray.ubo"));

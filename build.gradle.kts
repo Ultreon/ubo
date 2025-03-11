@@ -33,14 +33,17 @@ dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
 }
 
-tasks.compileJava {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-}
 
 java {
     withSourcesJar()
     withJavadocJar()
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
 }
 
 tasks.test {
@@ -94,6 +97,24 @@ publishing {
             mkdir("build/staging-deploy")
             name = "Staging"
             url = uri("file://${projectDir.path.replace("\\", "/")}/build/staging-deploy")
+        }
+
+        maven {
+            name = "UltreonMavenReleases"
+            url = uri("https://maven.ultreon.dev/releases")
+            credentials {
+                username = (findProperty("ultreonmvn.name") ?: System.getenv("ULTREON_MVN_NAME")).toString()
+                password = (findProperty("ultreonmvn.secret") ?: System.getenv("ULTREON_MVN_SEC")).toString()
+            }
+        }
+
+        maven {
+            name = "UltreonMavenSnapshots"
+            url = uri("https://maven.ultreon.dev/snapshots")
+            credentials {
+                username = (findProperty("ultreonmvn.name") ?: System.getenv("ULTREON_MVN_NAME")).toString()
+                password = (findProperty("ultreonmvn.secret") ?: System.getenv("ULTREON_MVN_SEC")).toString()
+            }
         }
     }
 

@@ -22,13 +22,13 @@ public class TypeTests {
         list.add(new StringType("Pear"));
         list.add(new StringType("Orange"));
         list.add(new StringType("Watermelon"));
-        Assertions.assertEquals(list.get(0), new StringType("Apple"));
-        Assertions.assertEquals(list.get(1), new StringType("Banana"));
-        Assertions.assertEquals(list.get(2), new StringType("Pear"));
-        Assertions.assertEquals(list.get(3), new StringType("Orange"));
-        Assertions.assertEquals(list.get(4), new StringType("Watermelon"));
+        Assertions.assertEquals(new StringType("Apple"), list.get(0));
+        Assertions.assertEquals(new StringType("Banana"), list.get(1));
+        Assertions.assertEquals(new StringType("Pear"), list.get(2));
+        Assertions.assertEquals(new StringType("Orange"), list.get(3));
+        Assertions.assertEquals(new StringType("Watermelon"), list.get(4));
 
-        Assertions.assertEquals(list.size(), 5);
+        Assertions.assertEquals(5, list.size());
 
         Assertions.assertDoesNotThrow(() -> {
             for (StringType s : list) {
@@ -38,14 +38,14 @@ public class TypeTests {
 
         list.remove(0);
 
-        Assertions.assertEquals(list.size(), 4);
+        Assertions.assertEquals(4, list.size());
 
         Iterator<StringType> iterator = list.iterator();
 
-        Assertions.assertEquals(iterator.next(), new StringType("Banana"));
-        Assertions.assertEquals(iterator.next(), new StringType("Pear"));
-        Assertions.assertEquals(iterator.next(), new StringType("Orange"));
-        Assertions.assertEquals(iterator.next(), new StringType("Watermelon"));
+        Assertions.assertEquals(new StringType("Banana"), iterator.next());
+        Assertions.assertEquals(new StringType("Pear"), iterator.next());
+        Assertions.assertEquals(new StringType("Orange"), iterator.next());
+        Assertions.assertEquals(new StringType("Watermelon"), iterator.next());
 
         Assertions.assertFalse(iterator.hasNext());
     }
@@ -56,7 +56,7 @@ public class TypeTests {
         MapType map = new MapType();
         map.put("String", new StringType("Apple"));
         map.put("Integer", new IntType(5));
-        map.put("List", new ListType<StringType>(new StringType("Banana")));
+        map.put("List", new ListType<>(new StringType("Banana")));
         map.putInt("Integer2", 6);
         map.putString("String2", "Banana");
         map.putBigInt("Integer3", new BigInteger("1234567890123456789012345678901234567890"));
@@ -64,68 +64,71 @@ public class TypeTests {
         map.putByteArray("ByteArray", new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
         map.putBoolean("Boolean", true);
 
-        Assertions.assertEquals(map.get("String"), new StringType("Apple"));
-        Assertions.assertEquals(map.get("Integer"), new IntType(5));
-        Assertions.assertEquals(map.get("List"), new ListType<StringType>(new StringType("Banana")));
-        Assertions.assertEquals(map.getInt("Integer2"), 6);
-        Assertions.assertEquals(map.getString("String2"), "Banana");
-        Assertions.assertEquals(map.getBigInt("Integer3"), new BigInteger("1234567890123456789012345678901234567890"));
-        Assertions.assertEquals(map.getBigDec("Integer4"), new BigDecimal("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890"));
-        Assertions.assertArrayEquals(map.getByteArray("ByteArray"), new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
-        Assertions.assertEquals(map.getBoolean("Boolean"), true);
+        Assertions.assertEquals(new StringType("Apple"), map.get("String"));
+        Assertions.assertEquals(new IntType(5), map.get("Integer"));
+        Assertions.assertEquals(new ListType<>(new StringType("Banana")), map.get("List"));
+        Assertions.assertEquals(6, map.getInt("Integer2"));
+        Assertions.assertEquals("Banana", map.getString("String2"));
+        Assertions.assertEquals(new BigInteger("1234567890123456789012345678901234567890"), map.getBigInt("Integer3"));
+        Assertions.assertEquals(new BigDecimal("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890"), map.getBigDec("Integer4"));
+        Assertions.assertArrayEquals(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, map.getByteArray("ByteArray"));
+        Assertions.assertTrue(map.getBoolean("Boolean"));
 
-        Assertions.assertEquals(map.size(), 9);
+        Assertions.assertEquals(9, map.size());
 
         map.remove("Integer2");
 
-        Assertions.assertEquals(map.size(), 8);
+        Assertions.assertEquals(8, map.size());
     }
 
     @Test
     @DisplayName("PrimitiveTypes")
     void primitiveTypes() {
-        Assertions.assertEquals(new IntType(5).getValue(), 5);
-        Assertions.assertEquals(new StringType("Apple").getValue(), "Apple");
-        Assertions.assertEquals(new BooleanType(true).getValue(), true);
-        Assertions.assertArrayEquals(new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).getValue(), new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
-        Assertions.assertEquals(new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).getValue(), new BigInteger("1234567890123456789012345678901234567890"));
+        Assertions.assertEquals(5, new IntType(5).getValue());
+        Assertions.assertEquals("Apple", new StringType("Apple").getValue());
+        Assertions.assertEquals(true, new BooleanType(true).getValue());
+        Assertions.assertArrayEquals(new boolean[]{true, false, true, false, true, false, true, false, true, false}, new BooleanArrayType(new boolean[]{true, false, true, false, true, false, true, false, true, false}).getValue());
+        Assertions.assertArrayEquals(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).getValue());
+        Assertions.assertEquals(new BigInteger("1234567890123456789012345678901234567890"), new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).getValue());
 
-        Assertions.assertEquals(new IntType(5).toString(), "5i");
-        Assertions.assertEquals(new StringType("Apple").toString(), "\"Apple\"");
-        Assertions.assertEquals(new BooleanType(true).toString(), "true");
-        Assertions.assertEquals(new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).toString(), "(b;0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)");
-        Assertions.assertEquals(new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).toString(), "1234567890123456789012345678901234567890I");
-        Assertions.assertEquals(new ByteType(5).toString(), "5b");
-        Assertions.assertEquals(new ShortType(5).toString(), "5s");
-        Assertions.assertEquals(new IntType(5).toString(), "5i");
-        Assertions.assertEquals(new LongType(5).toString(), "5l");
-        Assertions.assertEquals(new FloatType(5.5f).toString(), "5.5f");
-        Assertions.assertEquals(new DoubleType(5.5).toString(), "5.5d");
-        Assertions.assertEquals(new BigDecType(new BigDecimal("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890")).toString(), "1234567890123456789012345678901234567890.9876543210123456789012345678901234567890D");
-        Assertions.assertEquals(new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000")).toString(), "<00000000-0000-0000-0000-000000000000>");
-        Assertions.assertEquals(new BitSetType(new BitSet()).toString(), "x;");
+        Assertions.assertEquals("5i", new IntType(5).toString());
+        Assertions.assertEquals("\"Apple\"", new StringType("Apple").toString());
+        Assertions.assertEquals("true", new BooleanType(true).toString());
+        Assertions.assertEquals("(z;true,true,false,true,false,true,true,false,true,false,false,true,false,false)", new BooleanArrayType(new boolean[]{true, false, true, false, true, false, true, false, true, false}).toString());
+        Assertions.assertEquals("(b;0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)", new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).toString());
+        Assertions.assertEquals("1234567890123456789012345678901234567890I", new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).toString());
+        Assertions.assertEquals("5b", new ByteType(5).toString());
+        Assertions.assertEquals("5s", new ShortType(5).toString());
+        Assertions.assertEquals("5i", new IntType(5).toString());
+        Assertions.assertEquals("5l", new LongType(5).toString());
+        Assertions.assertEquals("5.5f", new FloatType(5.5f).toString());
+        Assertions.assertEquals("5.5d", new DoubleType(5.5).toString());
+        Assertions.assertEquals("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890D", new BigDecType(new BigDecimal("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890")).toString());
+        Assertions.assertEquals("<00000000-0000-0000-0000-000000000000>", new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000")).toString());
+        Assertions.assertEquals("x;", new BitSetType(new BitSet()).toString());
         BitSet obj = new BitSet(5);
         obj.set(0);
         obj.set(3);
         obj.set(4);
         obj.set(9);
-        Assertions.assertEquals(new BitSetType(obj).toString(), "x1001100001;");
+        Assertions.assertEquals("x1001100001;", new BitSetType(obj).toString());
 
-        Assertions.assertEquals(new IntType(5).copy(), new IntType(5));
-        Assertions.assertEquals(new StringType("Apple").copy(), new StringType("Apple"));
-        Assertions.assertEquals(new BooleanType(true).copy(), new BooleanType(true));
-        Assertions.assertEquals(new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).copy(), new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}));
-        Assertions.assertEquals(new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).copy(), new BigIntType(new BigInteger("1234567890123456789012345678901234567890")));
-        Assertions.assertEquals(new ByteType(5).copy(), new ByteType(5));
-        Assertions.assertEquals(new ShortType(5).copy(), new ShortType(5));
-        Assertions.assertEquals(new IntType(5).copy(), new IntType(5));
-        Assertions.assertEquals(new LongType(5).copy(), new LongType(5));
-        Assertions.assertEquals(new FloatType(5.5f).copy(), new FloatType(5.5f));
-        Assertions.assertEquals(new DoubleType(5.5).copy(), new DoubleType(5.5));
-        Assertions.assertEquals(new BigDecType("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890").copy(), new BigDecType("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890"));
+        Assertions.assertEquals(new IntType(5), new IntType(5).copy());
+        Assertions.assertEquals(new StringType("Apple"), new StringType("Apple").copy());
+        Assertions.assertEquals(new BooleanType(true), new BooleanType(true).copy());
+        Assertions.assertEquals(new BooleanArrayType(new boolean[]{true, true, false, true, false, true, true, false, true, false, false, true, false, false}), new BooleanArrayType(new boolean[]{true, false, true, false, true, false, true, false, true, false}).copy());
+        Assertions.assertEquals(new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}), new ByteArrayType(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}).copy());
+        Assertions.assertEquals(new BigIntType(new BigInteger("1234567890123456789012345678901234567890")), new BigIntType(new BigInteger("1234567890123456789012345678901234567890")).copy());
+        Assertions.assertEquals(new ByteType(5), new ByteType(5).copy());
+        Assertions.assertEquals(new ShortType(5), new ShortType(5).copy());
+        Assertions.assertEquals(new IntType(5), new IntType(5).copy());
+        Assertions.assertEquals(new LongType(5), new LongType(5).copy());
+        Assertions.assertEquals(new FloatType(5.5f), new FloatType(5.5f).copy());
+        Assertions.assertEquals(new DoubleType(5.5), new DoubleType(5.5).copy());
+        Assertions.assertEquals(new BigDecType("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890"), new BigDecType("1234567890123456789012345678901234567890.9876543210123456789012345678901234567890").copy());
         Assertions.assertEquals(new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000")).copy(), new UUIDType(UUID.fromString("00000000-0000-0000-0000-000000000000")));
-        Assertions.assertEquals(new BitSetType(new BitSet()).copy(), new BitSetType(new BitSet()));
-        Assertions.assertEquals(new BitSetType(new BitSet(5)).copy(), new BitSetType(new BitSet(5)));
+        Assertions.assertEquals(new BitSetType(new BitSet()), new BitSetType(new BitSet()).copy());
+        Assertions.assertEquals(new BitSetType(new BitSet(5)), new BitSetType(new BitSet(5)).copy());
         BitSet obj2 = new BitSet(5);
         obj2.set(0);
         obj2.set(3);

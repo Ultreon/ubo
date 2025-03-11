@@ -21,6 +21,7 @@ public class DataTypes {
     public static int FLOAT_ARRAY = 0x56;
     public static int DOUBLE_ARRAY = 0x57;
     public static int CHAR_ARRAY = 0x58;
+    public static int BOOLEAN_ARRAY = 0x59;
     public static int UUID = 0x70;
     public static int BIT_SET = 0x80;
 }

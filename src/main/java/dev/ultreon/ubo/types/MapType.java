@@ -10,12 +10,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MapType implements DataType<Map<String, DataType<?>>> {
+public class MapType implements DataType<Map<String, DataType<?>>>, Map<String, DataType<?>> {
     private Map<String, DataType<?>> obj;
 
     public MapType() {
@@ -49,8 +48,13 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
         return obj.entrySet();
     }
 
-    public Collection<DataType<?>> values() {
+    public @NotNull Collection<DataType<?>> values() {
         return obj.values();
+    }
+
+    @Override
+    public @NotNull Set<Entry<String, DataType<?>>> entrySet() {
+        return obj.entrySet();
     }
 
     @Override
@@ -94,8 +98,19 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
         return data != null && type.getClass().getComponentType().isAssignableFrom(data.getClass());
     }
 
-    public void put(String key, DataType<?> dataType) {
-        obj.put(key, dataType);
+    public DataType<?> put(String key, DataType<?> dataType) {
+        return obj.put(key, dataType);
+    }
+
+    @Override
+    @Deprecated
+    public DataType<?> remove(Object key) {
+        return obj.remove(key);
+    }
+
+    @Override
+    public void putAll(@NotNull Map<? extends String, ? extends DataType<?>> m) {
+        obj.putAll(m);
     }
 
     public void putByte(String key, byte value) {
@@ -463,7 +478,6 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
         return obj.get(key);
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends DataType<?>> T get(String key, @NotNull T def) {
         DataType<?> dataType = get(key);
         if (dataType == null) {
@@ -478,6 +492,10 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
 
     public boolean contains(String key) {
         return obj.containsKey(key);
+    }
+
+    public boolean containsValue(DataType<?> value) {
+        return obj.containsValue(value);
     }
 
     public DataType<?> pop(String key) {
@@ -548,8 +566,31 @@ public class MapType implements DataType<Map<String, DataType<?>>> {
         obj.clear();
     }
 
+    @Override
+    public @NotNull Set<String> keySet() {
+        return Collections.emptySet();
+    }
+
     public boolean isEmpty() {
         return obj.isEmpty();
+    }
+
+    @Override
+    @Deprecated
+    public boolean containsKey(Object key) {
+        return obj.containsKey(key);
+    }
+
+    @Override
+    @Deprecated
+    public boolean containsValue(Object value) {
+        return obj.containsValue(value);
+    }
+
+    @Override
+    @Deprecated
+    public DataType<?> get(Object key) {
+        return obj.get(key);
     }
 
     @Override

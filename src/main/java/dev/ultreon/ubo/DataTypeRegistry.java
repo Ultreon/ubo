@@ -37,6 +37,7 @@ public class DataTypeRegistry {
         register(DataTypes.FLOAT_ARRAY, FloatArrayType::read);
         register(DataTypes.DOUBLE_ARRAY, DoubleArrayType::read);
         register(DataTypes.CHAR_ARRAY, CharArrayType::read);
+        register(DataTypes.BOOLEAN_ARRAY, BooleanArrayType::read);
         register(DataTypes.UUID, UUIDType::read);
         register(DataTypes.BIT_SET, BitSetType::read);
     }
@@ -69,12 +70,12 @@ public class DataTypeRegistry {
         return TYPES.get(id);
     }
 
-    public static int getId(Class<?> componentType) {
-        return ID_MAP.get(componentType.getName());
+    public static int getId(Class<? extends DataType<?>> dataType) {
+        return ID_MAP.get(dataType.getName());
     }
 
-    public static int getIdOrThrow(Class<?> componentType) {
-        String name = componentType.getName();
+    public static int getIdOrThrow(Class<? extends DataType<?>> dataType) {
+        String name = dataType.getName();
         Integer id = ID_MAP.get(name);
 
         if (id == null)
