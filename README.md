@@ -8,8 +8,8 @@ Assuming you use Gradle.
     ```gradle
     // --- Needed for 1.6.0 or above ---
     repositories {
-        maven { url = "https://maven.ultreon.dev/releases }
-        maven { url = "https://maven.ultreon.dev/snapshots }
+        maven { url = "https://maven.ultreon.dev/releases" }
+        maven { url = "https://maven.ultreon.dev/snapshots" }
     }
     
     // Add the dependency
