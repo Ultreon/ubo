@@ -51,8 +51,9 @@ public class StringType implements DataType<String>, CharSequence {
     @Override
     public void write(DataOutput output) throws IOException {
         if (obj.length() > 65535) throw new IllegalArgumentException("String is too big to be written (length > 65535)");
-        output.writeShort(obj.length());
-        for (byte aByte : obj.getBytes(StandardCharsets.UTF_8)) {
+        byte[] bytes = obj.getBytes(StandardCharsets.UTF_8);
+        output.writeShort(bytes.length);
+        for (byte aByte : bytes) {
             output.writeByte(aByte);
         }
     }
